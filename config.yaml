@@ -1,4 +1,5 @@
 baseURL: 'https://ckaserer.dev/test/'
+canonifyURLs: true # only required for suddir in baseURL
 languageCode: 'en-us'
 
 title: "ckaserer.dev"
