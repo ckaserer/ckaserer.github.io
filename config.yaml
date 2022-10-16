@@ -1,5 +1,4 @@
-baseURL: 'https://ckaserer.dev/test/'
-canonifyURLs: true # only required for suddir in baseURL
+baseURL: 'https://ckaserer.dev/'
 languageCode: 'en-us'
 
 title: "ckaserer.dev"
@@ -8,7 +7,7 @@ theme: "toha"
 # Site parameters
 params:
   # GitHub repo URL of your site
-  gitRepo: https://github.com/ckaserer/test
+  gitRepo: https://github.com/ckaserer.github.io
 
   footer:
     enable: false
