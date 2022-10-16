@@ -1,0 +1,13 @@
+baseURL: 'https://ckaserer.dev/test'
+languageCode: 'en-us'
+
+title: "ckaserer.dev"
+theme: "toha"
+
+# Site parameters
+params:
+  # GitHub repo URL of your site
+  gitRepo: https://github.com/ckaserer/test
+
+  footer:
+    enable: false
