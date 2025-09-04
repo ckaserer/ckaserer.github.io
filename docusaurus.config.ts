@@ -40,15 +40,42 @@ const config: Config = {
     [
       'classic',
       {
-        docs: {
-          sidebarPath: './sidebars.ts',
-          editUrl: "https://github.com/ckaserer/ckaserer.github.io/tree/main/",
-        },
+        docs: false,
         blog: false,
         theme: {
           customCss: './src/css/custom.css',
         },
       } satisfies Preset.Options,
+    ],
+  ],
+
+  plugins: [
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'work-codex',
+        path: 'docs/work-codex',
+        routeBasePath: 'work-codex',
+  sidebarPath: require.resolve('./sidebarsWorkCodex.ts'),
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'personal-os',
+        path: 'docs/personal-os',
+        routeBasePath: 'personal-os',
+  sidebarPath: require.resolve('./sidebarsPersonalOs.ts'),
+      },
+    ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'skyledger',
+        path: 'docs/skyledger',
+        routeBasePath: 'skyledger',
+  sidebarPath: require.resolve('./sidebarsSkyLedger.ts'),
+      },
     ],
   ],
 
@@ -62,16 +89,10 @@ const config: Config = {
         src: 'img/logo.svg',
       },
       items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
-          position: 'left',
-          label: 'Tutorial',
-        },
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
+        { to: '/work-codex', label: 'Work Codex', position: 'left' },
+        { to: '/personal-os', label: 'Personal OS', position: 'left' },
+        { to: '/skyledger', label: 'Sky Ledger', position: 'left' },
+        { type: 'localeDropdown', position: 'right' },
       ],
     },
     footer: {

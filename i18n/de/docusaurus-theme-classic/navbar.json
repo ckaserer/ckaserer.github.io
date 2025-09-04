@@ -1,18 +1,22 @@
 {
   "title": {
-    "message": "My Site",
+    "message": "ckaserer.dev",
     "description": "The title in the navbar"
   },
   "logo.alt": {
-    "message": "My Site Logo",
+    "message": "ckaserer.dev logo",
     "description": "The alt text of navbar logo"
   },
-  "item.label.Tutorial": {
-    "message": "Tutorial",
-    "description": "Navbar item with label Tutorial"
+  "item.label.Work Codex": {
+    "message": "Work Codex",
+    "description": "Navbar item with label Work Codex"
   },
-  "item.label.GitHub": {
-    "message": "GitHub",
-    "description": "Navbar item with label GitHub"
+  "item.label.Personal OS": {
+    "message": "Personal OS",
+    "description": "Navbar item with label Personal OS"
+  },
+  "item.label.Sky Ledger": {
+    "message": "Sky Ledger",
+    "description": "Navbar item with label Sky Ledger"
   }
 }
