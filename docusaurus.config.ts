@@ -77,15 +77,10 @@ const config: Config = {
     footer: {
       style: 'dark',
       links: [
-        {
-          title: 'More',
-          items: [
             {
               label: 'GitHub',
               href: 'https://github.com/ckaserer',
             },
-          ],
-        },
       ],
       copyright: `Copyright © ${new Date().getFullYear()} ckaserer.dev`,
     },
