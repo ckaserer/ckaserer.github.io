@@ -43,7 +43,10 @@ const config: Config = {
         docs: false,
         blog: false,
         theme: {
-          customCss: './src/css/custom.css',
+          customCss: [
+            './src/css/custom.css',
+            './src/css/algolia-search-custom.css',
+          ],
         },
       } satisfies Preset.Options,
     ],
@@ -110,13 +113,13 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     algolia: {
-      appId: 'FUDAFCB0H9',
-      apiKey: '8e10782a2c032f3c9dc5972ca5f5852f',
-      indexName: 'ckaserer.dev',
-      contextualSearch: true,
-      // Optional: see https://docusaurus.io/docs/search#docsearch-parameters
-    },
-  } satisfies Preset.ThemeConfig,
+        placeholder: 'Search or ask AI',
+        appId: 'FUDAFCB0H9',
+        apiKey: '8e10782a2c032f3c9dc5972ca5f5852f',
+        indexName: 'ckaserer_dev_fudafcb0h9_pages',
+        contextualSearch: true,
+      }
+    } satisfies Preset.ThemeConfig,
 };
 
 export default config;
