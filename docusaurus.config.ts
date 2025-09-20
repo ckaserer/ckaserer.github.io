@@ -116,7 +116,7 @@ const config: Config = {
         placeholder: 'Search or ask AI',
         appId: 'FUDAFCB0H9',
         apiKey: '8e10782a2c032f3c9dc5972ca5f5852f',
-        indexName: 'ckaserer_dev_fudafcb0h9_pages',
+        indexName: 'ckaserer-dev',
         contextualSearch: true,
       }
     } satisfies Preset.ThemeConfig,
