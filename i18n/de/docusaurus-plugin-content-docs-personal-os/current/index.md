@@ -1,8 +1,25 @@
 ---
-id: 1
+id: MyPersonalOS
 title: Mein Personal OS
 ---
 
-Willkommen zu meinem Personal OS  – einem System, das mir hilft, bewusster und weniger reaktiv zu leben. Ziel dieses Bereichs ist es, die Systeme, Prinzipien und Standardarbeitsanweisungen zu teilen, mit denen ich mein Leben gezielt organisiere. Durch klare Rahmen für wiederkehrende Aufgaben und Entscheidungen möchte ich geistige Unordnung reduzieren, Fokus stärken und meine persönlichen Ziele konsequent verfolgen.
+**Mein Ziel:** Ein **bewusstes und proaktives Leben** führen, statt nur auf die Umstände zu reagieren.
 
-Hier findest du praktische Ansätze zu Produktivität, digitaler Organisation und Finanzstrategien – alles darauf ausgerichtet, ein strukturierteres und zielgerichtetes Leben zu unterstützen. Dieses Dokument ist lebendig und wird laufend weiterentwickelt, während ich dazulerne und mich anpasse. Ich hoffe, diese Einblicke inspirieren dich, eigene Systeme für ein bewusstes Leben zu schaffen.
+Dieses **Personal OS** ist mein Werkzeugkasten dafür. Ich teile hier die Systeme, Prinzipien und Routinen, die mir helfen, **Klarheit zu gewinnen** und **meine Ziele zu erreichen**.
+
+**Was du hier findest:**
+* Ansätze für mehr **Produktivität**
+* Strategien zur **digitalen Organisation**
+* Praktische **Finanztipps**
+
+Alles zielt darauf ab, **mentale Unordnung zu reduzieren** und den **Fokus zu schärfen**.
+
+:::tip Ein lebendiges Projekt
+Dieses System ist nie fertig. Ich lerne ständig dazu und passe es an. Schau also gerne öfter vorbei!
+:::
+
+:::note Kernphilosophie
+> Das Ziel ist nicht Perfektion—es ist **bewusstes Leben** durch systematische Ansätze, die Raum für das schaffen, was wirklich wichtig ist.
+:::
+
+Ich hoffe, diese Sammlung inspiriert dich, dein eigenes System für **zielgerichtetes Leben** zu entwickeln.

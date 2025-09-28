@@ -1,8 +1,26 @@
 ---
-id: 1
+id: MyPersonalOS
+sidebar_position: 1
 title: My Personal OS
 ---
 
-Welcome to my Personal OS — a personal operating system designed to help me live with greater intention and less reactivity. The purpose of this section is to share the systems, principles, and standard operating procedures I use to manage my life deliberately. By establishing clear frameworks for recurring tasks and decisions, I aim to reduce mental clutter, improve focus, and maintain consistency in pursuing my personal goals.
+**My Goal:** To live a **conscious and proactive life** instead of just reacting to circumstances.
 
-Here, you’ll find practical approaches to productivity, digital organization, and financial strategies, all crafted to support a more organized and purposeful life. This is a living document, continuously refined as I learn and adapt. My hope is that these insights will inspire you to build your own systems for intentional living.
+This **Personal OS** is my toolkit for achieving that. I share the systems, principles, and routines that help me **gain clarity** and **achieve my goals**.
+
+**What you'll find here:**
+* Approaches for increased **productivity**
+* Strategies for **digital organization** 
+* Practical **financial tips**
+
+Everything aims to **reduce mental clutter** and **sharpen focus**.
+
+:::tip A Living Project
+This system is never finished. I'm constantly learning and adapting it. So feel free to check back often!
+:::
+
+:::note Core Philosophy
+> The goal isn't perfection—it's **intentional living** through systematic approaches that create space for what truly matters.
+:::
+
+I hope this collection inspires you to develop your own system for **purposeful living**.

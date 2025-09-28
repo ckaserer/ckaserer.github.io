@@ -1,6 +1,14 @@
 {
+  "sidebar.personalOsSidebar.category.Decision Making": {
+    "description": "The label for category Decision Making  in sidebar personalOsSidebar",
+    "message": "Entscheidungsprozess"
+  },
+  "sidebar.personalOsSidebar.doc.My Personal OS": {
+    "description": "The label for the doc item My Personal OS in sidebar personalOsSidebar, linking to the doc MyPersonalOS",
+    "message": "My Personal OS"
+  },
   "version.label": {
-    "message": "Next",
-    "description": "The label for version current"
+    "description": "The label for version current",
+    "message": "Next"
   }
 }

@@ -56,3 +56,18 @@
   color: #0078d4;
   border-color: #0078d4;
 }
+
+/* Custom light blue styling for note admonitions */
+.theme-admonition-note {
+  --ifm-color-info: #e3f2fd;
+  --ifm-color-info-dark: #bbdefb;
+  --ifm-color-info-darker: #90caf9;
+  --ifm-color-info-darkest: #64b5f6;
+  --ifm-alert-background-color: #e3f2fd;
+  --ifm-alert-border-color: #90caf9;
+  --ifm-alert-foreground-color: #1565c0;
+}
+
+.theme-admonition-note .admonition-icon svg {
+  fill: #1976d2;
+}
