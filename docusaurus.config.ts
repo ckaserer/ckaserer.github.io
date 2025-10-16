@@ -7,7 +7,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'ckaserer.dev',
   tagline: 'Day in the life of a cloud architect',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/logo.svg',
 
   markdown: {
     mermaid: true,
@@ -90,7 +90,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/social-card.png',
     tableOfContents: {
       minHeadingLevel: 2,
       maxHeadingLevel: 2,
