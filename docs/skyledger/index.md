@@ -4,7 +4,7 @@ title: Skyledger Project
 hide_title: true
 ---
 
-![Skyledger Logo](./../../static/img/skyledger.svg)
+![Skyledger is my curated knowledge base for cloud foundation and infrastructure, designed to support enterprise environments within the European Economic Area (EEA). It brings together the lessons, guidelines, and architectural decisions gathered through hands-on practice and strategic research.](./../../static/img/skyledger.svg)
 
 **Skyledger** is my curated knowledge base for **cloud foundation** and **infrastructure**, designed to support enterprise environments within the **European Economic Area (EEA)**. It brings together the **lessons**, **guidelines**, and **architectural decisions** gathered through hands-on practice and strategic research.
 
