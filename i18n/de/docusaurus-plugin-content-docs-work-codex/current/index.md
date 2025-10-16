@@ -1,7 +1,10 @@
 ---
 id: 1
 title: Work Codex
+hide_title: true
 ---
+
+![Work-Codex](./../../../../static/img/work-codex-de.svg)
 
 Dieser Arbeitskodex ist mein persönlicher Leitfaden für zielgerichtetes und klares Arbeiten. Ziel ist es, meine beruflichen Projekte und meine Karriere bewusst zu gestalten, statt nur auf Umstände zu reagieren. Durch klare Systeme, Prinzipien und Routinen für typische Arbeitssituationen möchte ich Entscheidungsstress reduzieren, Fokus bewahren und meine beruflichen Ziele konsequent verfolgen.
 

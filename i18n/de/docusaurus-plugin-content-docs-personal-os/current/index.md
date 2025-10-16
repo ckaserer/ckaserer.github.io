@@ -1,7 +1,10 @@
 ---
 id: MyPersonalOS
 title: Mein Personal OS
+hide_title: true
 ---
+
+![Personal OS](./../../../../static/img/personal-os-de.svg)
 
 **Mein Ziel:** Ein **bewusstes und proaktives Leben** führen, statt nur auf die Umstände zu reagieren.
 

@@ -4,29 +4,92 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Light theme root tokens */
 :root {
-  --ifm-color-primary: #0078d4;
-  --ifm-color-primary-dark: #0078d4;
-  --ifm-color-primary-darker: #0078d4;
-  --ifm-color-primary-darkest: #0078d4;
-  --ifm-color-primary-light: #0078d4;
-  --ifm-color-primary-lighter: #0078d4;
-  --ifm-color-primary-lightest: #0078d4;
+  /* Neutrals */
+  --color-neutral-0: #ffffff;
+  --color-neutral-bg: #ffffff;
+  --color-neutral-bg-alt: #f8fafc;
+  --color-neutral-surface: #ffffff;
+  --color-neutral-surface-alt: #f1f5f9;
+  --color-neutral-border: #e2e8f0;
+  --color-neutral-text: #0f172a;
+  --color-neutral-text-secondary: #475569;
+
+  /* Brand pillars */
+  --brand-skyledger: #2563eb;
+  --brand-skyledger-accent: #38bdf8;
+  --brand-work: #4f46e5;
+  --brand-work-accent: #6d28d9;
+  --brand-personal: #f59e0b;
+  --brand-personal-accent: #f97316;
+
+  /* Semantic */
+  --color-info: #0ea5e9;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-danger: #dc2626;
+
+  /* Gradients */
+  --grad-skyledger: linear-gradient(135deg,#2563eb 0%,#38bdf8 100%);
+  --grad-work: linear-gradient(135deg,#4f46e5 0%,#6d28d9 100%);
+  --grad-personal: linear-gradient(135deg,#f59e0b 0%,#f97316 100%);
+
+  /* Infima primary overrides (light) */
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1e50dc;
+  --ifm-color-primary-darker: #1d4ed8;
+  --ifm-color-primary-darkest: #1e40af;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
+
+  /* Base typography & surfaces */
+  --ifm-background-color: var(--color-neutral-bg);
+  --ifm-font-color-base: var(--color-neutral-text);
+  --ifm-font-color-secondary: var(--color-neutral-text-secondary);
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.06);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark theme overrides */
 [data-theme="dark"] {
-  --ifm-color-primary: #0078d4;
-  --ifm-color-primary-dark: #0078d4;
-  --ifm-color-primary-darker: #0078d4;
-  --ifm-color-primary-darkest: #0078d4;
-  --ifm-color-primary-light: #0078d4;
-  --ifm-color-primary-lighter: #0078d4;
-  --ifm-color-primary-lightest: #0078d4;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --color-neutral-bg: #0f172a;
+  --color-neutral-bg-alt: #1e293b;
+  --color-neutral-surface: #1e293b;
+  --color-neutral-surface-alt: #273449;
+  --color-neutral-border: #334155;
+  --color-neutral-text: #e2e8f0;
+  --color-neutral-text-secondary: #94a3b8;
+
+  --brand-skyledger: #3b82f6;
+  --brand-skyledger-accent: #60a5fa;
+  --brand-work: #6366f1;
+  --brand-work-accent: #8b5cf6;
+  --brand-personal: #fbbf24;
+  --brand-personal-accent: #f59e0b;
+
+  --color-info: #38bdf8;
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-danger: #ef4444;
+
+  --grad-skyledger: linear-gradient(135deg,#3b82f6 0%,#60a5fa 100%);
+  --grad-work: linear-gradient(135deg,#6366f1 0%,#8b5cf6 100%);
+  --grad-personal: linear-gradient(135deg,#fbbf24 0%,#f59e0b 100%);
+
+  --ifm-color-primary: #60a5fa;
+  --ifm-color-primary-dark: #3b82f6;
+  --ifm-color-primary-darker: #2563eb;
+  --ifm-color-primary-darkest: #1d4ed8;
+  --ifm-color-primary-light: #79b8ff;
+  --ifm-color-primary-lighter: #93c5fd;
+  --ifm-color-primary-lightest: #bfdbfe;
+
+  --ifm-background-color: var(--color-neutral-bg);
+  --ifm-font-color-base: var(--color-neutral-text);
+  --ifm-font-color-secondary: var(--color-neutral-text-secondary);
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.08);
 }
 
 .card {
@@ -46,28 +109,74 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* Button adjustments to reference tokens */
 .button--primary {
-  background-color: #0078d4;
-  border-color: #0078d4;
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.button--primary:hover {
+  filter: brightness(1.05);
 }
 
 .button--secondary {
-  background-color: #e6f0fb;
-  color: #0078d4;
-  border-color: #0078d4;
+  background: var(--color-neutral-surface-alt);
+  color: var(--ifm-color-primary);
+  border-color: var(--color-neutral-border);
 }
 
-/* Custom light blue styling for note admonitions */
-.theme-admonition-note {
-  --ifm-color-info: #e3f2fd;
-  --ifm-color-info-dark: #bbdefb;
-  --ifm-color-info-darker: #90caf9;
-  --ifm-color-info-darkest: #64b5f6;
-  --ifm-alert-background-color: #e3f2fd;
-  --ifm-alert-border-color: #90caf9;
-  --ifm-alert-foreground-color: #1565c0;
+.button--secondary:hover {
+  background: var(--color-neutral-bg-alt);
 }
 
-.theme-admonition-note .admonition-icon svg {
-  fill: #1976d2;
+/* Admonition theming (align to semantic tokens) */
+.theme-admonition-note { /* note == informational */
+  --ifm-alert-background-color: color-mix(in srgb, var(--color-info) 12%, transparent);
+  --ifm-alert-border-color: color-mix(in srgb, var(--color-info) 55%, transparent);
+  --ifm-alert-foreground-color: var(--color-info);
+}
+
+.theme-admonition-tip { /* tip == success/positive */
+  --ifm-alert-background-color: color-mix(in srgb, var(--color-success) 12%, transparent);
+  --ifm-alert-border-color: color-mix(in srgb, var(--color-success) 55%, transparent);
+  --ifm-alert-foreground-color: var(--color-success);
+}
+
+.theme-admonition-info { /* info explicit */
+  --ifm-alert-background-color: color-mix(in srgb, var(--brand-skyledger-accent) 15%, transparent);
+  --ifm-alert-border-color: color-mix(in srgb, var(--brand-skyledger-accent) 55%, transparent);
+  --ifm-alert-foreground-color: var(--brand-skyledger);
+}
+
+.theme-admonition-warning { /* warning */
+  --ifm-alert-background-color: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  --ifm-alert-border-color: color-mix(in srgb, var(--color-warning) 55%, transparent);
+  --ifm-alert-foreground-color: var(--color-warning);
+}
+
+.theme-admonition-danger { /* danger */
+  --ifm-alert-background-color: color-mix(in srgb, var(--color-danger) 15%, transparent);
+  --ifm-alert-border-color: color-mix(in srgb, var(--color-danger) 55%, transparent);
+  --ifm-alert-foreground-color: var(--color-danger);
+}
+
+.theme-admonition-caution { /* alias to warning if used */
+  --ifm-alert-background-color: color-mix(in srgb, var(--color-warning) 18%, transparent);
+  --ifm-alert-border-color: color-mix(in srgb, var(--color-warning) 55%, transparent);
+  --ifm-alert-foreground-color: var(--color-warning);
+}
+
+/* Icon coloring inside admonitions */
+.theme-admonition-note .admonition-icon svg,
+.theme-admonition-tip .admonition-icon svg,
+.theme-admonition-info .admonition-icon svg,
+.theme-admonition-warning .admonition-icon svg,
+.theme-admonition-danger .admonition-icon svg,
+.theme-admonition-caution .admonition-icon svg {
+  fill: currentColor;
+}
+
+/* Utility class to hide specific docs from the sidebar (applied via frontmatter sidebar_class_name) */
+.hidden {
+  display: none !important;
 }

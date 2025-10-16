@@ -1,16 +1,19 @@
 ---
 id: MyPersonalOS
-sidebar_position: 1
 title: My Personal OS
+hide_title: true
 ---
+
+![Personal OS](./../../static/img/personal-os.svg)
 
 **My Goal:** To live a **conscious and proactive life** instead of just reacting to circumstances.
 
 This **Personal OS** is my toolkit for achieving that. I share the systems, principles, and routines that help me **gain clarity** and **achieve my goals**.
 
 **What you'll find here:**
+
 * Approaches for increased **productivity**
-* Strategies for **digital organization** 
+* Strategies for **digital organization**
 * Practical **financial tips**
 
 Everything aims to **reduce mental clutter** and **sharpen focus**.

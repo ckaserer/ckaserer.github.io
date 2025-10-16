@@ -1,10 +1,31 @@
 ---
-id: 1
+id: index
 title: Skyledger Projekt
+hide_title: true
 ---
 
-Skyledger ist meine kuratierte Wissenssammlung zu Cloud Foundation und Infrastruktur, speziell für Unternehmensumgebungen im Europäischen Wirtschaftsraum (EWR). In diesem Bereich sammle ich Erfahrungen, Richtlinien und Architekturentscheidungen aus Praxis und Forschung rund um Cloud-Strategien.
+![Skyledger Logo](./../../../../static/img/skyledger-de.svg)
 
-Hier findest du Empfehlungen zur Implementierung, Best Practices und konkrete Hinweise für den Aufbau robuster, konformer und skalierbarer Cloud-Plattformen. Ich zeige auch typische Fallstricke auf, mit besonderem Fokus auf die Herausforderungen von Unternehmen im EWR.
+**Skyledger** ist meine kuratierte Wissensbasis für **Cloud Foundation** und **Infrastruktur**, entwickelt zur Unterstützung von Unternehmensumgebungen innerhalb des **Europäischen Wirtschaftsraums (EWR)**. Sie bündelt die **Erfahrungen**, **Leitlinien** und **Architekturentscheidungen**, die durch praktische Umsetzung und strategische Recherche entstanden sind.
 
-Dieses Dokument ist lebendig und wird laufend aktualisiert, während sich Technologien und Erkenntnisse weiterentwickeln. Mein Ziel ist es, klare und praxisnahe Orientierung für alle zu bieten, die Cloud-Infrastrukturen in komplexen Organisationen aufbauen oder verbessern möchten.
+**Was du hier findest:**
+
+* Meinungsstarke **Best Practices** für Azure Foundations
+* **Implementierungsmuster** & modulare Ansätze
+* **ADR-Zusammenfassungen** und tiefere architektonische Begründungen
+* Leitlinien zu **Compliance**, **Identity**, **Netzwerk**, **Security**, **Governance**
+* Häufige **Fallstricke**, die es in Enterprise Landing Zones zu vermeiden gilt
+
+:::tip Lebende Wissensbasis
+Dieser Bereich entwickelt sich weiter, sobald sich Technologie und Plattform-Guidance ändern. Schau regelmäßig vorbei, um verfeinerte Muster zu sehen.
+:::
+
+:::note Warum EWR-Fokus?
+Regionale Faktoren wie **Datenresidenz**, **regulatorische Vorgaben (DSGVO)** und **souveräne Architektur-Constraints** beeinflussen Entscheidungen.
+:::
+
+:::info Nutzung
+Überfliege zuerst die Überblicksabschnitte und wechsle dann in die ADRs für Entscheidungskontext. Wende Muster schrittweise an – optimiere zuerst für **Klarheit**, dann **Automation**, dann **Skalierung**.
+:::
+
+> **Ziel:** Klare, praxisnahe Orientierung für den Aufbau **robuster**, **compliance-konformer** und **skalierbarer** Cloud Plattformen in komplexen Organisationsstrukturen.
