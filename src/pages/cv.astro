@@ -147,7 +147,6 @@ function formatDate(dateStr: string | null): string {
         <div class="subtitle">{cv.title}</div>
         <div class="contact">
           <span>📍 {cv.location}</span>
-          <a href={`mailto:${cv.email}`}>{cv.email}</a>
           <a href={cv.website}>{cv.website.replace('https://', '')}</a>
           <a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a>
           <a href={`https://linkedin.com/in/${cv.linkedin}`}>linkedin.com/in/{cv.linkedin}</a>

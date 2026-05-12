@@ -12,10 +12,10 @@ import cv from '../data/cv.json';
     <p class="section-label mb-4">Contact</p>
     <h2 class="section-heading mb-6">Let's talk.</h2>
     <p class="text-muted text-base md:text-lg leading-relaxed max-w-2xl mx-auto mb-12">
-      The fastest way to reach me is on LinkedIn. For technical conversations and code, GitHub works too. My full CV with contact details is available as PDF.
+      The fastest way to reach me is on LinkedIn. For technical conversations and code, GitHub works too.
     </p>
 
-    <div class="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto">
+    <div class="grid sm:grid-cols-2 gap-4 max-w-xl mx-auto">
       <a
         href={`https://www.linkedin.com/in/${cv.linkedin}`}
         target="_blank" rel="noopener noreferrer"
@@ -38,18 +38,6 @@ import cv from '../data/cv.json';
         </svg>
         <span class="text-sm">View on GitHub</span>
         <span class="text-xs font-normal text-muted">@{cv.github}</span>
-      </a>
-
-      <a
-        href="/cv.pdf"
-        download
-        class="group flex flex-col items-center gap-3 p-6 rounded-2xl bg-canvas border-2 border-border text-navy font-semibold hover:border-navy hover:-translate-y-0.5 transition-all duration-300"
-      >
-        <svg class="w-7 h-7" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-          <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
-        </svg>
-        <span class="text-sm">Download CV</span>
-        <span class="text-xs font-normal text-muted">PDF · contact details inside</span>
       </a>
     </div>
 

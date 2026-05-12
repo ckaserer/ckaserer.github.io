@@ -3,15 +3,14 @@
   "initials": "CK",
   "title": "Manager · Cloud Engineering at Avanade",
   "photo": "/photo.jpg",
-  "tagline": "Cloud Engineering Manager at Avanade. I lead Azure platform teams and pair AI-augmented delivery (GitHub Copilot, Claude Code) with rigorous standardization — most recently shipping a project at 3.2× the speed of a traditional, non-AI delivery.",
+  "tagline": "AI-augmented Azure delivery — Landing Zones, AKS/OpenShift, GitHub Copilot rollout. Latest project shipped at 3.2× the speed of a traditional engagement.",
   "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones, AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery. Vienna, Austria.",
   "location": "Vienna, Austria",
-  "email": "clemens.kaserer@gmail.com",
   "website": "https://ckaserer.dev",
   "github": "ckaserer",
   "linkedin": "ckaserer",
   "twitter": "ckaserer",
-  "summary": "Manager for Cloud Engineering at Avanade with a decade of hands-on Azure experience. I work across three strengths: leading and growing cloud engineering teams; designing Azure platforms — Landing Zones via the Cloud Adoption Framework (including Sovereign Landing Zones), AKS and OpenShift, Functions and Web Apps — with standardization and automation as the foundation; and embedding AI-augmented engineering into delivery. As one of the people responsible at Avanade for the GitHub Copilot rollout (compliance, licensing, enablement), I make AI tooling production-safe for enterprise teams. The most recent project I led delivered at roughly 3.2× the speed of a comparable traditional, non-AI engagement.",
+  "summary": "Cloud Engineering Manager at Avanade with a decade in Azure. I lead engineering teams, design Azure platforms — Landing Zones (CAF and Sovereign), AKS/OpenShift, Functions and Web Apps — and embed AI-augmented delivery on top. As one of the people responsible at Avanade for the GitHub Copilot rollout, I make AI tooling production-safe for enterprise teams. Latest project shipped at ~3.2× the speed of a traditional engagement.",
   "experience": [
     {
       "company": "Avanade",
@@ -23,13 +22,13 @@
           "start": "2023-12",
           "end": null,
           "location": "Vienna, Austria",
-          "description": "Lead cloud engineering delivery for enterprise clients. One of the people responsible at Avanade for the GitHub Copilot programme — covering compliance, licensing strategy, and enablement at scale.",
+          "description": "Lead cloud engineering delivery for enterprise clients. One of the people responsible at Avanade for the GitHub Copilot programme — compliance, licensing, enablement.",
           "highlights": [
-            "Lead delivery of Azure Landing Zones (Cloud Adoption Framework) and Sovereign Landing Zones for regulated enterprise clients",
-            "Own the GitHub Copilot compliance and licensing rollout — policy, governance, and enablement across delivery organisations",
-            "Embed AI-augmented engineering (GitHub Copilot, Claude Code) into delivery; latest project shipped at ~3.2× the speed of a comparable traditional engagement",
-            "Drive standardization and automation as the foundation of every engagement — AKS/OpenShift platforms, Functions and Web Apps, IaC and pipelines",
-            "Build and grow the cloud engineering practice; mentor engineers and run architecture reviews across accounts"
+            "Lead Azure Landing Zone delivery (CAF, Sovereign LZ) for regulated clients",
+            "Own GitHub Copilot compliance, licensing and enablement at Avanade",
+            "Embed AI-augmented engineering in delivery — latest project at ~3.2× speed",
+            "Standardize AKS/OpenShift, Functions and Web Apps delivery on IaC + pipelines",
+            "Build the cloud engineering practice; mentor and run architecture reviews"
           ]
         },
         {
@@ -37,11 +36,11 @@
           "start": "2022-02",
           "end": "2023-12",
           "location": "Vienna, Austria",
-          "description": "Delivered Azure platform and DevOps transformation projects for enterprise clients. Specialised in Azure Landing Zones, AKS, and CI/CD pipeline design.",
+          "description": "Delivered Azure platform and DevOps transformation for enterprise clients.",
           "highlights": [
-            "Designed and implemented Azure Landing Zones (CAF) for regulated-industry clients",
-            "Built AKS platforms with Terraform/Bicep and GitOps delivery flows",
-            "Established trunk-based development and pipeline-as-code on GitHub Actions and Azure DevOps"
+            "Designed Azure Landing Zones (CAF) for regulated-industry clients",
+            "Built AKS platforms with Terraform/Bicep and GitOps delivery",
+            "Established trunk-based dev and pipeline-as-code (GitHub Actions, Azure DevOps)"
           ]
         }
       ]
@@ -56,11 +55,11 @@
           "start": "2019-10",
           "end": "2022-02",
           "location": "Vienna, Austria",
-          "description": "Designed and operated container-based platforms and CI/CD pipelines for SaaS and enterprise customers. Built internal developer platforms on top of Kubernetes and OpenShift.",
+          "description": "Designed and operated container platforms and CI/CD for SaaS and enterprise customers.",
           "highlights": [
-            "Architected multi-tenant Kubernetes / OpenShift platforms for production workloads",
-            "Automated infrastructure provisioning with Terraform and Helm — reduced environment setup from days to minutes",
-            "Introduced GitOps and pipeline-driven deployment patterns across product teams"
+            "Architected multi-tenant Kubernetes / OpenShift platforms for production",
+            "Automated provisioning with Terraform and Helm — environments in minutes, not days",
+            "Introduced GitOps and pipeline-driven delivery across product teams"
           ]
         }
       ]
@@ -71,36 +70,15 @@
       "url": "https://www.accenture.com",
       "roles": [
         {
-          "title": "Cloud Specialist",
-          "start": "2018-12",
+          "title": "Cloud Analyst → Senior Cloud Analyst → Cloud Specialist",
+          "start": "2017-08",
           "end": "2019-09",
           "location": "Vienna, Austria",
-          "description": "Delivered Azure cloud solutions and DevOps tooling for enterprise clients across the DACH region.",
+          "description": "Progressed from Cloud Analyst to Cloud Specialist delivering Azure platform and DevOps engagements across the DACH region.",
           "highlights": [
-            "Designed Azure infrastructure topologies and CI/CD pipelines for client engagements",
-            "Hands-on consulting on container orchestration and infrastructure-as-code adoption"
-          ]
-        },
-        {
-          "title": "Senior Cloud Analyst",
-          "start": "2018-07",
-          "end": "2018-12",
-          "location": "Vienna, Austria",
-          "description": "Promoted into a senior delivery role focused on Azure platform engineering and DevOps automation.",
-          "highlights": [
-            "Led technical workstreams on Azure migration and modernisation projects",
+            "Led Azure migration and modernisation workstreams for enterprise clients",
+            "Designed Azure topologies and CI/CD on Azure Pipelines and ARM templates",
             "Mentored junior cloud analysts on Azure fundamentals and DevOps practices"
-          ]
-        },
-        {
-          "title": "Cloud Analyst",
-          "start": "2017-08",
-          "end": "2018-06",
-          "location": "Vienna, Austria",
-          "description": "Started consulting career delivering Azure infrastructure and automation projects for enterprise clients.",
-          "highlights": [
-            "Implemented Azure infrastructure and CI/CD foundations for client engagements",
-            "Built DevOps automation around Azure Pipelines and ARM templates"
           ]
         }
       ]
@@ -115,11 +93,9 @@
           "start": "2015-05",
           "end": "2016-06",
           "location": "Geneva, Switzerland",
-          "description": "Technical Student internship operating High Performance Computing (HPC) clusters with RDMA 10 Gbit low-latency interconnects in support of research workloads.",
+          "description": "Operated HPC clusters with RDMA 10 Gbit interconnects in support of research workloads.",
           "highlights": [
-            "Puppetised an HPC cluster for agile scalability and persistent configuration management",
-            "Built a data-collection framework providing automated job-performance feedback to researchers",
-            "Operated multiple HPC clusters with RDMA 10 Gbit low-latency interconnects"
+            "Puppetised an HPC cluster and built a job-performance feedback framework"
           ]
         }
       ]
@@ -154,15 +130,19 @@
       "Bash"
     ],
     "ai": [
-      "GitHub Copilot (compliance & rollout)",
-      "Claude Code",
-      "AI-Assisted Delivery",
-      "DevSecOps"
+      "Spec-driven development",
+      "Agentic workflows",
+      "MCP (Model Context Protocol)",
+      "Prompt engineering for engineers",
+      "Copilot enablement at scale",
+      "AI governance & compliance",
+      "Claude Code"
     ],
     "practices": [
       "Engineering Management",
       "Mentoring & Coaching",
       "Architecture Reviews",
+      "DevSecOps",
       "Standardization",
       "Client Engagement",
       "FinOps"
@@ -214,16 +194,10 @@
   ],
   "education": [
     {
-      "institution": "Republic of Austria",
+      "institution": "HTL — Höhere Technische Lehranstalt · Republic of Austria",
       "degree": "Ingenieur (Ing.) — Information Technology, Network Infrastructure",
       "start": "",
-      "end": "Awarded"
-    },
-    {
-      "institution": "HTL — Höhere Technische Lehranstalt",
-      "degree": "Information Technology · Network Infrastructure focus",
-      "start": "",
-      "end": "Matura (Diploma)"
+      "end": "Awarded via HTL Matura"
     }
   ],
   "highlight": {

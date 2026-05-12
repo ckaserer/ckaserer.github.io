@@ -18,6 +18,13 @@ const focusAreas = [
     text: 'GitHub Copilot rollout (compliance, licensing, enablement) and Claude Code in delivery — latest project landed at ~3.2× the speed of a traditional engagement.',
   },
 ];
+
+const aiPrinciples = [
+  { title: 'Spec-first',          text: 'Clear intent and acceptance criteria — not just clever prompts.' },
+  { title: 'Pair, never autopilot', text: 'AI accelerates engineers; humans stay on the critical path.' },
+  { title: 'Compliance from day one', text: 'Governance, licensing and data boundaries baked into the workflow.' },
+  { title: 'Measurable uplift',   text: 'Track delivery time and quality — replace gut feel with numbers.' },
+];
 ---
 
 <section id="about" class="relative bg-canvas py-24 md:py-32 px-6 md:px-12 lg:px-16">
@@ -73,6 +80,39 @@ const focusAreas = [
             </div>
           </div>
         ))}
+
+        <!-- How I work with AI: principles card -->
+        <div class="reveal reveal-delay-4 relative bg-navy border border-navy rounded-2xl p-6 text-white shadow-azure overflow-hidden">
+          <!-- Subtle accent glow -->
+          <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
+               style="background: radial-gradient(circle, rgba(80,230,255,0.18) 0%, transparent 65%); filter: blur(30px);"
+               aria-hidden="true"></div>
+
+          <div class="relative">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-9 h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
+                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <h3 class="font-display font-bold text-white text-lg leading-tight">How I work with AI</h3>
+            </div>
+
+            <ul class="space-y-2.5">
+              {aiPrinciples.map((p) => (
+                <li class="flex items-start gap-2.5">
+                  <svg class="w-4 h-4 text-sky shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                  </svg>
+                  <span class="text-sm leading-snug">
+                    <span class="font-semibold text-white">{p.title}.</span>
+                    <span class="text-white/75"> {p.text}</span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
