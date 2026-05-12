@@ -128,7 +128,8 @@ function formatDate(dateStr: string | null): string {
       .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1rem; }
       .cert { display: flex; gap: 0.5rem; align-items: baseline; }
       .cert-bullet { color: #0078D4; font-weight: bold; }
-      .cert-name { font-size: 0.83rem; font-weight: 500; color: #0A1628; }
+      .cert-name { font-size: 0.83rem; font-weight: 500; color: #0A1628; text-decoration: none; }
+      a.cert-name { color: #0078D4; }
       .cert-meta { font-size: 0.75rem; color: #64748B; margin-left: 0.25rem; }
 
       .edu { margin-bottom: 0.5rem; }
@@ -219,7 +220,11 @@ function formatDate(dateStr: string | null): string {
           <div class="cert">
             <span class="cert-bullet">▸</span>
             <div>
-              <span class="cert-name">{cert.name}</span>
+              {cert.url ? (
+                <a class="cert-name" href={cert.url}>{cert.name}</a>
+              ) : (
+                <span class="cert-name">{cert.name}</span>
+              )}
               <div class="cert-meta">{cert.issuer} · {cert.year}</div>
             </div>
           </div>
