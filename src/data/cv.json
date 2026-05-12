@@ -141,24 +141,22 @@
       "Azure Web Apps",
       "Azure Container Apps"
     ],
-    "iacCicd": [
+    "automation": [
       "Terraform",
       "Bicep",
       "GitHub Actions",
       "Azure DevOps",
       "Helm",
-      "GitOps (Argo CD)"
+      "GitOps (Argo CD)",
+      "Python",
+      "PowerShell",
+      "Bash"
     ],
     "ai": [
       "GitHub Copilot (compliance & rollout)",
       "Claude Code",
       "AI-Assisted Delivery",
       "DevSecOps"
-    ],
-    "languages": [
-      "Python",
-      "PowerShell",
-      "Bash"
     ],
     "practices": [
       "Cloud Engineering Management",

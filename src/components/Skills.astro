@@ -2,12 +2,11 @@
 import cv from '../data/cv.json';
 
 const categories = [
-  { key: 'azurePlatform', label: 'Azure Platform',            icon: 'cloud' },
-  { key: 'cloudNative',   label: 'Cloud-Native & Containers', icon: 'box' },
-  { key: 'iacCicd',       label: 'IaC & CI/CD',               icon: 'code' },
-  { key: 'ai',            label: 'AI-Augmented Engineering',  icon: 'zap' },
-  { key: 'languages',     label: 'Languages & Scripting',     icon: 'terminal' },
-  { key: 'practices',     label: 'Leadership & Practices',    icon: 'users' },
+  { key: 'azurePlatform', label: 'Azure Platform',                 icon: 'cloud' },
+  { key: 'cloudNative',   label: 'Cloud-Native & Containers',      icon: 'box' },
+  { key: 'automation',    label: 'Automation, CI/CD & Scripting',  icon: 'code' },
+  { key: 'ai',            label: 'AI-Augmented Engineering',       icon: 'zap' },
+  { key: 'practices',     label: 'Leadership & Practices',         icon: 'users' },
 ] as const;
 ---
 
@@ -17,12 +16,15 @@ const categories = [
     <h2 class="section-heading mb-4">Skills & Technologies</h2>
     <p class="section-subheading mb-16">From Azure Landing Zones to GitHub Copilot rollouts — the toolbox I work with day-to-day.</p>
 
-    <!-- Category grid -->
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+    <!-- Category grid: 5 cards on lg → top row 3, bottom row 2 centered -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-6 gap-5">
       {categories.map(({ key, label, icon }, i) => {
         const items = cv.skills[key as keyof typeof cv.skills] ?? [];
+        const positionClass =
+          i === 3 ? 'lg:col-start-2' :
+          i === 4 ? 'lg:col-start-4' : '';
         return (
-          <div class={`reveal reveal-delay-${(i % 4) + 1} relative bg-canvas border border-border rounded-2xl p-6 hover:border-azure hover:-translate-y-1 hover:shadow-azure transition-all duration-300`}>
+          <div class={`reveal reveal-delay-${(i % 4) + 1} relative bg-canvas border border-border rounded-2xl p-6 hover:border-azure hover:-translate-y-1 hover:shadow-azure transition-all duration-300 lg:col-span-2 ${positionClass}`}>
             <!-- Top accent line -->
             <div class="absolute top-0 left-6 right-6 h-0.5 bg-gradient-azure rounded-full"></div>
 
