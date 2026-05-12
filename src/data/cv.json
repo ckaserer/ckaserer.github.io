@@ -159,11 +159,11 @@
       "DevSecOps"
     ],
     "practices": [
-      "Cloud Engineering Management",
-      "Team Building & Mentoring",
-      "Architecture & Design Reviews",
-      "Standardization & Automation",
-      "Stakeholder & Client Engagement",
+      "Engineering Management",
+      "Mentoring & Coaching",
+      "Architecture Reviews",
+      "Standardization",
+      "Client Engagement",
       "FinOps"
     ]
   },
