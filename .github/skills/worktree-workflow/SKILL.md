@@ -1,6 +1,6 @@
 ---
 name: worktree-workflow
-description: Git worktree mechanics for ckaserer.github.io ΓÇö creating a branch worktree from main, rebasing on origin/main, running the pre-PR verification checklist, invoking `gh pr create`, and post-merge cleanup. For the PR description content, use the `open-pull-request` skill.
+description: Git worktree mechanics for ckaserer.dev — creating a branch worktree from main, rebasing on origin/main, running the pre-PR verification checklist, invoking `gh pr create`, and post-merge cleanup. For the PR description content, use the `open-pull-request` skill.
 lastReviewed: 2026-05-12
 allowed-tools: ['powershell', 'view']
 owner: '@ckaserer'
@@ -8,7 +8,7 @@ owner: '@ckaserer'
 
 # Worktree Workflow
 
-Trunk-based development. `main` is protected ΓÇö PRs only. Each Copilot session owns exactly one worktree end-to-end, including cleanup.
+Trunk-based development. `main` is protected — PRs only. Each Copilot session owns exactly one worktree end-to-end, including cleanup.
 
 Branch-naming and Conventional Commits rules live in `git.instructions.md` (always loaded). This skill covers the operational workflow.
 
@@ -25,7 +25,7 @@ cd .worktrees/<branch-name>
 ```
 
 Worktree directory mirrors the branch name with `/` replaced by `-`:
-`feat/add-adr-section` ΓåÆ `.worktrees/feat-add-adr-section`
+`feat/add-contact-section` → `.worktrees/feat-add-contact-section`
 
 ### Verify Location Before Editing
 
@@ -34,7 +34,7 @@ git rev-parse --show-toplevel    # must end in /.worktrees/<branch-name>
 git branch --show-current        # must NOT be main
 ```
 
-If either check fails ΓÇö STOP and create a worktree first.
+If either check fails — STOP and create a worktree first.
 
 ## Install Dependencies
 
@@ -44,15 +44,30 @@ After creating the worktree, install dependencies (they are not shared between w
 npm ci
 ```
 
-## Making Changes
-
-Edit files normally. After changes are complete, verify the build before committing:
+For changes that touch the OG image or CV PDF generators, also install the Playwright browser locally:
 
 ```powershell
-npm run build    # must pass ΓÇö broken links throw; TypeScript errors surface here
+npx playwright install chromium
 ```
 
-Fix any build failures before proceeding. Do not commit with a failing build.
+## Making Changes
+
+Edit files normally. After changes are complete, verify the full build before committing:
+
+```powershell
+npm run build:full   # build + OG image + CV PDF — full CI parity
+```
+
+Fix any failures before proceeding. Do not commit with a failing build.
+
+If you changed `src/data/cv.json`, run the email guardrail:
+
+```powershell
+Get-ChildItem dist -Recurse -Include *.html, *.pdf |
+  Select-String -Pattern 'clemens\.kaserer' -List
+```
+
+Must return zero matches.
 
 ## Keeping a Branch Fresh
 
@@ -66,7 +81,8 @@ git push --force-with-lease
 
 Before calling `gh pr create`:
 
-- [ ] `npm run build` passes (no broken links, no TypeScript errors)
+- [ ] `npm run build:full` passes (typecheck + build + OG + PDF)
+- [ ] Email guardrail returns zero matches (if `cv.json` changed)
 - [ ] `git status --porcelain` is empty (all changes committed)
 - [ ] Branch is rebased on latest `origin/main`
 - [ ] PR title follows `type(scope): description` (see `git.instructions.md`)
@@ -78,19 +94,19 @@ Before calling `gh pr create`:
 git push -u origin <branch-name>
 
 $body = @'
-## ≡ƒôï Summary
+## 📋 Summary
 <one sentence>
 
-## ≡ƒöì What Changed
+## 🔍 What Changed
 - <change 1>
 
-## ≡ƒîÉ Pages Affected
-- `docs/<section>/<page>.md`
+## 📁 Files Touched
+- `src/data/cv.json` — <what>
 '@
 
-gh pr create \
-  --title "<type(scope): description>" \
-  --body $body \
+gh pr create `
+  --title "<type(scope): description>" `
+  --body $body `
   --base main
 ```
 
@@ -98,7 +114,7 @@ For description content rules, see the `open-pull-request` skill.
 
 ## Cleanup After Merge
 
-Run all checks from inside the worktree. If any fails ΓÇö STOP and report; do not delete:
+Run all checks from inside the worktree. If any fails — STOP and report; do not delete:
 
 ```powershell
 # 1. PR is merged
@@ -122,8 +138,10 @@ git branch -d <branch-name>    # safe delete; refuses unmerged branches
 
 ## Troubleshooting
 
-**`npm ci` fails in worktree** ΓÇö check that `node_modules/` and `package-lock.json` are in the worktree (they are not symlinked from the main checkout). Run `npm ci` again from the worktree root.
+**`npm ci` fails in worktree** — `node_modules/` and `package-lock.json` are not symlinked from the main checkout. Run `npm ci` again from the worktree root.
 
-**Build passes locally but fails in CI** ΓÇö check the Node.js version. The deploy workflow uses Node 20; verify locally with `node --version`. Docusaurus 3 requires Node ΓëÑ 18.
+**Playwright fails locally with "Executable doesn't exist"** — run `npx playwright install chromium` inside the worktree.
 
-**Rebase conflict on `docs/`** ΓÇö resolve conflicts file-by-file. After resolving: `git add <file> && git rebase --continue`. Never use `git rebase --skip` on content files.
+**Build passes locally but fails in CI** — check the Node version. Both workflows use Node 20; verify locally with `node --version`. Astro 5 requires Node ≥ 18.18.
+
+**Rebase conflict on `cv.json`** — resolve carefully (it is structured data, not prose). After resolving: `git add src/data/cv.json && git rebase --continue && npm run build:full` to confirm shape integrity.

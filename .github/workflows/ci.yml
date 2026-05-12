@@ -1,20 +1,20 @@
-name: Deploy to GitHub Pages
+name: PR Build Check
 
 on:
-  push:
+  pull_request:
     branches:
       - main
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: pages-deploy
+  group: pr-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,7 +36,6 @@ jobs:
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
       - name: Cache Playwright browsers
-        id: pw-cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/ms-playwright
@@ -45,28 +44,23 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Build Astro site
-        run: npm run build
+      - name: Typecheck
+        run: npm run typecheck
 
-      - name: Generate OG image
-        run: node scripts/generate-og-image.mjs
-
-      - name: Generate CV PDF
-        run: node scripts/generate-cv-pdf.mjs
+      - name: Full build (Astro + OG + CV PDF)
+        run: npm run build:full
 
       - name: Verify no email leaked into dist
         run: |
           if grep -r --include='*.html' --include='*.pdf' -l 'clemens\.kaserer' dist; then
-            echo "::error::Email address found in built artifacts."
+            echo "::error::Email address found in built artifacts. The site intentionally has no public email."
             exit 1
           fi
 
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload CV PDF artifact
+        uses: actions/upload-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: gh-pages
-          force_orphan: true
-          cname: ckaserer.dev
-
+          name: cv-pdf
+          path: dist/cv.pdf
+          if-no-files-found: error
+          retention-days: 7

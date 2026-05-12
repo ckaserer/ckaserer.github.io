@@ -1,6 +1,6 @@
 ---
 name: create-adr
-description: Creates Architecture Decision Records (ADRs) for ckaserer.dev ΓÇö documenting significant decisions about Docusaurus configuration, plugins, themes, content structure, or site architecture. Use when asked to create, write, or draft an ADR, or when a significant design choice needs to be captured.
+description: Creates Architecture Decision Records (ADRs) for ckaserer.dev — documenting significant decisions about Astro configuration, components, build pipeline, design system, deployment, or content strategy. Use when asked to create, write, or draft an ADR, or when a significant design choice needs to be captured.
 lastReviewed: 2026-05-12
 allowed-tools: ['view', 'edit', 'create', 'glob', 'grep', 'task']
 owner: '@ckaserer'
@@ -8,9 +8,11 @@ owner: '@ckaserer'
 
 # ADR Creation Workflow
 
+ADRs live in `docs/adr/` (create the folder on the first ADR). The site itself is single-page and does **not** render `docs/` — ADRs are repo-only documentation.
+
 Follow these three phases in order.
 
-## Phase 1 ΓÇö Scope and Number
+## Phase 1 — Scope and Number
 
 ### 1a. Reserve a non-colliding ADR number
 
@@ -18,7 +20,7 @@ Follow these three phases in order.
 git fetch origin --quiet
 
 # Highest number already on main
-$onMain = git ls-tree --name-only origin/main docs/work-codex/adr/ 2>$null |
+$onMain = git ls-tree --name-only origin/main docs/adr/ 2>$null |
   Select-String '^\d{4}' |
   ForEach-Object { [int]($_ -replace '^(\d{4}).*','$1') } |
   Measure-Object -Maximum | Select-Object -ExpandProperty Maximum
@@ -39,15 +41,15 @@ $next = (@($onMain) + @($onBranches) + @($onPrs) | Measure-Object -Maximum).Maxi
 "Next free ADR number: $next"
 ```
 
-If the `docs/work-codex/adr/` folder does not exist yet, it starts at `0001`.
+If `docs/adr/` does not exist yet, the first ADR is `0001`.
 
 ### 1b. Decision scope
 
 If the topic spans multiple independent decisions, list each as a separate ADR with sequential numbers and confirm with the user before proceeding.
 
-## Phase 2 ΓÇö Draft
+## Phase 2 — Draft
 
-**Where:** `docs/work-codex/adr/NNNN-title-with-hyphens.md`
+**Where:** `docs/adr/NNNN-title-with-hyphens.md`
 
 **Template:**
 
@@ -59,7 +61,7 @@ If the topic spans multiple independent decisions, list each as a separate ADR w
 
 ## Context
 
-<What is the situation or problem that forces this decision? What constraints apply?>
+<What is the situation or problem that forces this decision? What constraints apply? What does the current state look like?>
 
 ## Decision
 
@@ -76,32 +78,32 @@ If the topic spans multiple independent decisions, list each as a separate ADR w
 
 ## Consequences
 
-<What becomes easier or harder as a result? What follow-up work does this create?>
+<What becomes easier or harder as a result? What follow-up work does this create? What is the migration path if we ever reverse this?>
 
 ## Links
 
-- [Docusaurus docs / relevant reference](<url>)
+- [Reference doc](<url>)
 ```
 
-**Fill every section** ΓÇö no placeholders or empty sections in the committed file.
+**Fill every section** — no placeholders or empty sections in the committed file.
 
 ### Typical decision areas for this repo
 
 | Area | Example decisions |
 |------|-------------------|
-| **Docusaurus config** | Upgrading to a new major version, enabling/disabling `future.v4` |
-| **Plugins** | Adding `plugin-content-blog`, `plugin-search-local`, third-party plugins |
-| **Themes** | Custom CSS approach, dark mode strategy, typography choices |
-| **Content structure** | New top-level section, sidebar organization, cross-section linking strategy |
-| **i18n** | Adding a new locale, translation workflow |
-| **Search** | Staying with Algolia vs switching to local search |
-| **CI/CD** | Changing the deploy action, adding link-checking step |
+| **Astro config** | Upgrading to a new major version, enabling integrations, image optimisation strategy |
+| **Components & data** | Section composition (single-page vs routed), `cv.json` schema changes, design tokens in Tailwind |
+| **Build pipeline** | Playwright-driven OG/PDF generation, Node version, caching strategy |
+| **Deployment** | Staying on GitHub Pages vs moving to Cloudflare Pages / Azure Static Web Apps, custom domain setup |
+| **SEO & metadata** | JSON-LD shape, sitemap exclusions, robots policy |
+| **Privacy** | Contact strategy (e.g. dropping the public email), analytics opt-in |
+| **AI tooling** | Skills and instructions structure, model strategy for Copilot CLI |
 
-## Phase 3 ΓÇö Polish and Register
+## Phase 3 — Polish and Register
 
-1. Reread for logical flow and clarity
-2. Add a Mermaid diagram if it genuinely clarifies the decision (optional)
-3. Update or create `docs/work-codex/adr/index.md` with a one-line entry for the new ADR:
+1. Re-read for logical flow and clarity.
+2. Add a short Mermaid diagram only if it genuinely clarifies the decision.
+3. Update or create `docs/adr/index.md` with a one-line entry:
 
 ```markdown
 | [ADR-NNNN](./NNNN-title.md) | Title | Accepted |
@@ -113,5 +115,4 @@ Use the `worktree-workflow` skill with this PR title override:
 
 - **Title:** `docs(adr): add ADR-NNNN <short title>`
 - **Summary:** one sentence on why this decision was needed now
-- **What Changed:** new ADR file path only
-- **Pages Affected:** `docs/work-codex/adr/NNNN-title.md`
+- **What Changed:** new ADR file path; index update if applicable

@@ -1,6 +1,6 @@
 ---
 name: update-cv
-description: Updates the CV content on ckaserer.dev by editing src/data/cv.json — the single source of truth for all CV sections. Use when asked to add, update, or remove experience entries, skills, certifications, or education; or to change contact details, the summary, or the tagline.
+description: Updates the CV content on ckaserer.dev by editing src/data/cv.json — the single source of truth for all CV sections. Use when asked to add, update, or remove experience entries, skills, certifications, or education; or to change the summary, tagline, or social handles.
 lastReviewed: 2026-05-12
 allowed-tools: ['view', 'edit', 'powershell', 'ask_user']
 owner: '@ckaserer'
@@ -8,26 +8,30 @@ owner: '@ckaserer'
 
 # Update CV
 
-All CV content lives in **`src/data/cv.json`**. Editing this one file updates the website and the generated PDF simultaneously.
+All CV content lives in **`src/data/cv.json`**. Editing this one file updates the homepage, the CV PDF, and the JSON-LD metadata simultaneously.
 
-## Schema Reference
+## Schema Reference (current)
 
 ```jsonc
 {
-  // Personal / contact
+  // Identity
   "name": "string",
   "initials": "string",          // 2 letters, shown in hero avatar
   "title": "string",             // one-line role under the name
-  "tagline": "string",           // hero sub-heading — 1–2 sentences
+  "tagline": "string",           // hero sub-heading — keep ≤ ~160 chars
+  "metaDescription": "string",   // <meta name="description"> — keep ≤ 160 chars
   "location": "string",
-  "email": "string",
-  "website": "string",
-  "github": "string",            // username only, no URL
-  "linkedin": "string",          // username only, no URL
-  "twitter": "string",           // username only, no URL
+  "website": "string",           // full URL incl. https://
 
-  // About section
-  "summary": "string",           // 2–4 sentences for the About section
+  // Social handles (usernames only, NO URLs — components compose them)
+  "github": "string",
+  "linkedin": "string",
+
+  // NOTE: there is intentionally NO "email" field.
+  // Contact is LinkedIn first, GitHub second. Do not add a mailto anywhere.
+
+  // About
+  "summary": "string",           // ~400–500 chars; rendered as one paragraph
 
   // Experience — array of employers, each with one or more roles
   "experience": [
@@ -37,38 +41,42 @@ All CV content lives in **`src/data/cv.json`**. Editing this one file updates th
       "roles": [
         {
           "title": "string",
-          "start": "YYYY-MM",    // ISO year-month
-          "end": "YYYY-MM | null",  // null = current
+          "start": "YYYY-MM",        // ISO year-month
+          "end":   "YYYY-MM | null", // null = current
           "location": "string",
-          "description": "string",
-          "highlights": ["string"]  // 2–5 bullet points
+          "description": "string",   // 1–2 sentences
+          "highlights": ["string"]   // 2–4 short bullets (~8–12 words each)
         }
       ]
     }
   ],
 
-  // Skills — object with category arrays
+  // Skills — five fixed category keys, mapped to cards in Skills.astro
   "skills": {
-    "cloud":      ["string"],
-    "iac":        ["string"],
-    "containers": ["string"],
-    "cicd":       ["string"],
-    "languages":  ["string"],
-    "practices":  ["string"]
+    "azurePlatform": ["string"],   // Azure architecture & platform services
+    "cloudNative":   ["string"],   // Kubernetes, OpenShift, runtimes
+    "automation":    ["string"],   // IaC, CI/CD, scripting (Python/PowerShell/Bash)
+    "ai":            ["string"],   // AI engineering practices, NOT model names
+    "practices":     ["string"]    // Leadership, methodology, governance
   },
 
-  // Certifications
+  // Certifications (sorted by year DESC; older renewable certs may stay at original year)
   "certifications": [
-    { "name": "string", "issuer": "string", "year": number }
+    {
+      "name":   "string",
+      "issuer": "string",
+      "year":   number,            // year EARNED (verified via MS Learn share URL)
+      "url":    "string"           // public credential share URL (omit for fundamentals)
+    }
   ],
 
   // Education
   "education": [
     {
       "institution": "string",
-      "degree": "string",
-      "start": "YYYY",
-      "end": "YYYY"
+      "degree":      "string",
+      "start":       "string",     // free-form, often ""
+      "end":         "string"      // free-form description, e.g. "Matura"
     }
   ]
 }
@@ -77,65 +85,92 @@ All CV content lives in **`src/data/cv.json`**. Editing this one file updates th
 ## Workflow
 
 ### Step 1 — Read current state
+
 ```powershell
-Get-Content src/data/cv.json | ConvertFrom-Json | ConvertTo-Json -Depth 10
+Get-Content src\data\cv.json -Raw | ConvertFrom-Json | ConvertTo-Json -Depth 10
 ```
 
 ### Step 2 — Edit
 
-Use the `edit` tool to make targeted changes to `src/data/cv.json`. Common operations:
+Use the `edit` tool to make targeted changes. Common operations:
 
-**Add a new role to an existing employer:**
-Find the correct `"company"` entry and append to its `"roles"` array.
+**Add a new role to an existing employer**
+Find the correct `"company"` entry and prepend to its `"roles"` array (most recent first).
 
-**Add a new employer:**
-Append a new object to the top-level `"experience"` array. Put most recent employer first.
+**Add a new employer**
+Prepend a new object to the top-level `"experience"` array (most recent employer first).
 
-**Add a certification:**
-Append to `"certifications"`. Keep sorted by year descending.
+**Add a certification**
+Append to `"certifications"` and resort by `year` DESC. Verify the earned year by opening the MS Learn share URL with Playwright and reading "Earned on: …".
 
-**Update a skill category:**
-Edit the relevant array under `"skills"`. Add new skills; remove outdated ones.
+**Update a skill card**
+Edit the relevant array under `"skills"`. Aim for ~5–9 entries per card so the 5-card layout stays balanced — sparse cards look broken.
 
-**Update contact or summary:**
-Edit the top-level fields directly.
+**Update summary, tagline, or metaDescription**
+Edit the top-level fields directly. Keep `tagline` ≤ ~160 chars and `metaDescription` ≤ 160 chars.
 
 ### Step 3 — Validate
 
 ```powershell
-npm run build
+npm run build:full
 ```
 
-This must complete without errors. If it fails:
-- `src/data/cv.json` must be valid JSON — check for trailing commas or missing quotes
-- All date strings must be `"YYYY-MM"` format or `null`
-- No field in the schema may be removed (it will cause a TypeScript error or runtime null)
+This must complete without errors. Three things run:
+1. `astro build` → `dist/` (TS + JSON shape errors surface here)
+2. `node scripts/generate-og-image.mjs` → renders `/og` to `dist/og-image.png`
+3. `node scripts/generate-cv-pdf.mjs` → renders `/cv` to `dist/cv.pdf`
 
-### Step 4 — Verify locally (optional but recommended)
+If it fails:
+- `cv.json` must be valid JSON — check for trailing commas or unclosed strings
+- `start`/`end` for roles must be `"YYYY-MM"` or `null`
+- Skill keys must be exactly `azurePlatform`, `cloudNative`, `automation`, `ai`, `practices`
+- Do not add new top-level fields without updating the components that read them
+
+### Step 4 — Verify the PDF
 
 ```powershell
-npm run dev
-# Open http://localhost:4321 and check the site looks correct
+Start-Process .\dist\cv.pdf
 ```
 
-### Step 5 — Commit and open PR
+Sanity-check: name in header, all roles present, no orphan section breaks, no email anywhere.
 
-Use the `worktree-workflow` skill. Suggested commit message:
+### Step 5 — Email guardrail
 
+```powershell
+# Must return zero matches
+Get-ChildItem dist -Recurse -Include *.html, *.pdf |
+  Select-String -Pattern 'clemens\.kaserer' -List
 ```
-docs(cv): update <section> — <what changed>
-```
 
-Examples:
-- `docs(cv): add Avanade Manager role from 2023`
-- `docs(cv): add AZ-900 certification`
-- `docs(cv): update skills — add FinOps, remove Ansible`
+If anything returns, you reintroduced an email — remove it before committing.
 
-After the PR merges to `main`, GitHub Actions automatically rebuilds the site and regenerates `cv.pdf`.
+### Step 6 — Commit and open PR
+
+Use the `worktree-workflow` skill. Suggested commit prefixes:
+
+| Change | Commit prefix |
+|--------|---------------|
+| Pure content (text, dates, bullets) | `docs(cv): …` |
+| Schema or component restructure with content | `refactor(cv): …` |
+| New section or capability | `feat(cv): …` |
+
+After the PR merges to `main`, GitHub Actions rebuilds and regenerates `cv.pdf` and `og-image.png`.
 
 ## Things to Avoid
 
-- Do NOT hardcode dates as plain years — always use `"YYYY-MM"` for `start`/`end` fields
-- Do NOT leave any field as `null` unless the schema explicitly shows `| null` (e.g. `end` for current roles, `url` for employers without a website)
-- Do NOT add extra fields not in the schema — the TypeScript build will fail
-- Do NOT edit `src/pages/cv.astro` or `src/components/*.astro` for content-only changes — the JSON is the only place to change
+- Do NOT reintroduce an `email` field or `mailto:` link anywhere
+- Do NOT hardcode dates as plain years for `experience` — always `"YYYY-MM"` or `null`
+- Do NOT edit `src/components/*.astro` or `src/pages/cv.astro` for content-only changes
+- Do NOT add a certification without verifying the **earned** year (renewals get new IDs; the original Earned date is what visitors see for the supplied share URL)
+- Do NOT let a single skill card become tool-listy (e.g. only one named GitOps engine) — prefer the practice over the engine
+
+## Cert year verification
+
+Each `certifications[].url` is a public MS Learn share link. To verify the year:
+
+```powershell
+# Open in browser; the credential page shows "Earned on: <day> <Month> <year>"
+Start-Process 'https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/<ID>?sharingId=55FE29056B9A8FEB'
+```
+
+The share URL redirects to a SPA — if scraping, render with Playwright and look for "Earned on:".
