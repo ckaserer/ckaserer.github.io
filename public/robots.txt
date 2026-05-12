@@ -1,6 +1,13 @@
+# ── ckaserer.dev ─────────────────────────────────────────────────
+# Personal portfolio & CV — Clemens Kaserer
+# Allow all crawlers to index the public site
+
 User-agent: *
 Allow: /
-Disallow: /og
-Disallow: /og/
+
+# Internal utility pages — excluded from search results.
+# Both carry <meta name="robots" content="noindex"> as well.
+Disallow: /og/   # OG image source page (not a user-facing page)
+Disallow: /cv/   # Print-optimised CV page (downloadable PDF is at /cv.pdf)
 
 Sitemap: https://ckaserer.dev/sitemap-index.xml
