@@ -1,6 +1,6 @@
 ---
 name: create-adr
-description: Creates Architecture Decision Records (ADRs) for ckaserer.dev — documenting significant decisions about Docusaurus configuration, plugins, themes, content structure, or site architecture. Use when asked to create, write, or draft an ADR, or when a significant design choice needs to be captured.
+description: Creates Architecture Decision Records (ADRs) for ckaserer.dev ΓÇö documenting significant decisions about Docusaurus configuration, plugins, themes, content structure, or site architecture. Use when asked to create, write, or draft an ADR, or when a significant design choice needs to be captured.
 lastReviewed: 2026-05-12
 allowed-tools: ['view', 'edit', 'create', 'glob', 'grep', 'task']
 owner: '@ckaserer'
@@ -10,7 +10,7 @@ owner: '@ckaserer'
 
 Follow these three phases in order.
 
-## Phase 1 — Scope and Number
+## Phase 1 ΓÇö Scope and Number
 
 ### 1a. Reserve a non-colliding ADR number
 
@@ -45,7 +45,7 @@ If the `docs/work-codex/adr/` folder does not exist yet, it starts at `0001`.
 
 If the topic spans multiple independent decisions, list each as a separate ADR with sequential numbers and confirm with the user before proceeding.
 
-## Phase 2 — Draft
+## Phase 2 ΓÇö Draft
 
 **Where:** `docs/work-codex/adr/NNNN-title-with-hyphens.md`
 
@@ -83,7 +83,7 @@ If the topic spans multiple independent decisions, list each as a separate ADR w
 - [Docusaurus docs / relevant reference](<url>)
 ```
 
-**Fill every section** — no placeholders or empty sections in the committed file.
+**Fill every section** ΓÇö no placeholders or empty sections in the committed file.
 
 ### Typical decision areas for this repo
 
@@ -97,7 +97,7 @@ If the topic spans multiple independent decisions, list each as a separate ADR w
 | **Search** | Staying with Algolia vs switching to local search |
 | **CI/CD** | Changing the deploy action, adding link-checking step |
 
-## Phase 3 — Polish and Register
+## Phase 3 ΓÇö Polish and Register
 
 1. Reread for logical flow and clarity
 2. Add a Mermaid diagram if it genuinely clarifies the decision (optional)

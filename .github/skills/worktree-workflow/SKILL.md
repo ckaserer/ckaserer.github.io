@@ -1,6 +1,6 @@
 ---
 name: worktree-workflow
-description: Git worktree mechanics for ckaserer.github.io — creating a branch worktree from main, rebasing on origin/main, running the pre-PR verification checklist, invoking `gh pr create`, and post-merge cleanup. For the PR description content, use the `open-pull-request` skill.
+description: Git worktree mechanics for ckaserer.github.io ΓÇö creating a branch worktree from main, rebasing on origin/main, running the pre-PR verification checklist, invoking `gh pr create`, and post-merge cleanup. For the PR description content, use the `open-pull-request` skill.
 lastReviewed: 2026-05-12
 allowed-tools: ['powershell', 'view']
 owner: '@ckaserer'
@@ -8,7 +8,7 @@ owner: '@ckaserer'
 
 # Worktree Workflow
 
-Trunk-based development. `main` is protected — PRs only. Each Copilot session owns exactly one worktree end-to-end, including cleanup.
+Trunk-based development. `main` is protected ΓÇö PRs only. Each Copilot session owns exactly one worktree end-to-end, including cleanup.
 
 Branch-naming and Conventional Commits rules live in `git.instructions.md` (always loaded). This skill covers the operational workflow.
 
@@ -25,7 +25,7 @@ cd .worktrees/<branch-name>
 ```
 
 Worktree directory mirrors the branch name with `/` replaced by `-`:
-`feat/add-adr-section` → `.worktrees/feat-add-adr-section`
+`feat/add-adr-section` ΓåÆ `.worktrees/feat-add-adr-section`
 
 ### Verify Location Before Editing
 
@@ -34,7 +34,7 @@ git rev-parse --show-toplevel    # must end in /.worktrees/<branch-name>
 git branch --show-current        # must NOT be main
 ```
 
-If either check fails — STOP and create a worktree first.
+If either check fails ΓÇö STOP and create a worktree first.
 
 ## Install Dependencies
 
@@ -49,7 +49,7 @@ npm ci
 Edit files normally. After changes are complete, verify the build before committing:
 
 ```powershell
-npm run build    # must pass — broken links throw; TypeScript errors surface here
+npm run build    # must pass ΓÇö broken links throw; TypeScript errors surface here
 ```
 
 Fix any build failures before proceeding. Do not commit with a failing build.
@@ -78,13 +78,13 @@ Before calling `gh pr create`:
 git push -u origin <branch-name>
 
 $body = @'
-## 📋 Summary
+## ≡ƒôï Summary
 <one sentence>
 
-## 🔍 What Changed
+## ≡ƒöì What Changed
 - <change 1>
 
-## 🌐 Pages Affected
+## ≡ƒîÉ Pages Affected
 - `docs/<section>/<page>.md`
 '@
 
@@ -98,7 +98,7 @@ For description content rules, see the `open-pull-request` skill.
 
 ## Cleanup After Merge
 
-Run all checks from inside the worktree. If any fails — STOP and report; do not delete:
+Run all checks from inside the worktree. If any fails ΓÇö STOP and report; do not delete:
 
 ```powershell
 # 1. PR is merged
@@ -122,8 +122,8 @@ git branch -d <branch-name>    # safe delete; refuses unmerged branches
 
 ## Troubleshooting
 
-**`npm ci` fails in worktree** — check that `node_modules/` and `package-lock.json` are in the worktree (they are not symlinked from the main checkout). Run `npm ci` again from the worktree root.
+**`npm ci` fails in worktree** ΓÇö check that `node_modules/` and `package-lock.json` are in the worktree (they are not symlinked from the main checkout). Run `npm ci` again from the worktree root.
 
-**Build passes locally but fails in CI** — check the Node.js version. The deploy workflow uses Node 20; verify locally with `node --version`. Docusaurus 3 requires Node ≥ 18.
+**Build passes locally but fails in CI** ΓÇö check the Node.js version. The deploy workflow uses Node 20; verify locally with `node --version`. Docusaurus 3 requires Node ΓëÑ 18.
 
-**Rebase conflict on `docs/`** — resolve conflicts file-by-file. After resolving: `git add <file> && git rebase --continue`. Never use `git rebase --skip` on content files.
+**Rebase conflict on `docs/`** ΓÇö resolve conflicts file-by-file. After resolving: `git add <file> && git rebase --continue`. Never use `git rebase --skip` on content files.

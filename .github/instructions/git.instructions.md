@@ -7,58 +7,50 @@ lastReviewed: 2026-05-12
 
 # Git Hard Rules
 
-These rules apply to every commit. The operational workflow (creating worktrees, rebasing, opening PRs) lives in the `worktree-workflow` skill.
+These rules apply to every commit. Operational workflow lives in the `worktree-workflow` skill.
 
 ## Branching
 
-- One long-lived protected branch: `main` — always deployable; deploy triggers automatically on push to `main`
-- All work on short-lived branches (< 1 day target), merged to `main` via PR only
+- One protected branch: `main` — always deployable; deploy triggers on push to `main`
+- All work on short-lived branches, merged via PR only
 
 | Prefix | Format | Purpose |
 |--------|--------|---------|
-| `feat/*` | `feat/{description}` | New pages, sections, or features |
-| `fix/*` | `fix/{description}` | Fix broken links, typos, config errors |
-| `docs/*` | `docs/{description}` | Content-only updates |
-| `refactor/*` | `refactor/{description}` | Restructuring with no content change |
-| `ci/*` | `ci/{description}` | GitHub Actions / deploy changes |
+| `feat/*` | `feat/{description}` | New features or sections |
+| `fix/*` | `fix/{description}` | Fix build errors, broken styles |
+| `docs/*` | `docs/{description}` | CV content updates |
+| `refactor/*` | `refactor/{description}` | Restructuring, no content change |
+| `ci/*` | `ci/{description}` | GitHub Actions changes |
 | `chore/*` | `chore/{description}` | Dependency updates, maintenance |
-
-Include a short kebab-case description, e.g. `feat/add-adr-section` or `fix/broken-sidebar-link`.
-If a GitHub issue exists, prefix with the issue number: `feat/42-add-adr-section`.
 
 ## Forbidden Actions
 
-| Action | Why forbidden |
-|--------|---------------|
-| Push or commit to `main` directly | PRs only — keeps site always deployable |
-| `git push --force` (without `--lease`) | Use `--force-with-lease` instead |
-| Committing secrets, tokens, or API keys | Permanent leak |
-| Declaring done with a failing `npm run build` | Broken builds block everyone |
+| Action | Why |
+|--------|-----|
+| Push directly to `main` | PRs only |
+| `git push --force` without `--lease` | Use `--force-with-lease` |
+| Committing secrets or tokens | Permanent leak |
+| Opening a PR with a failing `npm run build` | Broken builds block the deploy |
 
 ## Conventional Commits
 
-Format: `<type>(<scope>): <description>` — see [conventionalcommits.org](https://www.conventionalcommits.org/en/v1.0.0/).
+Format: `<type>(<scope>): <description>`
 
-Scope is optional but recommended: use the section name (`work-codex`, `personal-os`, `skyledger`, `ci`, `config`).
+Scope is optional; use `cv`, `hero`, `ci`, `config`, etc.
 
 | Type | Use |
 |------|-----|
-| `feat` | New page, section, or Docusaurus plugin |
-| `fix` | Fix broken link, typo, build error |
-| `docs` | Content-only update |
-| `refactor` | Restructuring without content change |
+| `feat` | New component or page section |
+| `fix` | Build error, styling bug |
+| `docs` | CV content update |
+| `refactor` | Component restructuring |
 | `ci` | GitHub Actions changes |
-| `chore` | Dependency updates, maintenance |
+| `chore` | Dependencies, maintenance |
 
-Examples:
-- `feat(work-codex): add ADR section with first three records`
-- `fix(personal-os): correct broken cross-reference link`
-- `chore: upgrade docusaurus to 3.10.0`
+## Copilot Workflow
 
-## Copilot Workflow — Mandatory Per Task
-
-1. **Create a worktree** from `origin/main` (see `worktree-workflow` skill).
-2. **Verify location** before editing: `git branch --show-current` must not be `main`.
-3. **Run `npm run build`** before committing — catches broken links and TypeScript errors early.
-4. **Commit, push, open PR** as the final step. Use `gh pr create` (see `open-pull-request` skill).
-5. **Clean up** the worktree after the PR merges (see `worktree-workflow` skill).
+1. Create a worktree from `origin/main` (see `worktree-workflow` skill)
+2. Verify `git branch --show-current` is not `main` before editing
+3. Run `npm run build` before committing
+4. Commit, push, open PR via `gh pr create` (see `open-pull-request` skill)
+5. Clean up worktree after merge

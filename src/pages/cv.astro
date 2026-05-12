@@ -1,0 +1,150 @@
+---
+import cv from '../data/cv.json';
+import '../styles/global.css';
+
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return 'Present';
+  const [year, month] = dateStr.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1);
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{cv.name} — Curriculum Vitae</title>
+    <meta name="robots" content="noindex" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      @media print {
+        body { font-size: 10pt; }
+        .page-break { page-break-before: always; }
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        color: #0f172a;
+        background: white;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 2rem;
+        line-height: 1.6;
+      }
+      h1 { font-size: 2rem; font-weight: 700; color: #0f172a; margin-bottom: 0.25rem; }
+      h2 { font-size: 1rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: #2563eb; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.25rem; margin-top: 1.5rem; margin-bottom: 0.75rem; }
+      h3 { font-size: 0.95rem; font-weight: 600; color: #1e293b; margin-bottom: 0.1rem; }
+      .subtitle { color: #475569; font-size: 1rem; margin-bottom: 0.5rem; }
+      .meta { color: #64748b; font-size: 0.85rem; }
+      .contact { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.85rem; color: #475569; margin-bottom: 1.25rem; }
+      .contact a { color: #2563eb; text-decoration: none; }
+      .role { margin-bottom: 1rem; padding-left: 0; }
+      .role-header { display: flex; justify-content: space-between; align-items: baseline; }
+      .role-date { color: #64748b; font-size: 0.8rem; }
+      .role-company { color: #475569; font-size: 0.85rem; margin-bottom: 0.2rem; }
+      ul { margin: 0.4rem 0 0 1rem; padding: 0; }
+      li { font-size: 0.85rem; color: #334155; margin-bottom: 0.2rem; }
+      .skills-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; }
+      .skill-group h3 { font-size: 0.8rem; margin-bottom: 0.25rem; }
+      .skill-list { font-size: 0.8rem; color: #475569; }
+      .cert { margin-bottom: 0.4rem; }
+      .cert-name { font-size: 0.85rem; font-weight: 500; }
+      .cert-meta { font-size: 0.8rem; color: #64748b; }
+      .edu { margin-bottom: 0.75rem; }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>{cv.name}</h1>
+      <div class="subtitle">{cv.title}</div>
+      <div class="contact">
+        <span>📍 {cv.location}</span>
+        <a href={`mailto:${cv.email}`}>{cv.email}</a>
+        <a href={cv.website}>{cv.website}</a>
+        <a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a>
+        <a href={`https://linkedin.com/in/${cv.linkedin}`}>linkedin.com/in/{cv.linkedin}</a>
+      </div>
+    </header>
+
+    <!-- Summary -->
+    <section>
+      <h2>Summary</h2>
+      <p class="meta">{cv.summary}</p>
+    </section>
+
+    <!-- Experience -->
+    <section>
+      <h2>Experience</h2>
+      {cv.experience.map((employer) =>
+        employer.roles.map((role) => (
+          <div class="role">
+            <div class="role-header">
+              <h3>{role.title}</h3>
+              <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
+            </div>
+            <div class="role-company">{employer.company} · {role.location}</div>
+            <ul>
+              {role.highlights.map((h) => <li>{h}</li>)}
+            </ul>
+          </div>
+        ))
+      )}
+    </section>
+
+    <!-- Skills -->
+    <section>
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <h3>Cloud & Azure</h3>
+          <div class="skill-list">{cv.skills.cloud.join(' · ')}</div>
+        </div>
+        <div class="skill-group">
+          <h3>Infrastructure as Code</h3>
+          <div class="skill-list">{cv.skills.iac.join(' · ')}</div>
+        </div>
+        <div class="skill-group">
+          <h3>Containers</h3>
+          <div class="skill-list">{cv.skills.containers.join(' · ')}</div>
+        </div>
+        <div class="skill-group">
+          <h3>CI/CD</h3>
+          <div class="skill-list">{cv.skills.cicd.join(' · ')}</div>
+        </div>
+        <div class="skill-group">
+          <h3>Languages</h3>
+          <div class="skill-list">{cv.skills.languages.join(' · ')}</div>
+        </div>
+        <div class="skill-group">
+          <h3>Leadership</h3>
+          <div class="skill-list">{cv.skills.practices.join(' · ')}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Certifications -->
+    <section>
+      <h2>Certifications</h2>
+      {cv.certifications.map((cert) => (
+        <div class="cert">
+          <div class="cert-name">{cert.name}</div>
+          <div class="cert-meta">{cert.issuer} · {cert.year}</div>
+        </div>
+      ))}
+    </section>
+
+    <!-- Education -->
+    <section>
+      <h2>Education</h2>
+      {cv.education.map((edu) => (
+        <div class="edu">
+          <h3>{edu.degree}</h3>
+          <div class="meta">{edu.institution} · {edu.start}–{edu.end}</div>
+        </div>
+      ))}
+    </section>
+  </body>
+</html>

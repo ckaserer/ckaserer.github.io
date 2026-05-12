@@ -1,0 +1,213 @@
+---
+import cv from '../data/cv.json';
+
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return 'Present';
+  const [year, month] = dateStr.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1);
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+
+// Flatten all roles into a single ordered list for horizontal scrolling
+const allRoles = cv.experience.flatMap((employer) =>
+  employer.roles.map((role) => ({ ...role, company: employer.company, companyUrl: employer.url }))
+);
+---
+
+<section id="experience" class="relative min-h-screen flex flex-col justify-center bg-canvas overflow-hidden py-24">
+  <!-- Decorative section number -->
+  <span class="section-num" aria-hidden="true">03</span>
+
+  <div class="relative z-10 max-w-7xl mx-auto w-full px-8 md:px-20">
+    <p class="section-label">Career</p>
+    <h2 class="section-heading">Work Experience</h2>
+    <p class="section-subheading">A decade of shipping infrastructure and building teams.</p>
+  </div>
+
+  <!-- Horizontal scroll track -->
+  <div class="relative z-10 mt-4">
+    <!-- Arrow buttons -->
+    <div class="max-w-7xl mx-auto px-8 md:px-20 flex justify-end gap-2 mb-4">
+      <button id="exp-prev" aria-label="Previous" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-ink hover:text-ink transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <button id="exp-next" aria-label="Next" class="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted hover:border-ink hover:text-ink transition-colors">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Scrollable card strip -->
+    <div id="exp-scroll"
+         class="flex gap-6 overflow-x-auto scroll-smooth pb-6"
+         style="padding-left: max(2rem, calc((100vw - 80rem) / 2 + 5rem)); padding-right: 5rem; scrollbar-width: none; -ms-overflow-style: none;">
+      {allRoles.map((role) => (
+        <div class="shrink-0 w-[360px] md:w-[420px] bg-surface rounded-2xl border border-border p-8 flex flex-col gap-4 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5 transition-all duration-300 scroll-snap-align-start">
+          <!-- Role header -->
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-semibold text-accent uppercase tracking-wider">
+                {role.end === null ? 'Current' : formatDate(role.end)}
+              </span>
+              <span class="text-xs text-muted">{role.location}</span>
+            </div>
+            <h3 class="font-display font-bold text-ink text-xl leading-tight">{role.title}</h3>
+            <div class="text-muted text-sm mt-1">
+              {role.companyUrl ? (
+                <a href={role.companyUrl} target="_blank" rel="noopener noreferrer" class="hover:text-accent transition-colors">
+                  {role.company}
+                </a>
+              ) : (
+                <span>{role.company}</span>
+              )}
+              {' '}·{' '}{formatDate(role.start)} – {formatDate(role.end)}
+            </div>
+          </div>
+
+          <!-- Left border accent -->
+          <div class={`border-l-2 pl-4 ${role.end === null ? 'border-accent' : 'border-border'}`}>
+            <p class="text-muted text-sm leading-relaxed">{role.description}</p>
+          </div>
+
+          <!-- Highlights -->
+          <ul class="space-y-2">
+            {role.highlights.slice(0, 3).map((h) => (
+              <li class="flex items-start gap-2 text-ink/75 text-sm">
+                <span class="text-accent mt-1 shrink-0">▸</span>
+                {h}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  #exp-scroll::-webkit-scrollbar { display: none; }
+</style>
+
+<script>
+  const track = document.getElementById('exp-scroll');
+  const cardWidth = 436; // 420px + 16px gap
+  document.getElementById('exp-prev')?.addEventListener('click', () =>
+    track?.scrollBy({ left: -cardWidth, behavior: 'smooth' })
+  );
+  document.getElementById('exp-next')?.addEventListener('click', () =>
+    track?.scrollBy({ left: cardWidth, behavior: 'smooth' })
+  );
+</script>
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="section-label">Career</p>
+    <h2 class="section-heading">Work Experience</h2>
+    <p class="section-subheading">A decade of shipping infrastructure and building teams.</p>
+
+    <div class="space-y-12">
+      {cv.experience.map((employer) => (
+        <div class="bg-card rounded-2xl border border-border p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5 transition-all duration-300">
+          <!-- Company header -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-canvas border border-border flex items-center justify-center font-display font-bold text-sm text-ink">
+              {employer.company.charAt(0)}
+            </div>
+            {employer.url ? (
+              <a href={employer.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-ink hover:text-accent transition-colors text-lg">
+                {employer.company}
+              </a>
+            ) : (
+              <span class="font-semibold text-ink text-lg">{employer.company}</span>
+            )}
+          </div>
+
+          <!-- Roles -->
+          <div class="space-y-8">
+            {employer.roles.map((role) => (
+              <div class={`pl-5 border-l-2 ${role.end === null ? 'border-accent' : 'border-border'}`}>
+                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                  <h3 class="text-xl font-semibold text-ink">{role.title}</h3>
+                  {role.end === null && (
+                    <span class="text-xs font-semibold uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-full">Current</span>
+                  )}
+                  <span class="text-muted text-sm">
+                    {formatDate(role.start)} — {formatDate(role.end)}
+                  </span>
+                  <span class="text-muted/60 text-sm">· {role.location}</span>
+                </div>
+                <p class="text-muted mb-4 leading-relaxed">{role.description}</p>
+                <ul class="space-y-2">
+                  {role.highlights.map((h) => (
+                    <li class="flex items-start gap-2.5 text-ink/80 text-sm">
+                      <svg class="w-4 h-4 text-accent mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">Career</p>
+    <h2 class="section-heading">Work Experience</h2>
+    <p class="section-subheading">A decade of shipping infrastructure and building teams.</p>
+
+    <div class="space-y-16">
+      {cv.experience.map((employer) => (
+        <div>
+          <!-- Company header -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-brand-400 font-bold text-sm">
+              {employer.company.charAt(0)}
+            </div>
+            <div>
+              {employer.url ? (
+                <a href={employer.url} target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:text-brand-400 transition-colors">
+                  {employer.company}
+                </a>
+              ) : (
+                <span class="text-white font-semibold">{employer.company}</span>
+              )}
+            </div>
+          </div>
+
+          <!-- Roles timeline -->
+          <div class="ml-5 border-l border-slate-700/60 space-y-10">
+            {employer.roles.map((role) => (
+              <div class="relative pl-8">
+                <div class="timeline-dot"></div>
+                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                  <h3 class="text-xl font-semibold text-white">{role.title}</h3>
+                  <span class="text-slate-500 text-sm">
+                    {formatDate(role.start)} — {formatDate(role.end)}
+                  </span>
+                  <span class="text-slate-600 text-sm">· {role.location}</span>
+                </div>
+                <p class="text-slate-400 mb-4 leading-relaxed">{role.description}</p>
+                <ul class="space-y-2">
+                  {role.highlights.map((h) => (
+                    <li class="flex items-start gap-2 text-slate-300 text-sm">
+                      <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

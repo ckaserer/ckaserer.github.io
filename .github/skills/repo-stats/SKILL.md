@@ -1,6 +1,6 @@
 ---
 name: repo-stats
-description: Collects and displays repository statistics for ckaserer.github.io — file counts, lines of content by section and language, documentation coverage, and Git activity. Use when asked for repo statistics, content overview, page counts, or a quick health snapshot.
+description: Collects and displays repository statistics for ckaserer.github.io ΓÇö file counts, lines of content by section and language, documentation coverage, and Git activity. Use when asked for repo statistics, content overview, page counts, or a quick health snapshot.
 lastReviewed: 2026-05-12
 allowed-tools: ['powershell', 'view', 'ask_user']
 owner: '@ckaserer'
@@ -8,7 +8,7 @@ owner: '@ckaserer'
 
 # Repo Stats
 
-Collects a structured overview of the website repository. Read-only — no files are created or modified.
+Collects a structured overview of the website repository. Read-only ΓÇö no files are created or modified.
 
 ## Collect Stats
 
@@ -83,11 +83,11 @@ $branches = git branch -r | Where-Object { $_ -notmatch 'HEAD|gh-pages' }
 
 After collecting, highlight any of the following if noteworthy:
 
-- **Content imbalance** — sections with significantly fewer pages than others may indicate gaps
-- **Large `.md` files** — very long pages are better split; Docusaurus renders them all at once
-- **ADR coverage** — aim for at least one ADR per major structural decision (config, plugins, content strategy)
-- **Stale branches** — many remote branches with no recent commits suggest unmerged work or forgotten experiments
-- **i18n completeness** — if German translations exist for some sections but not others, flag it
+- **Content imbalance** ΓÇö sections with significantly fewer pages than others may indicate gaps
+- **Large `.md` files** ΓÇö very long pages are better split; Docusaurus renders them all at once
+- **ADR coverage** ΓÇö aim for at least one ADR per major structural decision (config, plugins, content strategy)
+- **Stale branches** ΓÇö many remote branches with no recent commits suggest unmerged work or forgotten experiments
+- **i18n completeness** ΓÇö if German translations exist for some sections but not others, flag it
 
 ## Output Format
 

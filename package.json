@@ -1,48 +1,28 @@
 {
-  "browserslist": {
-    "development": [
-      "last 3 chrome version",
-      "last 3 firefox version",
-      "last 5 safari version"
-    ],
-    "production": [
-      ">0.5%",
-      "not dead",
-      "not op_mini all"
-    ]
-  },
-  "dependencies": {
-    "@docusaurus/core": "3.9.1",
-    "@docusaurus/preset-classic": "3.9.1",
-    "@docusaurus/theme-mermaid": "^3.9.1",
-    "@mdx-js/react": "^3.0.0",
-    "clsx": "^2.0.0",
-    "prism-react-renderer": "^2.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
-  },
-  "devDependencies": {
-    "@docusaurus/module-type-aliases": "3.9.1",
-    "@docusaurus/tsconfig": "3.9.1",
-    "@docusaurus/types": "3.9.1",
-    "typescript": "~5.6.2"
-  },
+  "name": "ckaserer-dev",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
   "engines": {
     "node": ">=18.0"
   },
-  "name": "ckaserer-github-io",
-  "private": true,
   "scripts": {
-    "build": "docusaurus build",
-    "clear": "docusaurus clear",
-    "deploy": "docusaurus deploy",
-    "docusaurus": "docusaurus",
-    "serve": "docusaurus serve",
-    "start": "docusaurus start",
-    "swizzle": "docusaurus swizzle",
-    "typecheck": "tsc",
-    "write-heading-ids": "docusaurus write-heading-ids",
-    "write-translations": "docusaurus write-translations"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "typecheck": "astro check",
+    "generate-pdf": "node scripts/generate-cv-pdf.mjs",
+    "build:full": "npm run build && npm run generate-pdf"
   },
-  "version": "0.0.0"
+  "dependencies": {
+    "astro": "^5.7.13",
+    "@astrojs/tailwind": "^5.1.4",
+    "@astrojs/sitemap": "^3.2.1",
+    "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "@playwright/browser-chromium": "^1.49.1",
+    "playwright": "^1.49.1"
+  }
 }
