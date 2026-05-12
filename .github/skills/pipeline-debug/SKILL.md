@@ -20,7 +20,7 @@ Read-only diagnosis only. Never push commits, merge PRs, or modify workflow file
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
 | `.github/workflows/ci.yml` | `pull_request` to `main` | Validate the build (typecheck + `build:full`) |
-| `.github/workflows/deploy.yml` | `push` to `main`, `workflow_dispatch` | Build + OG image + CV PDF + deploy `dist/` to `gh-pages` |
+| `.github/workflows/deploy.yml` | `push` to `main`, `workflow_dispatch` | Build + OG image + CV PDF, upload Pages artifact, deploy via `actions/deploy-pages` |
 
 Both workflows share these steps in order:
 
@@ -32,7 +32,9 @@ Both workflows share these steps in order:
 6. `npm run typecheck` (CI) / `npm run build` (deploy)
 7. `node scripts/generate-og-image.mjs` (deploy) — needs `dist/`
 8. `node scripts/generate-cv-pdf.mjs` (deploy) — needs `dist/`
-9. (deploy only) `peaceiris/actions-gh-pages@v4` → push `./dist` to `gh-pages`
+9. (deploy only) `actions/upload-pages-artifact@v3` (build job) → `actions/deploy-pages@v4` (deploy job, `github-pages` environment)
+
+> Pages source: **GitHub Actions** (Settings → Pages). No `gh-pages` branch is used. CNAME is shipped via `public/CNAME`, which Astro copies to `dist/CNAME`.
 
 ## Step 1 — Identify the Failing Step
 
@@ -51,7 +53,7 @@ Or open the run URL in the browser and expand the failing step.
 | **JSON shape error** | `Unexpected token` while reading `cv.json` / null reference | §cv.json Errors |
 | **Playwright browser missing** | `browserType.launch: Executable doesn't exist` | §Playwright Errors |
 | **OG / PDF generation** | `Timeout` / `net::ERR_CONNECTION_REFUSED` from generator scripts | §OG & PDF Errors |
-| **Pages deploy failure** | `Error: Action failed with "not found"` from `peaceiris/actions-gh-pages` | §Deploy Errors |
+| **Pages deploy failure** | `Error: deployment_failed` from `actions/deploy-pages` | §Deploy Errors |
 | **Permissions** | `Permission denied` / `fatal: could not read Username` | §Permissions |
 
 ## §npm Errors
@@ -104,21 +106,22 @@ The generators spin up a static server against `dist/` then drive Chromium again
 | PDF generated but blank | Page CSS uses fonts that didn't load before snapshot | Generators wait for `networkidle`; if changed, restore that wait |
 | `cv.pdf` contains an email | Email reintroduced in `cv.json` or `cv.astro` | Remove; verify with `Select-String 'clemens\.kaserer' dist\cv.pdf` |
 
-## §Deploy Errors (`peaceiris/actions-gh-pages`)
+## §Deploy Errors (`actions/deploy-pages`)
 
 | Pattern | Cause | Fix |
 |---------|-------|-----|
-| `Action failed with "not found"` | `publish_dir: ./dist` doesn't exist — build step failed | Fix the build/generator step first |
-| `gh-pages` force-push rejected | Branch protection on `gh-pages` | Remove protection on `gh-pages` (it is a deploy artifact branch) |
-| CNAME missing after deploy | `cname:` removed from action config | Restore `cname: ckaserer.dev` in `deploy.yml` |
-| Concurrency cancellation | Two pushes in-flight; one cancels the other | Expected behaviour with `concurrency: pages-deploy` group; the latest push wins |
+| `Error: No artifact found` | `upload-pages-artifact` step failed or `dist/` missing | Fix the build/generator step first; ensure `path: ./dist` in the upload step |
+| `HttpError: Not Found` on deploy | Pages source not set to "GitHub Actions" | Settings → Pages → Source = "GitHub Actions" |
+| `id-token` permission error | Workflow missing `id-token: write` | Restore top-level `permissions:` block (`pages: write`, `id-token: write`) |
+| CNAME missing after deploy | `public/CNAME` removed | Restore `public/CNAME` containing `ckaserer.dev`; Astro copies it into `dist/` |
+| Concurrency cancellation | Two pushes in-flight | Expected with `concurrency: pages` group; the latest push wins (we use `cancel-in-progress: false` so deploys queue) |
 
 ## §Permissions
 
 | Symptom | Fix |
 |---------|-----|
-| `Permission denied` on `gh-pages` push | Settings → Actions → General → "Workflow permissions" → "Read and write permissions" |
-| `fatal: could not read Username` | Same as above — token lacks push access |
+| `id-token` / OIDC error | Workflow `permissions:` block must include `pages: write` and `id-token: write` |
+| Environment protection blocks deploy | Settings → Environments → `github-pages` → adjust required reviewers / branch rules |
 
 ## Quick Local Reproduction
 

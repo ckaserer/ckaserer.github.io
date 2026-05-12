@@ -16,7 +16,7 @@ lastReviewed: 2026-05-12
 - **Tailwind CSS 3** — utility-first styling; custom palette in `tailwind.config.mjs` (azure / navy / sky / canvas / surface / muted)
 - **`src/data/cv.json`** — single source of truth for all CV content (summary, experience, skills, certifications, education, contact handles)
 - **Playwright** — generates `cv.pdf` and `og-image.png` from rendered Astro pages
-- **GitHub Actions** — builds Astro, runs OG + PDF generation, deploys `dist/` to `gh-pages`
+- **GitHub Actions** — builds Astro, runs OG + PDF generation, uploads Pages artifact, deploys via `actions/deploy-pages` (no `gh-pages` branch)
 
 **Site sections (single-page):** Hero → About (with "How I work with AI" band) → StatsBar → Experience → Skills → Education → Contact → CvDownload → Footer
 
