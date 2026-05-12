@@ -2,7 +2,7 @@
 
 Personal portfolio & CV site — built with [Astro 5](https://astro.build/) + Tailwind, deployed to GitHub Pages with an auto-generated PDF CV.
 
-**Live:** [ckaserer.dev](https://ckaserer.dev) · **PDF:** [ckaserer.dev/cv.pdf](https://ckaserer.dev/cv.pdf)
+**Live:** [ckaserer.dev](https://ckaserer.dev) · **PDF:** [ckaserer.dev/clemens-kaserer-cv.pdf](https://ckaserer.dev/clemens-kaserer-cv.pdf)
 
 ## Stack
 - **Astro 5** static site generator
