@@ -3,8 +3,8 @@
   "initials": "CK",
   "title": "Manager · Cloud Engineering at Avanade",
   "photo": "/photo.jpg",
-  "tagline": "AI-augmented Azure delivery — Landing Zones, AKS/OpenShift, GitHub Copilot rollout. Latest project shipped at 3.2× the speed of a traditional engagement.",
-  "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones, AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery. Vienna, Austria.",
+  "tagline": "AI-augmented Azure delivery — Azure Landing Zones (CAF/ALZ), AKS/OpenShift, GitHub Copilot rollout. Latest project shipped at 3.2× the speed of a traditional engagement.",
+  "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones (CAF/ALZ), AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery. Vienna, Austria.",
   "location": "Vienna, Austria",
   "website": "https://ckaserer.dev",
   "github": "ckaserer",
@@ -104,8 +104,8 @@
   "skills": {
     "azurePlatform": [
       "Cloud Adoption Framework (CAF)",
-      "Azure Landing Zones",
-      "Sovereign Landing Zone",
+      "Azure Landing Zone (ALZ) Design",
+      "Sovereign Landing Zone (SLZ)",
       "Azure Policy & Governance",
       "Azure Networking",
       "Azure Monitor"
