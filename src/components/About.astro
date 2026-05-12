@@ -80,38 +80,39 @@ const aiPrinciples = [
             </div>
           </div>
         ))}
+      </div>
+    </div>
 
-        <!-- How I work with AI: principles card -->
-        <div class="reveal reveal-delay-4 relative bg-navy border border-navy rounded-2xl p-6 text-white shadow-azure overflow-hidden">
-          <!-- Subtle accent glow -->
-          <div class="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
-               style="background: radial-gradient(circle, rgba(80,230,255,0.18) 0%, transparent 65%); filter: blur(30px);"
-               aria-hidden="true"></div>
+    <!-- How I work with AI: full-width principles band -->
+    <div class="reveal mt-12 lg:mt-16 relative bg-navy border border-navy rounded-2xl p-8 md:p-10 text-white shadow-azure overflow-hidden">
+      <!-- Subtle accent glows -->
+      <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none"
+           style="background: radial-gradient(circle, rgba(80,230,255,0.18) 0%, transparent 65%); filter: blur(40px);"
+           aria-hidden="true"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full pointer-events-none"
+           style="background: radial-gradient(circle, rgba(0,120,212,0.22) 0%, transparent 65%); filter: blur(40px);"
+           aria-hidden="true"></div>
 
-          <div class="relative">
-            <div class="flex items-center gap-3 mb-4">
-              <div class="w-9 h-9 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
-                <svg class="w-4 h-4 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                </svg>
-              </div>
-              <h3 class="font-display font-bold text-white text-lg leading-tight">How I work with AI</h3>
-            </div>
-
-            <ul class="space-y-2.5">
-              {aiPrinciples.map((p) => (
-                <li class="flex items-start gap-2.5">
-                  <svg class="w-4 h-4 text-sky shrink-0 mt-1" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                  </svg>
-                  <span class="text-sm leading-snug">
-                    <span class="font-semibold text-white">{p.title}.</span>
-                    <span class="text-white/75"> {p.text}</span>
-                  </span>
-                </li>
-              ))}
-            </ul>
+      <div class="relative">
+        <div class="flex items-center gap-3 mb-6 md:mb-8">
+          <div class="w-10 h-10 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
           </div>
+          <h3 class="font-display font-bold text-white text-xl md:text-2xl leading-tight">How I work with AI</h3>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {aiPrinciples.map((p) => (
+            <div class="relative pl-7">
+              <svg class="w-5 h-5 text-sky absolute left-0 top-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              <h4 class="font-display font-bold text-white text-base mb-1.5 leading-tight">{p.title}</h4>
+              <p class="text-white/75 text-sm leading-relaxed">{p.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

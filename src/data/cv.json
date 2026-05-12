@@ -194,10 +194,16 @@
   ],
   "education": [
     {
-      "institution": "HTL — Höhere Technische Lehranstalt · Republic of Austria",
-      "degree": "Ingenieur (Ing.) — Information Technology, Network Infrastructure",
+      "institution": "Republic of Austria",
+      "degree": "Ingenieur (Ing.) — Information Technology",
       "start": "",
-      "end": "Awarded via HTL Matura"
+      "end": "Standesbezeichnung — earned via professional practice and qualifying exam"
+    },
+    {
+      "institution": "HTL — Höhere Technische Lehranstalt",
+      "degree": "Information Technology, Network Infrastructure",
+      "start": "",
+      "end": "Matura"
     }
   ],
   "highlight": {
