@@ -22,14 +22,17 @@ import cv from '../data/cv.json';
   </head>
   <body>
     <!-- Sticky nav -->
-    <nav class="fixed top-0 inset-x-0 z-50 bg-canvas/90 backdrop-blur-md border-b border-border/60 no-print" id="main-nav">
-      <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <span class="font-display font-bold text-ink text-sm tracking-wide">ckaserer.dev</span>
-        <div class="hidden sm:flex items-center gap-6 text-sm text-muted">
+    <nav class="fixed top-0 inset-x-0 z-50 bg-canvas/95 backdrop-blur-sm border-b border-border/60 no-print" id="main-nav">
+      <div class="max-w-7xl mx-auto px-8 md:px-20 h-14 flex items-center justify-between">
+        <span class="font-display font-bold text-ink text-sm">ckaserer.dev</span>
+        <div class="hidden sm:flex items-center gap-8 text-sm text-muted">
           <a href="#about"      class="hover:text-ink transition-colors">About</a>
           <a href="#experience" class="hover:text-ink transition-colors">Experience</a>
           <a href="#skills"     class="hover:text-ink transition-colors">Skills</a>
-          <a href="/cv.pdf" download class="px-4 py-1.5 rounded-lg bg-ink hover:bg-accent text-canvas text-xs font-semibold transition-all duration-300">
+          <a
+            href="/cv.pdf" download
+            class="px-4 py-1.5 rounded-lg bg-ink text-canvas text-xs font-semibold hover:bg-accent transition-all duration-300"
+          >
             Download CV
           </a>
         </div>
@@ -37,14 +40,14 @@ import cv from '../data/cv.json';
     </nav>
 
     <Hero />
-    <div class="reveal"><About /></div>
-    <div class="reveal reveal-delay-1"><Experience /></div>
-    <div class="reveal reveal-delay-1"><Skills /></div>
+    <About />
+    <Experience />
+    <Skills />
     <CvDownload />
     <Footer />
 
     <script>
-      // Scroll-reveal observer
+      // Scroll-reveal for .reveal elements
       const reveals = document.querySelectorAll<HTMLElement>('.reveal');
       const revealObserver = new IntersectionObserver(
         (entries) => {

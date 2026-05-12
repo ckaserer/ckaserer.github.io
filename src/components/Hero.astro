@@ -2,7 +2,89 @@
 import cv from '../data/cv.json';
 ---
 
-<header class="relative min-h-screen flex items-center justify-center bg-canvas overflow-hidden">
+<header class="relative min-h-screen flex flex-col bg-canvas overflow-hidden">
+  <!-- Parallax blobs -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div data-parallax="28" class="blob absolute top-[8%] left-[5%] w-[38rem] h-[38rem] rounded-full"
+         style="background: radial-gradient(circle, #C9663B1A 0%, transparent 65%); filter: blur(72px);"></div>
+    <div data-parallax="-18" class="blob absolute bottom-[8%] right-[5%] w-[32rem] h-[32rem] rounded-full"
+         style="background: radial-gradient(circle, #C9663B12 0%, transparent 65%); filter: blur(80px);"></div>
+    <div data-parallax="12" class="blob absolute top-[45%] right-[30%] w-[22rem] h-[22rem] rounded-full"
+         style="background: radial-gradient(circle, #11111008 0%, transparent 65%); filter: blur(40px);"></div>
+  </div>
+
+  <!-- Main content — centered vertically -->
+  <div class="relative z-10 flex-1 flex flex-col items-start justify-center px-8 md:px-20 max-w-7xl mx-auto w-full pt-20">
+    <!-- Label -->
+    <p class="section-label mb-6">Portfolio · Vienna, Austria</p>
+
+    <!-- Name — largest element on the page -->
+    <h1 class="font-display font-bold text-ink leading-[0.92] tracking-tight"
+        style="font-size: clamp(4.5rem, 13vw, 11rem);">
+      {cv.name.split(' ').map((word, i) => (
+        <span class="block">{word}</span>
+      ))}
+    </h1>
+
+    <!-- Terracotta rule + role -->
+    <div class="flex items-center gap-4 mt-8">
+      <div class="w-16 h-0.5 bg-accent shrink-0"></div>
+      <p class="text-muted font-medium text-lg md:text-xl">{cv.title}</p>
+    </div>
+
+    <!-- Tagline -->
+    <p class="mt-6 text-muted text-base md:text-lg leading-relaxed max-w-lg">
+      {cv.tagline}
+    </p>
+  </div>
+
+  <!-- CTAs — anchored to bottom -->
+  <div class="relative z-10 px-8 md:px-20 max-w-7xl mx-auto w-full pb-16 flex flex-wrap gap-4">
+    <a
+      href="/cv.pdf"
+      download
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-ink text-canvas font-semibold hover:bg-accent transition-all duration-300 hover:-translate-y-0.5 shadow-md hover:shadow-accent/20"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+      </svg>
+      Download CV
+    </a>
+    <a
+      href={`https://www.linkedin.com/in/${cv.linkedin}`}
+      target="_blank" rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-ink font-semibold hover:border-ink hover:-translate-y-0.5 transition-all duration-300"
+    >
+      LinkedIn
+    </a>
+    <a
+      href={`https://github.com/${cv.github}`}
+      target="_blank" rel="noopener noreferrer"
+      class="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border text-ink font-semibold hover:border-ink hover:-translate-y-0.5 transition-all duration-300"
+    >
+      GitHub
+    </a>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce opacity-30">
+    <svg class="w-5 h-5 text-ink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</header>
+
+<script>
+  const blobs = document.querySelectorAll<HTMLElement>('[data-parallax]');
+  document.addEventListener('mousemove', (e: MouseEvent) => {
+    const xF = (e.clientX / window.innerWidth - 0.5) * 2;
+    const yF = (e.clientY / window.innerHeight - 0.5) * 2;
+    blobs.forEach((b) => {
+      const d = parseFloat(b.dataset.parallax ?? '0');
+      b.style.transform = `translate(${xF * d}px, ${yF * d}px)`;
+    });
+  });
+</script>
   <!-- Parallax blob shapes -->
   <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
     <div
