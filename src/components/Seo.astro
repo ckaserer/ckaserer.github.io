@@ -15,17 +15,54 @@ const {
 
 import cv from '../data/cv.json';
 
+const workExperience = cv.experience.flatMap((employer) =>
+  employer.roles.map((role) => ({
+    '@type': 'OrganizationRole',
+    roleName: role.title,
+    startDate: role.start || undefined,
+    endDate: role.end || undefined,
+    memberOf: {
+      '@type': 'Organization',
+      name: employer.company,
+      url: employer.url || undefined,
+    },
+  }))
+);
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: cv.name,
   jobTitle: cv.title,
+  description: cv.summary,
   url: cv.website,
-  email: cv.email,
+  email: `mailto:${cv.email}`,
+  image: cv.photo ? `${cv.website}${cv.photo}` : undefined,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: cv.location,
+  },
+  worksFor: {
+    '@type': 'Organization',
+    name: cv.experience[0]?.company,
+    url: cv.experience[0]?.url || undefined,
+  },
+  alumniOf: cv.education.map((edu) => ({
+    '@type': 'EducationalOrganization',
+    name: edu.institution,
+    description: edu.degree,
+  })),
+  hasOccupation: workExperience,
+  hasCredential: cv.certifications.map((c) => ({
+    '@type': 'EducationalOccupationalCredential',
+    name: c.name,
+    credentialCategory: 'certification',
+    recognizedBy: { '@type': 'Organization', name: c.issuer },
+    dateCreated: String(c.year),
+  })),
   sameAs: [
     `https://github.com/${cv.github}`,
     `https://www.linkedin.com/in/${cv.linkedin}`,
-    `https://twitter.com/${cv.twitter}`,
   ],
   knowsAbout: Object.values(cv.skills).flat(),
 };
@@ -33,20 +70,26 @@ const jsonLd = {
 
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="theme-color" content="#0078D4" />
+<meta name="apple-mobile-web-app-title" content="ckaserer.dev" />
 <title>{title}</title>
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 
 <!-- Open Graph -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content="profile" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:site_name" content="ckaserer.dev" />
 <meta property="og:url" content={canonical} />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${cv.name} — ${cv.title}`} />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:site" content={`@${cv.twitter}`} />
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImage} />
@@ -60,4 +103,5 @@ const jsonLd = {
 <!-- Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+

@@ -4,24 +4,38 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        display: ['Syne', 'system-ui', 'sans-serif'],
-        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        display: ['Inter', 'system-ui', 'sans-serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
       },
       colors: {
         canvas:  '#FFFFFF',
-        surface: '#F5F5F5',
-        ink:     '#111110',
-        muted:   '#525251',
-        border:  '#E4E4E4',
+        surface: '#F0F4FF',
+        navy:    '#0A1628',
+        ink:     '#0A1628',
+        muted:   '#475569',
+        border:  '#E2E8F0',
         card:    '#FFFFFF',
-        accent: {
-          DEFAULT: '#C9663B',
-          light:   '#E07A4A',
-          dark:    '#A85230',
+        azure: {
+          DEFAULT: '#0078D4',
+          light:   '#2B9DEA',
+          dark:    '#005A9E',
+        },
+        sky: {
+          DEFAULT: '#50E6FF',
+          light:   '#8FF0FF',
         },
       },
-      fontSize: {
-        'display': ['clamp(4rem, 12vw, 11rem)', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
+      letterSpacing: {
+        tightest: '-0.045em',
+      },
+      backgroundImage: {
+        'gradient-azure': 'linear-gradient(135deg, #0078D4 0%, #50E6FF 100%)',
+        'gradient-navy':  'linear-gradient(135deg, #0A1628 0%, #0078D4 100%)',
+      },
+      boxShadow: {
+        'azure': '0 20px 60px -20px rgba(0, 120, 212, 0.4)',
+        'navy':  '0 20px 60px -20px rgba(10, 22, 40, 0.3)',
       },
     },
   },
