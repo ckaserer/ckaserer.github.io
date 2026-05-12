@@ -8,10 +8,10 @@
 import { chromium } from 'playwright';
 import { createServer } from 'http';
 import { readFile } from 'fs/promises';
-import { resolve, extname } from 'path';
+import { resolve as pathResolve, extname } from 'path';
 import { existsSync } from 'fs';
 
-const DIST_DIR = resolve(process.cwd(), 'dist');
+const DIST_DIR = pathResolve(process.cwd(), 'dist');
 const PORT = 4174;
 
 const MIME = {
@@ -29,10 +29,19 @@ const MIME = {
 function startServer() {
   return new Promise((resolve) => {
     const server = createServer(async (req, res) => {
-      let urlPath = req.url?.split('?')[0] ?? '/';
-      if (urlPath.endsWith('/')) urlPath += 'index.html';
+      // Guard: some browser requests (favicon, data: URLs) may have no url
+      if (!req.url) { res.writeHead(400); res.end(); return; }
 
-      const filePath = resolve(DIST_DIR, '.' + urlPath);
+      let urlPath = req.url.split('?')[0];
+
+      // Map directory-style paths (e.g. /cv, /cv/) → /cv/index.html
+      if (urlPath.endsWith('/')) {
+        urlPath += 'index.html';
+      } else if (!extname(urlPath)) {
+        urlPath += '/index.html';
+      }
+
+      const filePath = pathResolve(DIST_DIR, '.' + urlPath);
       const ext = extname(filePath);
 
       try {
@@ -42,7 +51,7 @@ function startServer() {
       } catch {
         // Try index.html fallback
         try {
-          const fallback = await readFile(resolve(DIST_DIR, 'index.html'));
+          const fallback = await readFile(pathResolve(DIST_DIR, 'index.html'));
           res.writeHead(200, { 'Content-Type': 'text/html' });
           res.end(fallback);
         } catch {
@@ -72,7 +81,7 @@ async function main() {
   try {
     await page.goto(`http://localhost:${PORT}/cv`, { waitUntil: 'networkidle' });
     await page.pdf({
-      path: resolve(DIST_DIR, 'cv.pdf'),
+      path: pathResolve(DIST_DIR, 'cv.pdf'),
       format: 'A4',
       printBackground: false,
       margin: { top: '1.5cm', right: '1.5cm', bottom: '1.5cm', left: '1.5cm' },
