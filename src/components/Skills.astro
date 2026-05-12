@@ -2,16 +2,60 @@
 import cv from '../data/cv.json';
 
 const categories = [
-  { key: 'cloud',    label: 'Cloud & Azure',    color: 'bg-blue-900/40 text-blue-300 border-blue-700/40' },
-  { key: 'iac',      label: 'Infrastructure as Code', color: 'bg-purple-900/40 text-purple-300 border-purple-700/40' },
-  { key: 'containers', label: 'Containers',     color: 'bg-cyan-900/40 text-cyan-300 border-cyan-700/40' },
-  { key: 'cicd',     label: 'CI/CD & Automation', color: 'bg-emerald-900/40 text-emerald-300 border-emerald-700/40' },
-  { key: 'languages', label: 'Languages',       color: 'bg-amber-900/40 text-amber-300 border-amber-700/40' },
-  { key: 'practices', label: 'Leadership',      color: 'bg-rose-900/40 text-rose-300 border-rose-700/40' },
+  { key: 'cloud',      label: 'Cloud & Azure' },
+  { key: 'iac',        label: 'Infrastructure as Code' },
+  { key: 'containers', label: 'Containers' },
+  { key: 'cicd',       label: 'CI/CD & Automation' },
+  { key: 'languages',  label: 'Languages' },
+  { key: 'practices',  label: 'Leadership' },
 ] as const;
 ---
 
-<section id="skills" class="py-24 bg-slate-900">
+<section id="skills" class="py-28 bg-card">
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="section-label">Expertise</p>
+    <h2 class="section-heading">Skills & Technologies</h2>
+    <p class="section-subheading">From Kubernetes clusters to team architecture — here's what I work with.</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {categories.map(({ key, label }) => {
+        const items = cv.skills[key as keyof typeof cv.skills] ?? [];
+        return (
+          <div class="bg-canvas rounded-2xl border border-border p-6 hover:-translate-y-1 hover:shadow-md hover:shadow-ink/5 transition-all duration-300">
+            <h3 class="font-semibold text-ink mb-4 text-sm uppercase tracking-wider">{label}</h3>
+            <div class="flex flex-wrap gap-2">
+              {items.map((skill) => (
+                <span class="inline-flex items-center px-2.5 py-1 rounded-lg bg-card border border-border text-ink/70 text-xs font-medium hover:border-accent hover:text-accent transition-colors duration-200">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Certifications -->
+    <div class="mt-14">
+      <h3 class="font-display font-bold text-ink text-xl mb-6">Certifications</h3>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {cv.certifications.map((cert) => (
+          <div class="bg-canvas border border-border rounded-xl p-4 flex items-start gap-3 hover:-translate-y-0.5 hover:shadow-md hover:shadow-ink/5 transition-all duration-300">
+            <div class="w-9 h-9 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0 mt-0.5">
+              <svg class="w-4 h-4 text-accent" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+            </div>
+            <div>
+              <div class="text-ink text-sm font-medium leading-snug">{cert.name}</div>
+              <div class="text-muted text-xs mt-1">{cert.issuer} · {cert.year}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
   <div class="max-w-5xl mx-auto px-6">
     <p class="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">Expertise</p>
     <h2 class="section-heading">Skills & Technologies</h2>

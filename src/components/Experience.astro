@@ -9,7 +9,62 @@ function formatDate(dateStr: string | null): string {
 }
 ---
 
-<section id="experience" class="py-24 bg-slate-950">
+<section id="experience" class="py-28 bg-canvas">
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="section-label">Career</p>
+    <h2 class="section-heading">Work Experience</h2>
+    <p class="section-subheading">A decade of shipping infrastructure and building teams.</p>
+
+    <div class="space-y-12">
+      {cv.experience.map((employer) => (
+        <div class="bg-card rounded-2xl border border-border p-8 hover:-translate-y-1 hover:shadow-lg hover:shadow-ink/5 transition-all duration-300">
+          <!-- Company header -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-xl bg-canvas border border-border flex items-center justify-center font-display font-bold text-sm text-ink">
+              {employer.company.charAt(0)}
+            </div>
+            {employer.url ? (
+              <a href={employer.url} target="_blank" rel="noopener noreferrer" class="font-semibold text-ink hover:text-accent transition-colors text-lg">
+                {employer.company}
+              </a>
+            ) : (
+              <span class="font-semibold text-ink text-lg">{employer.company}</span>
+            )}
+          </div>
+
+          <!-- Roles -->
+          <div class="space-y-8">
+            {employer.roles.map((role) => (
+              <div class={`pl-5 border-l-2 ${role.end === null ? 'border-accent' : 'border-border'}`}>
+                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                  <h3 class="text-xl font-semibold text-ink">{role.title}</h3>
+                  {role.end === null && (
+                    <span class="text-xs font-semibold uppercase tracking-wider text-accent bg-accent/10 px-2 py-0.5 rounded-full">Current</span>
+                  )}
+                  <span class="text-muted text-sm">
+                    {formatDate(role.start)} — {formatDate(role.end)}
+                  </span>
+                  <span class="text-muted/60 text-sm">· {role.location}</span>
+                </div>
+                <p class="text-muted mb-4 leading-relaxed">{role.description}</p>
+                <ul class="space-y-2">
+                  {role.highlights.map((h) => (
+                    <li class="flex items-start gap-2.5 text-ink/80 text-sm">
+                      <svg class="w-4 h-4 text-accent mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
   <div class="max-w-5xl mx-auto px-6">
     <p class="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">Career</p>
     <h2 class="section-heading">Work Experience</h2>
