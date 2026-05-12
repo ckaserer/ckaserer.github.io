@@ -1,0 +1,24 @@
+---
+import Seo from '../components/Seo.astro';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogImage?: string;
+  bodyClass?: string;
+}
+
+const { title, description, canonical, ogImage, bodyClass = '' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <Seo title={title} description={description} canonical={canonical} ogImage={ogImage} />
+  </head>
+  <body class={bodyClass}>
+    <slot />
+  </body>
+</html>

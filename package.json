@@ -13,7 +13,8 @@
     "preview": "astro preview",
     "typecheck": "astro check",
     "generate-pdf": "node scripts/generate-cv-pdf.mjs",
-    "build:full": "npm run build && npm run generate-pdf"
+    "generate-og": "node scripts/generate-og-image.mjs",
+    "build:full": "npm run build && npm run generate-og && npm run generate-pdf"
   },
   "dependencies": {
     "astro": "^5.7.13",

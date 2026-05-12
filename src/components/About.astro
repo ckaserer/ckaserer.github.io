@@ -1,136 +1,120 @@
 ---
 import cv from '../data/cv.json';
+
+const focusAreas = [
+  {
+    icon: 'team',
+    title: 'Engineering Leadership',
+    text: 'Building, growing, and steering cloud engineering teams; running architecture reviews and shaping delivery across enterprise accounts.',
+  },
+  {
+    icon: 'azure',
+    title: 'Azure Platform Design',
+    text: 'CAF and Sovereign Landing Zones, AKS / OpenShift platforms, Functions and Web Apps — engineered with standardization and automation as the foundation.',
+  },
+  {
+    icon: 'ai',
+    title: 'AI-Augmented Delivery',
+    text: 'GitHub Copilot rollout (compliance, licensing, enablement) and Claude Code in delivery — latest project landed at ~3.2× the speed of a traditional engagement.',
+  },
+];
+
+const aiPrinciples = [
+  { title: 'Spec-first',          text: 'Clear intent and acceptance criteria — not just clever prompts.' },
+  { title: 'Pair, never autopilot', text: 'AI accelerates engineers; humans stay on the critical path.' },
+  { title: 'Compliance from day one', text: 'Governance, licensing and data boundaries baked into the workflow.' },
+  { title: 'Measurable uplift',   text: 'Track delivery time and quality — replace gut feel with numbers.' },
+];
 ---
 
-<section id="about" class="relative min-h-screen flex flex-col justify-center bg-surface overflow-hidden py-24 px-8 md:px-20">
-  <!-- Decorative section number -->
-  <span class="section-num" aria-hidden="true">02</span>
+<section id="about" class="relative bg-canvas py-24 md:py-32 px-6 md:px-12 lg:px-16">
+  <div class="max-w-7xl mx-auto">
+    <p class="section-label mb-4">About</p>
+    <h2 class="section-heading mb-16 max-w-3xl">
+      Engineering leader, Azure architect, <span class="text-azure">AI-first</span> in delivery.
+    </h2>
 
-  <div class="relative z-10 max-w-7xl mx-auto w-full">
-    <p class="section-label">About me</p>
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <!-- Bio -->
-      <div>
-        <h2 class="section-heading mb-6">
-          Cloud Architect.<br />Engineering Leader.
-        </h2>
-        <p class="text-muted text-lg leading-relaxed">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+      <!-- Long-form summary -->
+      <div class="lg:col-span-7 reveal">
+        <p class="text-navy/85 text-lg md:text-xl leading-relaxed">
           {cv.summary}
         </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="#contact" class="inline-flex items-center gap-2 text-azure font-semibold hover:text-azure-dark transition-colors">
+            Get in touch
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
-      <!-- Stats with animated counters -->
-      <div class="grid grid-cols-2 gap-4">
-        <div class="reveal bg-canvas rounded-2xl border border-border p-6 hover:-translate-y-1 transition-transform duration-300">
-          <div class="font-display font-bold text-ink text-5xl mb-1 leading-none">
-            <span class="counter" data-count="8">0</span><span>+</span>
+      <!-- Focus area cards -->
+      <div class="lg:col-span-5 space-y-4">
+        {focusAreas.map((area, i) => (
+          <div class={`reveal reveal-delay-${i + 1} bg-canvas border border-border rounded-2xl p-6 hover:border-azure hover:shadow-azure transition-all duration-300 group`}>
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 rounded-xl bg-azure/10 border border-azure/20 flex items-center justify-center shrink-0 group-hover:bg-azure group-hover:border-azure transition-colors">
+                {area.icon === 'azure' && (
+                  <svg class="w-5 h-5 text-azure group-hover:text-white transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5.483 21.3h17.94L13.95 4.7l-3.018 8.51 5.14 6.124-10.589 1.965zM10.038 2.7H17.5L8.105 21.3H.51L10.038 2.7z"/>
+                  </svg>
+                )}
+                {area.icon === 'ai' && (
+                  <svg class="w-5 h-5 text-azure group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                )}
+                {area.icon === 'team' && (
+                  <svg class="w-5 h-5 text-azure group-hover:text-white transition-colors" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                  </svg>
+                )}
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-navy text-lg leading-tight mb-1.5">{area.title}</h3>
+                <p class="text-muted text-sm leading-relaxed">{area.text}</p>
+              </div>
+            </div>
           </div>
-          <div class="text-muted text-sm mt-2">Years in Cloud & DevOps</div>
-        </div>
-        <div class="reveal reveal-delay-1 bg-canvas rounded-2xl border border-border p-6 hover:-translate-y-1 transition-transform duration-300">
-          <div class="font-display font-bold text-ink text-5xl mb-1 leading-none">
-            <span class="counter" data-count="10">0</span><span>+</span>
+        ))}
+      </div>
+    </div>
+
+    <!-- How I work with AI: full-width principles band -->
+    <div class="reveal mt-12 lg:mt-16 relative bg-navy border border-navy rounded-2xl p-8 md:p-10 text-white shadow-azure overflow-hidden">
+      <!-- Subtle accent glows -->
+      <div class="absolute -top-20 -right-20 w-72 h-72 rounded-full pointer-events-none"
+           style="background: radial-gradient(circle, rgba(80,230,255,0.18) 0%, transparent 65%); filter: blur(40px);"
+           aria-hidden="true"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full pointer-events-none"
+           style="background: radial-gradient(circle, rgba(0,120,212,0.22) 0%, transparent 65%); filter: blur(40px);"
+           aria-hidden="true"></div>
+
+      <div class="relative">
+        <div class="flex items-center gap-3 mb-6 md:mb-8">
+          <div class="w-10 h-10 rounded-lg bg-white/10 border border-white/20 flex items-center justify-center">
+            <svg class="w-5 h-5 text-sky" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
           </div>
-          <div class="text-muted text-sm mt-2">Engineers led</div>
+          <h3 class="font-display font-bold text-white text-xl md:text-2xl leading-tight">How I work with AI</h3>
         </div>
-        <div class="reveal reveal-delay-2 bg-canvas rounded-2xl border border-border p-6 hover:-translate-y-1 transition-transform duration-300">
-          <div class="font-display font-bold text-accent text-4xl mb-1 leading-none">AKS</div>
-          <div class="text-muted text-sm mt-2">Primary container platform</div>
-        </div>
-        <div class="reveal reveal-delay-3 bg-canvas rounded-2xl border border-border p-6 hover:-translate-y-1 transition-transform duration-300">
-          <div class="font-display font-bold text-accent text-4xl mb-1 leading-none">Azure</div>
-          <div class="text-muted text-sm mt-2">Cloud platform of choice</div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {aiPrinciples.map((p) => (
+            <div class="relative pl-7">
+              <svg class="w-5 h-5 text-sky absolute left-0 top-0.5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+              </svg>
+              <h4 class="font-display font-bold text-white text-base mb-1.5 leading-tight">{p.title}</h4>
+              <p class="text-white/75 text-sm leading-relaxed">{p.text}</p>
+            </div>
+          ))}
         </div>
       </div>
     </div>
   </div>
 </section>
-
-<script>
-  const counters = document.querySelectorAll<HTMLElement>('.counter[data-count]');
-  const seen = new WeakSet<Element>();
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting || seen.has(entry.target)) return;
-      seen.add(entry.target);
-      const el = entry.target as HTMLElement;
-      const target = parseInt(el.dataset.count ?? '0', 10);
-      const start = performance.now();
-      const duration = 1400;
-      const tick = (now: number) => {
-        const p = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = String(Math.round(eased * target));
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    });
-  }, { threshold: 0.5 });
-  counters.forEach((el) => observer.observe(el));
-</script>
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="grid md:grid-cols-2 gap-16 items-center">
-      <!-- Bio -->
-      <div>
-        <p class="section-label">About me</p>
-        <h2 class="section-heading">Cloud Architect.<br />Engineering Leader.</h2>
-        <p class="text-muted text-lg leading-relaxed">
-          {cv.summary}
-        </p>
-      </div>
-
-      <!-- Stat cards with animated counters -->
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-canvas rounded-2xl p-6 border border-border hover:-translate-y-1 transition-transform duration-300">
-          <div class="text-4xl font-display font-bold text-ink mb-1">
-            <span class="counter" data-count="8">0</span><span>+</span>
-          </div>
-          <div class="text-muted text-sm">Years in Cloud & DevOps</div>
-        </div>
-        <div class="bg-canvas rounded-2xl p-6 border border-border hover:-translate-y-1 transition-transform duration-300">
-          <div class="text-4xl font-display font-bold text-ink mb-1">
-            <span class="counter" data-count="10">0</span><span>+</span>
-          </div>
-          <div class="text-muted text-sm">Engineers led</div>
-        </div>
-        <div class="bg-canvas rounded-2xl p-6 border border-border hover:-translate-y-1 transition-transform duration-300">
-          <div class="text-4xl font-display font-bold text-accent mb-1">AKS</div>
-          <div class="text-muted text-sm">Primary container platform</div>
-        </div>
-        <div class="bg-canvas rounded-2xl p-6 border border-border hover:-translate-y-1 transition-transform duration-300">
-          <div class="text-4xl font-display font-bold text-accent mb-1">Azure</div>
-          <div class="text-muted text-sm">Cloud platform of choice</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<script>
-  const counters = document.querySelectorAll<HTMLElement>('.counter[data-count]');
-  const seen = new WeakSet<Element>();
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting || seen.has(entry.target)) return;
-      seen.add(entry.target);
-      const el = entry.target as HTMLElement;
-      const target = parseInt(el.dataset.count ?? '0', 10);
-      const duration = 1400;
-      const startTime = performance.now();
-
-      const tick = (now: number) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        // ease-out cubic
-        const eased = 1 - Math.pow(1 - progress, 3);
-        el.textContent = String(Math.round(eased * target));
-        if (progress < 1) requestAnimationFrame(tick);
-      };
-
-      requestAnimationFrame(tick);
-    });
-  }, { threshold: 0.6 });
-
-  counters.forEach((el) => observer.observe(el));
-</script>

@@ -1,0 +1,81 @@
+---
+import cv from '../data/cv.json';
+const stats = [
+  { value: 10,   suffix: '+',  label: 'Years in Cloud & DevOps' },
+  { value: 3.2,  suffix: '×',  label: 'AI-augmented delivery speed', tooltip: 'Latest project: AI-augmented delivery vs. comparable traditional engagement', highlight: true, decimals: 1 },
+  { value: cv.certifications.length, suffix: '', label: 'Active Microsoft Certifications' },
+  { value: null, text: 'Azure', label: 'Cloud Platform of Choice' },
+];
+---
+
+<section class="relative bg-navy py-16 md:py-20 overflow-hidden">
+  <!-- Subtle azure glow -->
+  <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+    <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full"
+         style="background: radial-gradient(circle, rgba(0,120,212,0.25) 0%, transparent 70%); filter: blur(40px);"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full"
+         style="background: radial-gradient(circle, rgba(80,230,255,0.15) 0%, transparent 70%); filter: blur(40px);"></div>
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-6 md:px-12 lg:px-16">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+      {stats.map((stat, i) => (
+        <div class={`reveal reveal-delay-${i + 1} text-center md:text-left`}>
+          <div class="font-display font-black leading-none mb-3"
+               style="font-size: clamp(2.5rem, 5vw, 4rem);">
+            {stat.value !== null ? (
+              <>
+                <span
+                  class={`counter ${stat.highlight ? 'bg-gradient-to-r from-sky via-white to-sky bg-clip-text text-transparent' : 'bg-gradient-to-r from-sky to-white bg-clip-text text-transparent'}`}
+                  data-count={stat.value}
+                  data-decimals={stat.decimals ?? 0}
+                >0</span>
+                <span class="text-azure">{stat.suffix}</span>
+              </>
+            ) : (
+              <span class="bg-gradient-to-r from-sky to-white bg-clip-text text-transparent">{stat.text}</span>
+            )}
+          </div>
+          <div class="text-white/70 text-sm md:text-base font-medium leading-snug" title={stat.tooltip ?? ''}>{stat.label}</div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const counters = document.querySelectorAll<HTMLElement>('.counter[data-count]');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const seen = new WeakSet<Element>();
+
+  const setFinal = (el: HTMLElement) => {
+    const target = parseFloat(el.dataset.count ?? '0');
+    const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+    el.textContent = decimals > 0 ? target.toFixed(decimals) : String(Math.round(target));
+  };
+
+  if (prefersReduced) {
+    counters.forEach(setFinal);
+  } else {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting || seen.has(entry.target)) return;
+        seen.add(entry.target);
+        const el = entry.target as HTMLElement;
+        const target = parseFloat(el.dataset.count ?? '0');
+        const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+        const start = performance.now();
+        const duration = 1400;
+        const tick = (now: number) => {
+          const p = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3);
+          const v = eased * target;
+          el.textContent = decimals > 0 ? v.toFixed(decimals) : String(Math.round(v));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.5 });
+    counters.forEach((el) => observer.observe(el));
+  }
+</script>

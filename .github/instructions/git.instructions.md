@@ -30,7 +30,8 @@ These rules apply to every commit. Operational workflow lives in the `worktree-w
 | Push directly to `main` | PRs only |
 | `git push --force` without `--lease` | Use `--force-with-lease` |
 | Committing secrets or tokens | Permanent leak |
-| Opening a PR with a failing `npm run build` | Broken builds block the deploy |
+| Reintroducing an `email` / `mailto:` anywhere in the site or PDF | Privacy decision; CI fails the build if found |
+| Opening a PR with a failing `npm run build:full` | Broken builds block the deploy |
 
 ## Conventional Commits
 
@@ -51,6 +52,7 @@ Scope is optional; use `cv`, `hero`, `ci`, `config`, etc.
 
 1. Create a worktree from `origin/main` (see `worktree-workflow` skill)
 2. Verify `git branch --show-current` is not `main` before editing
-3. Run `npm run build` before committing
-4. Commit, push, open PR via `gh pr create` (see `open-pull-request` skill)
-5. Clean up worktree after merge
+3. Run `npm run build:full` before committing (build + OG image + CV PDF)
+4. If `cv.json` changed, run the email guardrail (see `worktree-workflow`)
+5. Commit, push, open PR via `gh pr create` (see `open-pull-request` skill)
+6. Clean up worktree after merge

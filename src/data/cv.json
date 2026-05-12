@@ -1,15 +1,16 @@
 {
   "name": "Clemens Kaserer",
   "initials": "CK",
-  "title": "Engineering Manager & Cloud Architect",
-  "tagline": "Turning complex infrastructure challenges into clean, automated solutions — containers, CI/CD, Azure, and the teams that build them.",
+  "title": "Manager · Cloud Engineering at Avanade",
+  "photo": "/photo.jpg",
+  "tagline": "AI-augmented Azure delivery — Landing Zones, AKS/OpenShift, GitHub Copilot rollout. Latest project shipped at 3.2× the speed of a traditional engagement.",
+  "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones, AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery. Vienna, Austria.",
   "location": "Vienna, Austria",
-  "email": "hello@ckaserer.dev",
   "website": "https://ckaserer.dev",
   "github": "ckaserer",
-  "linkedin": "clemens-kaserer",
+  "linkedin": "ckaserer",
   "twitter": "ckaserer",
-  "summary": "Experienced Engineering Manager and Cloud Architect with a strong hands-on background in Azure infrastructure, container platforms, and DevOps automation. Currently leading infrastructure and platform engineering teams at Avanade, helping enterprise clients modernise their cloud foundations. Passionate about CI/CD, Kubernetes, infrastructure-as-code, and building high-performing teams.",
+  "summary": "Cloud Engineering Manager at Avanade with a decade in Azure. I lead engineering teams, design Azure platforms — Landing Zones (CAF and Sovereign), AKS/OpenShift, Functions and Web Apps — and embed AI-augmented delivery on top. As one of the people responsible at Avanade for the GitHub Copilot rollout, I make AI tooling production-safe for enterprise teams. Latest project shipped at ~3.2× the speed of a traditional engagement.",
   "experience": [
     {
       "company": "Avanade",
@@ -17,92 +18,133 @@
       "url": "https://www.avanade.com",
       "roles": [
         {
-          "title": "Manager – Azure Infrastructure & Platform Engineering",
-          "start": "2023-01",
+          "title": "Manager — Cloud Engineering",
+          "start": "2023-12",
           "end": null,
-          "location": "Vienna, Austria (hybrid)",
-          "description": "Lead cross-functional teams delivering Azure Landing Zones, container platform modernisation, and DevOps automation for enterprise clients across the EEA. Responsible for technical direction, team development, and client engagement.",
+          "location": "Vienna, Austria",
+          "description": "Lead cloud engineering delivery for enterprise clients. One of the people responsible at Avanade for the GitHub Copilot programme — compliance, licensing, enablement.",
           "highlights": [
-            "Architected and delivered Azure Landing Zone implementations for financial services and public sector clients",
-            "Introduced trunk-based development and GitHub Copilot across project teams, reducing review cycle time significantly",
-            "Built and mentored a team of 10+ cloud engineers across Austria and the region"
+            "Lead Azure Landing Zone delivery (CAF, Sovereign LZ) for regulated clients",
+            "Own GitHub Copilot compliance, licensing and enablement at Avanade",
+            "Embed AI-augmented engineering in delivery — latest project at ~3.2× speed",
+            "Standardize AKS/OpenShift, Functions and Web Apps delivery on IaC + pipelines",
+            "Build the cloud engineering practice; mentor and run architecture reviews"
           ]
         },
         {
-          "title": "Senior Consultant – Cloud & DevOps",
-          "start": "2020-06",
-          "end": "2022-12",
+          "title": "Senior Consultant — Cloud Engineering",
+          "start": "2022-02",
+          "end": "2023-12",
           "location": "Vienna, Austria",
-          "description": "Delivered Azure infrastructure and DevOps transformation projects for enterprise clients. Specialised in Kubernetes, Terraform, and CI/CD pipeline design.",
+          "description": "Delivered Azure platform and DevOps transformation for enterprise clients.",
           "highlights": [
-            "Migrated on-premise workloads to AKS for a major Austrian retailer",
-            "Designed and implemented Terraform-based infrastructure automation for multi-environment deployments",
-            "Established GitOps workflows using Azure DevOps and GitHub Actions"
+            "Designed Azure Landing Zones (CAF) for regulated-industry clients",
+            "Built AKS platforms with Terraform/Bicep and GitOps delivery",
+            "Established trunk-based dev and pipeline-as-code (GitHub Actions, Azure DevOps)"
           ]
         }
       ]
     },
     {
-      "company": "Previous Experience",
+      "company": "Gepardec IT Services GmbH",
       "logo": "",
-      "url": null,
+      "url": "https://www.gepardec.com",
       "roles": [
         {
-          "title": "Cloud & DevOps Engineer",
-          "start": "2017-03",
-          "end": "2020-05",
+          "title": "Cloud Architect",
+          "start": "2019-10",
+          "end": "2022-02",
           "location": "Vienna, Austria",
-          "description": "Designed and operated container-based platforms and CI/CD pipelines for SaaS products. Built internal developer platforms on top of Kubernetes and OpenShift.",
+          "description": "Designed and operated container platforms and CI/CD for SaaS and enterprise customers.",
           "highlights": [
-            "Built and operated multi-tenant Kubernetes clusters for production SaaS workloads",
-            "Automated infrastructure provisioning reducing environment setup from days to minutes",
-            "Introduced GitOps principles and Helm-based deployments across product teams"
+            "Architected multi-tenant Kubernetes / OpenShift platforms for production",
+            "Automated provisioning with Terraform and Helm — environments in minutes, not days",
+            "Introduced GitOps and pipeline-driven delivery across product teams"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Accenture",
+      "logo": "",
+      "url": "https://www.accenture.com",
+      "roles": [
+        {
+          "title": "Cloud Analyst → Senior Cloud Analyst → Cloud Specialist",
+          "start": "2017-08",
+          "end": "2019-09",
+          "location": "Vienna, Austria",
+          "description": "Progressed from Cloud Analyst to Cloud Specialist delivering Azure platform and DevOps engagements across the DACH region.",
+          "highlights": [
+            "Led Azure migration and modernisation workstreams for enterprise clients",
+            "Designed Azure topologies and CI/CD on Azure Pipelines and ARM templates",
+            "Mentored junior cloud analysts on Azure fundamentals and DevOps practices"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "CERN",
+      "logo": "",
+      "url": "https://home.cern",
+      "roles": [
+        {
+          "title": "Technical Student (Internship) — System Administration",
+          "start": "2015-05",
+          "end": "2016-06",
+          "location": "Geneva, Switzerland",
+          "description": "Operated HPC clusters with RDMA 10 Gbit interconnects in support of research workloads.",
+          "highlights": [
+            "Puppetised an HPC cluster and built a job-performance feedback framework"
           ]
         }
       ]
     }
   ],
   "skills": {
-    "cloud": [
-      "Microsoft Azure",
-      "Azure Kubernetes Service (AKS)",
-      "Azure DevOps",
+    "azurePlatform": [
+      "Cloud Adoption Framework (CAF)",
       "Azure Landing Zones",
-      "ARM / Bicep",
-      "Azure Policy"
+      "Sovereign Landing Zone",
+      "Azure Policy & Governance",
+      "Azure Networking",
+      "Azure Monitor"
     ],
-    "iac": [
+    "cloudNative": [
+      "Azure Kubernetes Service (AKS)",
+      "OpenShift / ARO",
+      "Kubernetes",
+      "Azure Functions",
+      "Azure Web Apps",
+      "Azure Container Apps"
+    ],
+    "automation": [
       "Terraform",
       "Bicep",
-      "Helm",
-      "Kustomize"
-    ],
-    "containers": [
-      "Kubernetes",
-      "Docker",
-      "OpenShift / ARO",
-      "Container Apps",
-      "Helm"
-    ],
-    "cicd": [
       "GitHub Actions",
-      "Azure Pipelines",
+      "Azure DevOps",
+      "Helm",
       "GitOps",
-      "Trunk-based Development",
-      "GitHub Copilot"
-    ],
-    "languages": [
       "Python",
       "PowerShell",
-      "Bash",
-      "TypeScript",
-      "Go (learning)"
+      "Bash"
+    ],
+    "ai": [
+      "Spec-driven development",
+      "Agentic workflows",
+      "MCP (Model Context Protocol)",
+      "Prompt engineering for engineers",
+      "Copilot enablement at scale",
+      "AI governance & compliance",
+      "Claude Code"
     ],
     "practices": [
       "Engineering Management",
-      "Team Building",
+      "Mentoring & Coaching",
       "Architecture Reviews",
       "DevSecOps",
+      "Standardization",
+      "Client Engagement",
       "FinOps"
     ]
   },
@@ -110,31 +152,63 @@
     {
       "name": "Microsoft Certified: Azure Solutions Architect Expert",
       "issuer": "Microsoft",
-      "year": 2022
+      "year": 2025,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/869AD2929959E0BB?sharingId=55FE29056B9A8FEB"
     },
     {
       "name": "Microsoft Certified: DevOps Engineer Expert",
       "issuer": "Microsoft",
-      "year": 2021
+      "year": 2025,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/30BB17C37CF65205?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "Certified Kubernetes Administrator (CKA)",
-      "issuer": "CNCF",
-      "year": 2020
+      "name": "Microsoft Certified: Azure Network Engineer Associate",
+      "issuer": "Microsoft",
+      "year": 2023,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/1C18B84062558C4F?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "Microsoft Certified: Azure Administrator Associate",
+      "issuer": "Microsoft",
+      "year": 2023,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/EB89EF46DB31EF9D?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "GitHub Copilot",
+      "issuer": "GitHub",
+      "year": 2025,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/79AA2A84097D0365?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "GitHub Actions",
+      "issuer": "GitHub",
+      "year": 2026,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/CC52143922602F06?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "GitHub Foundations",
+      "issuer": "GitHub",
+      "year": 2025,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/25C12F2E47BE6C5B?sharingId=55FE29056B9A8FEB"
     }
   ],
   "education": [
     {
-      "institution": "Vienna University of Technology",
-      "degree": "Master of Science – Software Engineering & Internet Computing",
-      "start": "2013",
-      "end": "2016"
+      "institution": "Republic of Austria",
+      "degree": "Ingenieur (Ing.) — Information Technology",
+      "start": "",
+      "end": "Engineering title — earned via professional practice and qualifying exam"
     },
     {
-      "institution": "Vienna University of Technology",
-      "degree": "Bachelor of Science – Software & Information Engineering",
-      "start": "2010",
-      "end": "2013"
+      "institution": "HTL — Höhere Technische Lehranstalt",
+      "degree": "Information Technology, Network Infrastructure",
+      "start": "",
+      "end": "Matura"
     }
-  ]
+  ],
+  "highlight": {
+    "metric": "3.2×",
+    "label": "Delivery speed",
+    "context": "Latest project, AI-augmented vs. traditional"
+  }
 }
