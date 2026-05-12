@@ -125,57 +125,48 @@
     }
   ],
   "skills": {
-    "cloud": [
-      "Microsoft Azure",
+    "azurePlatform": [
       "Cloud Adoption Framework (CAF)",
       "Azure Landing Zones",
       "Sovereign Landing Zone",
-      "Azure Networking (VNet, ExpressRoute, Front Door, App Gateway)",
-      "Azure Functions",
-      "Azure Web Apps",
-      "Azure Container Apps",
       "Azure Policy & Governance",
+      "Azure Networking",
       "Azure Monitor"
     ],
-    "iac": [
-      "Terraform",
-      "Bicep",
-      "ARM Templates",
-      "Helm",
-      "Kustomize",
-      "Puppet"
-    ],
-    "containers": [
-      "Kubernetes",
+    "cloudNative": [
       "Azure Kubernetes Service (AKS)",
       "OpenShift / ARO",
-      "Docker",
-      "GitOps (Argo CD / Flux)"
+      "Kubernetes",
+      "Azure Functions",
+      "Azure Web Apps",
+      "Azure Container Apps"
     ],
-    "cicd": [
+    "iacCicd": [
+      "Terraform",
+      "Bicep",
       "GitHub Actions",
+      "Azure DevOps",
+      "Helm",
+      "GitOps (Argo CD)"
+    ],
+    "ai": [
       "GitHub Copilot (compliance & rollout)",
       "Claude Code",
-      "Azure DevOps / Pipelines",
-      "Trunk-Based Development",
-      "DevSecOps",
-      "Standardization & Automation"
+      "AI-Assisted Delivery",
+      "DevSecOps"
     ],
     "languages": [
       "Python",
       "PowerShell",
-      "Bash",
-      "TypeScript",
-      "Go (learning)"
+      "Bash"
     ],
     "practices": [
       "Cloud Engineering Management",
       "Team Building & Mentoring",
       "Architecture & Design Reviews",
-      "AI-Augmented Engineering",
       "Standardization & Automation",
-      "FinOps",
-      "Stakeholder & Client Engagement"
+      "Stakeholder & Client Engagement",
+      "FinOps"
     ]
   },
   "certifications": [
