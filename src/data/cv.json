@@ -1,0 +1,140 @@
+{
+  "name": "Clemens Kaserer",
+  "initials": "CK",
+  "title": "Engineering Manager & Cloud Architect",
+  "tagline": "Turning complex infrastructure challenges into clean, automated solutions — containers, CI/CD, Azure, and the teams that build them.",
+  "location": "Vienna, Austria",
+  "email": "hello@ckaserer.dev",
+  "website": "https://ckaserer.dev",
+  "github": "ckaserer",
+  "linkedin": "clemens-kaserer",
+  "twitter": "ckaserer",
+  "summary": "Experienced Engineering Manager and Cloud Architect with a strong hands-on background in Azure infrastructure, container platforms, and DevOps automation. Currently leading infrastructure and platform engineering teams at Avanade, helping enterprise clients modernise their cloud foundations. Passionate about CI/CD, Kubernetes, infrastructure-as-code, and building high-performing teams.",
+  "experience": [
+    {
+      "company": "Avanade",
+      "logo": "",
+      "url": "https://www.avanade.com",
+      "roles": [
+        {
+          "title": "Manager – Azure Infrastructure & Platform Engineering",
+          "start": "2023-01",
+          "end": null,
+          "location": "Vienna, Austria (hybrid)",
+          "description": "Lead cross-functional teams delivering Azure Landing Zones, container platform modernisation, and DevOps automation for enterprise clients across the EEA. Responsible for technical direction, team development, and client engagement.",
+          "highlights": [
+            "Architected and delivered Azure Landing Zone implementations for financial services and public sector clients",
+            "Introduced trunk-based development and GitHub Copilot across project teams, reducing review cycle time significantly",
+            "Built and mentored a team of 10+ cloud engineers across Austria and the region"
+          ]
+        },
+        {
+          "title": "Senior Consultant – Cloud & DevOps",
+          "start": "2020-06",
+          "end": "2022-12",
+          "location": "Vienna, Austria",
+          "description": "Delivered Azure infrastructure and DevOps transformation projects for enterprise clients. Specialised in Kubernetes, Terraform, and CI/CD pipeline design.",
+          "highlights": [
+            "Migrated on-premise workloads to AKS for a major Austrian retailer",
+            "Designed and implemented Terraform-based infrastructure automation for multi-environment deployments",
+            "Established GitOps workflows using Azure DevOps and GitHub Actions"
+          ]
+        }
+      ]
+    },
+    {
+      "company": "Previous Experience",
+      "logo": "",
+      "url": null,
+      "roles": [
+        {
+          "title": "Cloud & DevOps Engineer",
+          "start": "2017-03",
+          "end": "2020-05",
+          "location": "Vienna, Austria",
+          "description": "Designed and operated container-based platforms and CI/CD pipelines for SaaS products. Built internal developer platforms on top of Kubernetes and OpenShift.",
+          "highlights": [
+            "Built and operated multi-tenant Kubernetes clusters for production SaaS workloads",
+            "Automated infrastructure provisioning reducing environment setup from days to minutes",
+            "Introduced GitOps principles and Helm-based deployments across product teams"
+          ]
+        }
+      ]
+    }
+  ],
+  "skills": {
+    "cloud": [
+      "Microsoft Azure",
+      "Azure Kubernetes Service (AKS)",
+      "Azure DevOps",
+      "Azure Landing Zones",
+      "ARM / Bicep",
+      "Azure Policy"
+    ],
+    "iac": [
+      "Terraform",
+      "Bicep",
+      "Helm",
+      "Kustomize"
+    ],
+    "containers": [
+      "Kubernetes",
+      "Docker",
+      "OpenShift / ARO",
+      "Container Apps",
+      "Helm"
+    ],
+    "cicd": [
+      "GitHub Actions",
+      "Azure Pipelines",
+      "GitOps",
+      "Trunk-based Development",
+      "GitHub Copilot"
+    ],
+    "languages": [
+      "Python",
+      "PowerShell",
+      "Bash",
+      "TypeScript",
+      "Go (learning)"
+    ],
+    "practices": [
+      "Engineering Management",
+      "Team Building",
+      "Architecture Reviews",
+      "DevSecOps",
+      "FinOps"
+    ]
+  },
+  "certifications": [
+    {
+      "name": "Microsoft Certified: Azure Solutions Architect Expert",
+      "issuer": "Microsoft",
+      "year": 2022
+    },
+    {
+      "name": "Microsoft Certified: DevOps Engineer Expert",
+      "issuer": "Microsoft",
+      "year": 2021
+    },
+    {
+      "name": "Certified Kubernetes Administrator (CKA)",
+      "issuer": "CNCF",
+      "year": 2020
+    }
+  ],
+  "education": [
+    {
+      "institution": "Vienna University of Technology",
+      "degree": "Master of Science – Software Engineering & Internet Computing",
+      "start": "2013",
+      "end": "2016"
+    },
+    {
+      "institution": "Vienna University of Technology",
+      "degree": "Bachelor of Science – Software & Information Engineering",
+      "start": "2010",
+      "end": "2013"
+    }
+  ]
+}

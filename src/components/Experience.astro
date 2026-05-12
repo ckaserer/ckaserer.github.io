@@ -1,0 +1,67 @@
+---
+import cv from '../data/cv.json';
+
+function formatDate(dateStr: string | null): string {
+  if (!dateStr) return 'Present';
+  const [year, month] = dateStr.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1);
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+}
+---
+
+<section id="experience" class="py-24 bg-slate-950">
+  <div class="max-w-5xl mx-auto px-6">
+    <p class="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">Career</p>
+    <h2 class="section-heading">Work Experience</h2>
+    <p class="section-subheading">A decade of shipping infrastructure and building teams.</p>
+
+    <div class="space-y-16">
+      {cv.experience.map((employer) => (
+        <div>
+          <!-- Company header -->
+          <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-brand-400 font-bold text-sm">
+              {employer.company.charAt(0)}
+            </div>
+            <div>
+              {employer.url ? (
+                <a href={employer.url} target="_blank" rel="noopener noreferrer" class="text-white font-semibold hover:text-brand-400 transition-colors">
+                  {employer.company}
+                </a>
+              ) : (
+                <span class="text-white font-semibold">{employer.company}</span>
+              )}
+            </div>
+          </div>
+
+          <!-- Roles timeline -->
+          <div class="ml-5 border-l border-slate-700/60 space-y-10">
+            {employer.roles.map((role) => (
+              <div class="relative pl-8">
+                <div class="timeline-dot"></div>
+                <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1 mb-2">
+                  <h3 class="text-xl font-semibold text-white">{role.title}</h3>
+                  <span class="text-slate-500 text-sm">
+                    {formatDate(role.start)} — {formatDate(role.end)}
+                  </span>
+                  <span class="text-slate-600 text-sm">· {role.location}</span>
+                </div>
+                <p class="text-slate-400 mb-4 leading-relaxed">{role.description}</p>
+                <ul class="space-y-2">
+                  {role.highlights.map((h) => (
+                    <li class="flex items-start gap-2 text-slate-300 text-sm">
+                      <svg class="w-4 h-4 text-brand-500 mt-0.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                      </svg>
+                      {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

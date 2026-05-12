@@ -1,0 +1,36 @@
+---
+import cv from '../data/cv.json';
+---
+
+<section id="about" class="py-24 bg-slate-900">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p class="text-brand-400 text-sm font-semibold uppercase tracking-widest mb-3">About me</p>
+        <h2 class="section-heading">Cloud Architect.<br />Engineering Leader.</h2>
+        <p class="text-slate-300 text-lg leading-relaxed">
+          {cv.summary}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5">
+          <div class="text-3xl font-bold text-brand-400 mb-1">8+</div>
+          <div class="text-slate-400 text-sm">Years in Cloud & DevOps</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5">
+          <div class="text-3xl font-bold text-brand-400 mb-1">10+</div>
+          <div class="text-slate-400 text-sm">Engineers led at Avanade</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5">
+          <div class="text-3xl font-bold text-brand-400 mb-1">AKS</div>
+          <div class="text-slate-400 text-sm">Primary container platform</div>
+        </div>
+        <div class="bg-slate-800/60 border border-slate-700/50 rounded-xl p-5">
+          <div class="text-3xl font-bold text-brand-400 mb-1">Azure</div>
+          <div class="text-slate-400 text-sm">Cloud platform of choice</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

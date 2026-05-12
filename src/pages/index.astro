@@ -1,0 +1,45 @@
+---
+import Seo from '../components/Seo.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Experience from '../components/Experience.astro';
+import Skills from '../components/Skills.astro';
+import CvDownload from '../components/CvDownload.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+import cv from '../data/cv.json';
+---
+
+<!doctype html>
+<html lang="en" class="dark">
+  <head>
+    <Seo
+      title={`${cv.name} — ${cv.title}`}
+      description={`Personal website of ${cv.name}. ${cv.tagline}`}
+      canonical="https://ckaserer.dev"
+    />
+  </head>
+  <body>
+    <nav class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800/50 no-print">
+      <div class="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
+        <span class="text-white font-semibold text-sm tracking-wide">ckaserer.dev</span>
+        <div class="hidden sm:flex items-center gap-6 text-sm text-slate-400">
+          <a href="#about"      class="hover:text-white transition-colors">About</a>
+          <a href="#experience" class="hover:text-white transition-colors">Experience</a>
+          <a href="#skills"     class="hover:text-white transition-colors">Skills</a>
+          <a href="/cv.pdf" download class="px-4 py-1.5 rounded-lg bg-brand-600 hover:bg-brand-500 text-white transition-colors text-xs font-semibold">
+            Download CV
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <Hero />
+    <About />
+    <Experience />
+    <Skills />
+    <CvDownload />
+    <Footer />
+  </body>
+</html>

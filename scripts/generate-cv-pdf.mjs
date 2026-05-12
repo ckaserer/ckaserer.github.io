@@ -1,0 +1,90 @@
+/**
+ * Generates cv.pdf from the /cv page of the built Astro site.
+ * Run after `astro build` — expects the dist/ folder to exist.
+ *
+ * Usage: node scripts/generate-cv-pdf.mjs
+ */
+
+import { chromium } from 'playwright';
+import { createServer } from 'http';
+import { readFile } from 'fs/promises';
+import { resolve, extname } from 'path';
+import { existsSync } from 'fs';
+
+const DIST_DIR = resolve(process.cwd(), 'dist');
+const PORT = 4174;
+
+const MIME = {
+  '.html': 'text/html',
+  '.css':  'text/css',
+  '.js':   'application/javascript',
+  '.svg':  'image/svg+xml',
+  '.png':  'image/png',
+  '.ico':  'image/x-icon',
+  '.txt':  'text/plain',
+  '.xml':  'application/xml',
+};
+
+/** Minimal static file server for the dist/ output */
+function startServer() {
+  return new Promise((resolve) => {
+    const server = createServer(async (req, res) => {
+      let urlPath = req.url?.split('?')[0] ?? '/';
+      if (urlPath.endsWith('/')) urlPath += 'index.html';
+
+      const filePath = resolve(DIST_DIR, '.' + urlPath);
+      const ext = extname(filePath);
+
+      try {
+        const data = await readFile(filePath);
+        res.writeHead(200, { 'Content-Type': MIME[ext] ?? 'application/octet-stream' });
+        res.end(data);
+      } catch {
+        // Try index.html fallback
+        try {
+          const fallback = await readFile(resolve(DIST_DIR, 'index.html'));
+          res.writeHead(200, { 'Content-Type': 'text/html' });
+          res.end(fallback);
+        } catch {
+          res.writeHead(404);
+          res.end('Not found');
+        }
+      }
+    });
+
+    server.listen(PORT, () => {
+      console.log(`Static server running on http://localhost:${PORT}`);
+      resolve(server);
+    });
+  });
+}
+
+async function main() {
+  if (!existsSync(DIST_DIR)) {
+    console.error('dist/ not found — run `npm run build` first');
+    process.exit(1);
+  }
+
+  const server = await startServer();
+  const browser = await chromium.launch();
+  const page = await browser.newPage();
+
+  try {
+    await page.goto(`http://localhost:${PORT}/cv`, { waitUntil: 'networkidle' });
+    await page.pdf({
+      path: resolve(DIST_DIR, 'cv.pdf'),
+      format: 'A4',
+      printBackground: false,
+      margin: { top: '1.5cm', right: '1.5cm', bottom: '1.5cm', left: '1.5cm' },
+    });
+    console.log('✅ cv.pdf generated at dist/cv.pdf');
+  } finally {
+    await browser.close();
+    server.close();
+  }
+}
+
+main().catch((err) => {
+  console.error('PDF generation failed:', err);
+  process.exit(1);
+});
