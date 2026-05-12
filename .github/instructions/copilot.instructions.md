@@ -15,7 +15,7 @@ lastReviewed: 2026-05-12
 - **Astro 5** — static site generator, zero JS by default, SEO-first
 - **Tailwind CSS 3** — utility-first styling; custom palette in `tailwind.config.mjs` (azure / navy / sky / canvas / surface / muted)
 - **`src/data/cv.json`** — single source of truth for all CV content (summary, experience, skills, certifications, education, contact handles)
-- **Playwright** — generates `cv.pdf` and `og-image.png` from rendered Astro pages
+- **Playwright** — generates `clemens-kaserer-cv.pdf` and `og-image.png` from rendered Astro pages
 - **GitHub Actions** — builds Astro, runs OG + PDF generation, uploads Pages artifact, deploys via `actions/deploy-pages` (no `gh-pages` branch)
 
 **Site sections (single-page):** Hero → About (with "How I work with AI" band) → StatsBar → Experience → Skills → Education → Contact → CvDownload → Footer
@@ -23,11 +23,11 @@ lastReviewed: 2026-05-12
 **Key files:**
 - `src/data/cv.json` — edit this to update any CV content
 - `src/pages/index.astro` — main landing page (composes the section components)
-- `src/pages/cv.astro` — print-optimised page used by Playwright to generate `cv.pdf` (`noindex`, excluded from sitemap)
+- `src/pages/cv.astro` — print-optimised page used by Playwright to generate `clemens-kaserer-cv.pdf` (`noindex`, excluded from sitemap)
 - `src/pages/og.astro` — 1200×630 page used by Playwright to render `og-image.png` (`noindex`, excluded from sitemap)
 - `src/components/` — Hero, About, StatsBar, Experience, Skills, Education, Contact, CvDownload, Footer, Seo
 - `src/components/Seo.astro` — meta tags, Open Graph, Twitter card, Person + ContactPoint JSON-LD
-- `scripts/generate-cv-pdf.mjs` — Playwright PDF generator (writes `dist/cv.pdf`)
+- `scripts/generate-cv-pdf.mjs` — Playwright PDF generator (writes `dist/clemens-kaserer-cv.pdf`)
 - `scripts/generate-og-image.mjs` — Playwright PNG snapshot (writes `public/og-image.png` AND `dist/og-image.png`)
 - `astro.config.mjs` — sitemap config (filters out `/og` and `/cv`)
 - `public/robots.txt` — disallows `/og` and `/cv`; points to `/sitemap-index.xml`

@@ -59,7 +59,7 @@ $adrs = Get-ChildItem docs\adr -Filter '????-*.md' -ErrorAction SilentlyContinue
 ```powershell
 if (Test-Path dist) {
     "dist/ HTML pages: $((Get-ChildItem dist -Recurse -Filter '*.html').Count)"
-    "cv.pdf:           $([math]::Round((Get-Item dist\cv.pdf).Length / 1KB, 1)) KB"
+    "clemens-kaserer-cv.pdf: $([math]::Round((Get-Item dist\clemens-kaserer-cv.pdf).Length / 1KB, 1)) KB"
     "og-image.png:     $([math]::Round((Get-Item dist\og-image.png).Length / 1KB, 1)) KB"
     "Total dist size:  $([math]::Round(((Get-ChildItem dist -Recurse | Measure-Object -Property Length -Sum).Sum) / 1KB, 1)) KB"
 } else {
@@ -112,7 +112,7 @@ After collecting, highlight any of the following if noteworthy:
 - **metaDescription > 160 chars** — Google truncates SERP descriptions
 - **Email leak** — any match in §Privacy Guardrail is a release blocker
 - **Stale branches** — many remote branches with no recent commits suggest unmerged work
-- **`cv.pdf` > ~250 KB** — likely an unintended image or font issue
+- **`clemens-kaserer-cv.pdf` > ~250 KB** — likely an unintended image or font issue
 - **ADR coverage** — at least one ADR per major structural decision (framework, deploy target, design system)
 
 ## Output Format

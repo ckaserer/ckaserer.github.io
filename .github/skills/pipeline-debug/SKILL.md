@@ -104,7 +104,7 @@ The generators spin up a static server against `dist/` then drive Chromium again
 | `net::ERR_CONNECTION_REFUSED` | Static server didn't start (build failed) | Fix the build first; `dist/` must exist |
 | `TimeoutError: page.goto` | `/cv` or `/og` route missing or 500-ing | Verify `src/pages/cv.astro` and `src/pages/og.astro` build correctly |
 | PDF generated but blank | Page CSS uses fonts that didn't load before snapshot | Generators wait for `networkidle`; if changed, restore that wait |
-| `cv.pdf` contains an email | Email reintroduced in `cv.json` or `cv.astro` | Remove; verify with `Select-String 'clemens\.kaserer' dist\cv.pdf` |
+| `clemens-kaserer-cv.pdf` contains an email | Email reintroduced in `cv.json` or `cv.astro` | Remove; verify with `Select-String 'clemens\.kaserer' dist\clemens-kaserer-cv.pdf` |
 
 ## §Deploy Errors (`actions/deploy-pages`)
 

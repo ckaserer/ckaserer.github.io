@@ -118,7 +118,7 @@ npm run build:full
 This must complete without errors. Three things run:
 1. `astro build` → `dist/` (TS + JSON shape errors surface here)
 2. `node scripts/generate-og-image.mjs` → renders `/og` to `dist/og-image.png`
-3. `node scripts/generate-cv-pdf.mjs` → renders `/cv` to `dist/cv.pdf`
+3. `node scripts/generate-cv-pdf.mjs` → renders `/cv` to `dist/clemens-kaserer-cv.pdf`
 
 If it fails:
 - `cv.json` must be valid JSON — check for trailing commas or unclosed strings
@@ -129,7 +129,7 @@ If it fails:
 ### Step 4 — Verify the PDF
 
 ```powershell
-Start-Process .\dist\cv.pdf
+Start-Process .\dist\clemens-kaserer-cv.pdf
 ```
 
 Sanity-check: name in header, all roles present, no orphan section breaks, no email anywhere.
@@ -154,7 +154,7 @@ Use the `worktree-workflow` skill. Suggested commit prefixes:
 | Schema or component restructure with content | `refactor(cv): …` |
 | New section or capability | `feat(cv): …` |
 
-After the PR merges to `main`, GitHub Actions rebuilds and regenerates `cv.pdf` and `og-image.png`.
+After the PR merges to `main`, GitHub Actions rebuilds and regenerates `clemens-kaserer-cv.pdf` and `og-image.png`.
 
 ## Things to Avoid
 

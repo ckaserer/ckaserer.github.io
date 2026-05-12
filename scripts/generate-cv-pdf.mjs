@@ -99,7 +99,7 @@ async function main() {
   try {
     await page.goto(`http://localhost:${PORT}/cv`, { waitUntil: 'networkidle' });
     await page.pdf({
-      path: pathResolve(DIST_DIR, 'cv.pdf'),
+      path: pathResolve(DIST_DIR, 'clemens-kaserer-cv.pdf'),
       format: 'A4',
       printBackground: false,
       displayHeaderFooter: true,
@@ -107,7 +107,7 @@ async function main() {
       footerTemplate,
       margin: { top: '18mm', right: '14mm', bottom: '16mm', left: '14mm' },
     });
-    console.log('✅ cv.pdf generated at dist/cv.pdf');
+    console.log('✅ clemens-kaserer-cv.pdf generated at dist/clemens-kaserer-cv.pdf');
   } finally {
     await browser.close();
     server.close();

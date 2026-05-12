@@ -8,6 +8,6 @@ Allow: /
 # Internal utility pages — excluded from search results.
 # Both carry <meta name="robots" content="noindex"> as well.
 Disallow: /og/   # OG image source page (not a user-facing page)
-Disallow: /cv/   # Print-optimised CV page (downloadable PDF is at /cv.pdf)
+Disallow: /cv/   # Print-optimised CV page (downloadable PDF is at /clemens-kaserer-cv.pdf)
 
 Sitemap: https://ckaserer.dev/sitemap-index.xml
