@@ -40,8 +40,7 @@ const skillGroups = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
-      @page { size: A4; margin: 14mm 14mm 15mm 14mm; }
-      @media print { a { color: #0078D4 !important; text-decoration: none; } }
+      /* ─── Reset & shared vars ─────────────────────────────── */
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
@@ -51,164 +50,304 @@ const skillGroups = [
         --dim:     #64748B;
         --rule:    #E2E8F0;
         --accent:  #0078D4;
-        --accent2: #e8f3fc;
+        --accent2: #dbeeff;
       }
 
       body {
         font-family: 'Inter', sans-serif;
         color: var(--ink);
-        background: white;
-        font-size: 9.5pt;
-        line-height: 1.55;
         font-feature-settings: 'cv11', 'ss01';
       }
 
-      /* ── Two-column grid (reused both pages) ── */
+      /* ─── Shared structural ───────────────────────────────── */
       .page {
         display: grid;
-        grid-template-columns: 62mm 1fr;
-        gap: 9mm;
         align-items: start;
       }
-      .page-2 {
-        page-break-before: always;
-        break-before: page;
-      }
-
-      /* ── Sidebar shared ── */
-      .sidebar { padding-right: 7mm; border-right: 1px solid var(--rule); }
-
-      .sb-block { margin-bottom: 1.35rem; }
-      .sb-block:last-child { margin-bottom: 0; }
-
+      .sidebar { border-right: 1px solid var(--rule); }
+      .sb-block { }
       .sb-head {
-        font-size: 0.68rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--accent);
-        margin-bottom: 0.55rem;
         display: block;
       }
-
-      /* Photo */
       .photo-wrap {
         width: 100%;
         aspect-ratio: 1/1;
         border-radius: 12px;
         overflow: hidden;
         border: 2px solid var(--accent);
-        margin-bottom: 1.25rem;
       }
       .photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-      /* Contact */
-      .contact-list { list-style: none; font-size: 0.79rem; }
-      .contact-list li { margin-bottom: 0.3rem; color: var(--muted); line-height: 1.4; word-break: break-word; }
+      .contact-list { list-style: none; }
+      .contact-list li { color: var(--muted); line-height: 1.45; word-break: break-word; }
       .contact-list a { color: var(--accent); font-weight: 500; text-decoration: none; }
-
-      /* Certs */
-      .cert { margin-bottom: 0.48rem; page-break-inside: avoid; }
-      .cert:last-child { margin-bottom: 0; }
-      .cert-name { font-size: 0.77rem; font-weight: 600; display: block; line-height: 1.3; color: var(--ink); text-decoration: none; }
+      .cert { page-break-inside: avoid; }
+      .cert-name { font-weight: 600; display: block; line-height: 1.3; color: var(--ink); text-decoration: none; }
       a.cert-name { color: var(--accent); }
-      .cert-meta { font-size: 0.69rem; color: var(--dim); margin-top: 0.04rem; }
-
-      /* Education */
-      .edu { margin-bottom: 0.55rem; page-break-inside: avoid; }
-      .edu:last-child { margin-bottom: 0; }
-      .edu-degree { font-size: 0.8rem; font-weight: 700; color: var(--ink); line-height: 1.25; }
-      .edu-inst   { font-size: 0.73rem; color: var(--accent); font-weight: 600; margin-top: 0.05rem; }
-      .edu-meta   { font-size: 0.69rem; color: var(--dim); }
-
-      /* Skills (sidebar chips — page 2) */
-      .skill-cluster { margin-bottom: 0.8rem; page-break-inside: avoid; }
-      .skill-cluster:last-child { margin-bottom: 0; }
-      .cluster-label {
-        font-size: 0.72rem;
-        font-weight: 700;
-        color: var(--ink);
-        margin-bottom: 0.32rem;
-        display: block;
-      }
-      .chips { display: flex; flex-wrap: wrap; gap: 0.28rem; }
+      .cert-meta { color: var(--dim); }
+      .edu { page-break-inside: avoid; }
+      .edu-degree { font-weight: 700; color: var(--ink); line-height: 1.25; }
+      .edu-inst   { color: var(--accent); font-weight: 600; }
+      .edu-meta   { color: var(--dim); }
+      .skill-cluster { page-break-inside: avoid; }
+      .cluster-label { font-weight: 700; color: var(--ink); display: block; }
+      .chips { display: flex; flex-wrap: wrap; }
       .chip {
-        font-size: 0.71rem;
         font-weight: 500;
         color: var(--soft);
         background: var(--accent2);
         border: 1px solid #b8d9f5;
         border-radius: 999px;
-        padding: 0.1rem 0.48rem 0.12rem;
-        line-height: 1.3;
         white-space: nowrap;
       }
-
-      /* ── Main column ── */
       .main { min-width: 0; }
-
-      /* Identity (page 1 only) */
       .identity {
-        padding-bottom: 0.7rem;
         border-bottom: 3px solid var(--accent);
-        margin-bottom: 0.95rem;
       }
       h1 {
-        font-size: 1.9rem;
         font-weight: 800;
         color: var(--ink);
         letter-spacing: -0.02em;
         line-height: 1.1;
-        margin-bottom: 0.15rem;
       }
-      .job-title { color: var(--accent); font-size: 1rem; font-weight: 600; }
-
-      /* Section heading */
+      .job-title { color: var(--accent); font-weight: 600; }
       .section-head {
-        font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--accent);
-        margin: 0 0 0.55rem;
         display: block;
       }
-      .section-wrap { margin-bottom: 1rem; }
-      .section-wrap:last-child { margin-bottom: 0; }
-
-      /* Profile */
-      .summary { color: var(--muted); font-size: 0.9rem; line-height: 1.6; }
-
-      /* Roles */
-      .role { margin-bottom: 0.95rem; }
-      .role:last-child { margin-bottom: 0; }
+      .section-wrap { }
+      .summary { color: var(--muted); line-height: 1.6; }
+      .role { }
       .role-top {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
         gap: 0.5rem;
       }
-      .role-top h3 { font-size: 0.96rem; font-weight: 700; color: var(--ink); }
-      .role-date { font-size: 0.77rem; color: var(--dim); font-weight: 500; white-space: nowrap; }
-      .role-co { font-size: 0.83rem; font-weight: 600; color: var(--accent); margin: 0.08rem 0 0.28rem; }
-      .role-desc { font-size: 0.83rem; color: var(--muted); line-height: 1.5; margin-bottom: 0.28rem; }
-      .role ul { margin-left: 1rem; }
-      .role li { font-size: 0.82rem; color: var(--soft); line-height: 1.5; margin-bottom: 0.14rem; }
-
-      /* Page-2 section continuation label */
+      .role-top h3 { font-weight: 700; color: var(--ink); }
+      .role-date { color: var(--dim); font-weight: 500; white-space: nowrap; }
+      .role-co { font-weight: 600; color: var(--accent); }
+      .role-desc { color: var(--muted); line-height: 1.5; }
+      .role ul { }
+      .role li { color: var(--soft); line-height: 1.5; }
       .continued-head {
-        font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 0.18em;
         text-transform: uppercase;
         color: var(--accent);
-        margin-bottom: 0.65rem;
-        padding-top: 0;
         display: block;
+      }
+
+      /* ─── SCREEN styles ───────────────────────────────────── */
+      @media screen {
+        body {
+          background: #e8f0f8;
+          font-size: 14px;
+          line-height: 1.65;
+        }
+
+        /* Top bar */
+        .top-bar {
+          position: sticky;
+          top: 0;
+          z-index: 20;
+          background: white;
+          border-bottom: 1px solid var(--rule);
+          padding: 0.75rem 1.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 1rem;
+          box-shadow: 0 1px 8px rgba(10,22,40,0.07);
+        }
+        .top-bar-brand {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+          text-decoration: none;
+          color: var(--ink);
+          font-weight: 700;
+          font-size: 0.9rem;
+        }
+        .top-bar-brand .avatar {
+          width: 32px; height: 32px;
+          border-radius: 8px;
+          background: linear-gradient(135deg, #0078D4, #005a9e);
+          display: flex; align-items: center; justify-content: center;
+          color: white; font-size: 0.78rem; font-weight: 800;
+        }
+        .top-bar-actions { display: flex; gap: 0.75rem; align-items: center; }
+        .btn-back {
+          display: inline-flex; align-items: center; gap: 0.4rem;
+          font-size: 0.8rem; font-weight: 600; color: var(--muted);
+          text-decoration: none; padding: 0.4rem 0.75rem;
+          border-radius: 6px; border: 1px solid var(--rule);
+          transition: color 0.2s, border-color 0.2s;
+        }
+        .btn-back:hover { color: var(--accent); border-color: var(--accent); }
+        .btn-download {
+          display: inline-flex; align-items: center; gap: 0.4rem;
+          font-size: 0.8rem; font-weight: 700; color: white;
+          background: var(--accent); border: none;
+          padding: 0.45rem 1rem; border-radius: 6px;
+          text-decoration: none;
+          box-shadow: 0 2px 8px rgba(0,120,212,0.3);
+          transition: background 0.2s, box-shadow 0.2s;
+        }
+        .btn-download:hover { background: #005a9e; box-shadow: 0 4px 14px rgba(0,120,212,0.4); }
+
+        /* Card wrapper */
+        .cv-wrap {
+          max-width: 980px;
+          margin: 2rem auto;
+          background: white;
+          border-radius: 12px;
+          box-shadow: 0 8px 40px rgba(10,22,40,0.12);
+          overflow: hidden;
+        }
+
+        /* Page divider (between page 1 and page 2 sections) */
+        .page-2 { border-top: 2px solid var(--rule); }
+
+        /* Grid */
+        .page {
+          grid-template-columns: 240px 1fr;
+          gap: 0;
+        }
+
+        /* Sidebar */
+        .sidebar {
+          background: #f4f9ff;
+          padding: 2rem 1.5rem;
+        }
+        .sb-block { margin-bottom: 1.75rem; }
+        .sb-block:last-child { margin-bottom: 0; }
+        .sb-head { font-size: 0.65rem; margin-bottom: 0.65rem; }
+        .photo-wrap { margin-bottom: 1.5rem; }
+        .contact-list li { font-size: 0.83rem; margin-bottom: 0.35rem; }
+        .cert { margin-bottom: 0.55rem; }
+        .cert:last-child { margin-bottom: 0; }
+        .cert-name { font-size: 0.82rem; }
+        .cert-meta { font-size: 0.72rem; margin-top: 0.05rem; }
+        .edu { margin-bottom: 0.65rem; }
+        .edu:last-child { margin-bottom: 0; }
+        .edu-degree { font-size: 0.85rem; }
+        .edu-inst   { font-size: 0.78rem; margin-top: 0.08rem; }
+        .edu-meta   { font-size: 0.73rem; }
+        .skill-cluster { margin-bottom: 1rem; }
+        .skill-cluster:last-child { margin-bottom: 0; }
+        .cluster-label { font-size: 0.78rem; margin-bottom: 0.4rem; }
+        .chips { gap: 0.35rem; }
+        .chip { font-size: 0.75rem; padding: 0.18rem 0.6rem 0.2rem; }
+
+        /* Main */
+        .main { padding: 2.5rem 2.75rem; }
+        .identity { padding-bottom: 1rem; margin-bottom: 1.5rem; }
+        h1 { font-size: 2.4rem; margin-bottom: 0.25rem; }
+        .job-title { font-size: 1.05rem; }
+        .section-head { font-size: 0.65rem; margin-bottom: 0.7rem; }
+        .section-wrap { margin-bottom: 1.75rem; }
+        .section-wrap:last-child { margin-bottom: 0; }
+        .summary { font-size: 0.97rem; }
+        .role { margin-bottom: 1.4rem; }
+        .role:last-child { margin-bottom: 0; }
+        .role-top h3 { font-size: 1.02rem; }
+        .role-date { font-size: 0.83rem; }
+        .role-co { font-size: 0.88rem; margin: 0.1rem 0 0.4rem; }
+        .role-desc { font-size: 0.88rem; margin-bottom: 0.4rem; }
+        .role ul { margin-left: 1.1rem; }
+        .role li { font-size: 0.87rem; margin-bottom: 0.2rem; }
+        .continued-head { font-size: 0.65rem; margin-bottom: 0.9rem; }
+      }
+
+      /* ─── PRINT styles ────────────────────────────────────── */
+      @media print {
+        @page { size: A4; margin: 14mm 14mm 15mm 14mm; }
+        .top-bar { display: none !important; }
+        .cv-wrap { box-shadow: none; border-radius: 0; }
+        a { color: #0078D4 !important; text-decoration: none; }
+
+        body {
+          background: white;
+          font-size: 9.5pt;
+          line-height: 1.55;
+        }
+
+        .page { grid-template-columns: 62mm 1fr; gap: 9mm; }
+        .page-2 { page-break-before: always; break-before: page; border-top: none; }
+
+        .sidebar { background: transparent; padding: 0; padding-right: 7mm; }
+        .sb-block { margin-bottom: 1.35rem; }
+        .sb-block:last-child { margin-bottom: 0; }
+        .sb-head { font-size: 0.68rem; margin-bottom: 0.55rem; }
+        .photo-wrap { margin-bottom: 1.25rem; }
+        .contact-list li { font-size: 0.79rem; margin-bottom: 0.3rem; }
+        .cert { margin-bottom: 0.48rem; }
+        .cert:last-child { margin-bottom: 0; }
+        .cert-name { font-size: 0.77rem; }
+        .cert-meta { font-size: 0.69rem; margin-top: 0.04rem; }
+        .edu { margin-bottom: 0.55rem; }
+        .edu:last-child { margin-bottom: 0; }
+        .edu-degree { font-size: 0.8rem; }
+        .edu-inst   { font-size: 0.73rem; margin-top: 0.05rem; }
+        .edu-meta   { font-size: 0.69rem; }
+        .skill-cluster { margin-bottom: 0.8rem; }
+        .skill-cluster:last-child { margin-bottom: 0; }
+        .cluster-label { font-size: 0.72rem; margin-bottom: 0.32rem; }
+        .chips { gap: 0.28rem; }
+        .chip { font-size: 0.71rem; padding: 0.1rem 0.48rem 0.12rem; }
+
+        .main { padding: 0; }
+        .identity { padding-bottom: 0.7rem; margin-bottom: 0.95rem; }
+        h1 { font-size: 1.9rem; margin-bottom: 0.15rem; }
+        .job-title { font-size: 1rem; }
+        .section-head { font-size: 0.72rem; margin-bottom: 0.55rem; }
+        .section-wrap { margin-bottom: 1rem; }
+        .section-wrap:last-child { margin-bottom: 0; }
+        .summary { font-size: 0.9rem; }
+        .role { margin-bottom: 0.95rem; }
+        .role:last-child { margin-bottom: 0; }
+        .role-top h3 { font-size: 0.96rem; }
+        .role-date { font-size: 0.77rem; }
+        .role-co { font-size: 0.83rem; margin: 0.08rem 0 0.28rem; }
+        .role-desc { font-size: 0.83rem; margin-bottom: 0.28rem; }
+        .role ul { margin-left: 1rem; }
+        .role li { font-size: 0.82rem; margin-bottom: 0.14rem; }
+        .continued-head { font-size: 0.72rem; margin-bottom: 0.65rem; }
       }
     </style>
   </head>
   <body>
+
+    <!-- Top bar (screen only) -->
+    <nav class="top-bar" aria-label="CV navigation">
+      <a href="/" class="top-bar-brand">
+        <span class="avatar">CK</span>
+        <span>ckaserer.dev</span>
+      </a>
+      <div class="top-bar-actions">
+        <a href="/" class="btn-back">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+          </svg>
+          Back to site
+        </a>
+        <a href="/cv.pdf" download="clemens-kaserer-cv.pdf" class="btn-download">
+          <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+          </svg>
+          Download PDF
+        </a>
+      </div>
+    </nav>
+
+    <div class="cv-wrap">
 
     <!-- ══════════════════════ PAGE 1 ══════════════════════ -->
     <div class="page">
@@ -328,5 +467,6 @@ const skillGroups = [
       </main>
     </div>
 
+    </div><!-- /cv-wrap -->
   </body>
 </html>
