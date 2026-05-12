@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /og
+Disallow: /og/
 
 Sitemap: https://ckaserer.dev/sitemap-index.xml

@@ -7,12 +7,13 @@ import Experience from '../components/Experience.astro';
 import Skills from '../components/Skills.astro';
 import Education from '../components/Education.astro';
 import CvDownload from '../components/CvDownload.astro';
+import Contact from '../components/Contact.astro';
 import Footer from '../components/Footer.astro';
 
 import cv from '../data/cv.json';
 
 const pageTitle = `${cv.name} — ${cv.title}`;
-const pageDescription = cv.tagline;
+const pageDescription = cv.metaDescription ?? cv.tagline;
 ---
 
 <Base title={pageTitle} description={pageDescription} canonical="https://ckaserer.dev">
@@ -32,6 +33,7 @@ const pageDescription = cv.tagline;
           <a href="#experience" class="hover:text-azure transition-colors">Experience</a>
           <a href="#skills"     class="hover:text-azure transition-colors">Skills</a>
           <a href="#education"  class="hover:text-azure transition-colors">Education</a>
+          <a href="#contact"    class="hover:text-azure transition-colors">Contact</a>
           <a
             href="/cv.pdf" download
             class="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-azure text-white text-xs font-bold hover:bg-azure-dark transition-all duration-300 shadow-md hover:shadow-azure"
@@ -68,6 +70,7 @@ const pageDescription = cv.tagline;
           <a href="#experience" class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Experience</a>
           <a href="#skills"     class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Skills</a>
           <a href="#education"  class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Education</a>
+          <a href="#contact"    class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Contact</a>
           <a
             href="/cv.pdf" download
             class="mt-2 inline-flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-azure text-white text-sm font-bold hover:bg-azure-dark transition-colors shadow-md"
@@ -88,6 +91,7 @@ const pageDescription = cv.tagline;
     <Skills />
     <Education />
     <CvDownload />
+    <Contact />
     <Footer />
 
     <script>

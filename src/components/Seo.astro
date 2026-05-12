@@ -36,8 +36,12 @@ const jsonLd = {
   jobTitle: cv.title,
   description: cv.summary,
   url: cv.website,
-  email: `mailto:${cv.email}`,
   image: cv.photo ? `${cv.website}${cv.photo}` : undefined,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    contactType: 'professional inquiries',
+    url: `https://www.linkedin.com/in/${cv.linkedin}`,
+  },
   address: {
     '@type': 'PostalAddress',
     addressLocality: cv.location,

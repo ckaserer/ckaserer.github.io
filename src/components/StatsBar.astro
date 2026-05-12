@@ -2,7 +2,7 @@
 import cv from '../data/cv.json';
 const stats = [
   { value: 9,    suffix: '+',  label: 'Years in Cloud & DevOps' },
-  { value: 3.2,  suffix: '×',  label: 'Delivery speed — latest project, AI-augmented vs traditional', highlight: true, decimals: 1 },
+  { value: 3.2,  suffix: '×',  label: 'AI-augmented delivery speed', tooltip: 'Latest project: AI-augmented delivery vs. comparable traditional engagement', highlight: true, decimals: 1 },
   { value: cv.certifications.length, suffix: '', label: 'Active Microsoft Certifications' },
   { value: null, text: 'Azure', label: 'Cloud Platform of Choice' },
 ];
@@ -36,7 +36,7 @@ const stats = [
               <span class="bg-gradient-to-r from-sky to-white bg-clip-text text-transparent">{stat.text}</span>
             )}
           </div>
-          <div class="text-white/70 text-sm md:text-base font-medium leading-snug">{stat.label}</div>
+          <div class="text-white/70 text-sm md:text-base font-medium leading-snug" title={stat.tooltip ?? ''}>{stat.label}</div>
         </div>
       ))}
     </div>
