@@ -1,5 +1,10 @@
 ---
 import cv from '../data/cv.json';
+
+type EducationEntry = { institution: string; degree: string; start: string; end: string };
+type Language = { name: string; level: string };
+
+const languages = (cv as unknown as { languages?: Language[] }).languages ?? [];
 ---
 
 <section id="education" class="relative bg-surface py-24 md:py-32 px-6 md:px-12 lg:px-16">
@@ -8,7 +13,7 @@ import cv from '../data/cv.json';
     <h2 class="section-heading mb-16">Academic background.</h2>
 
     <div class="grid md:grid-cols-2 gap-5">
-      {cv.education.map((edu, i) => (
+      {cv.education.map((edu: EducationEntry, i: number) => (
         <div class={`reveal reveal-delay-${i + 1} bg-canvas border border-border rounded-2xl p-6 md:p-8 hover:border-azure hover:shadow-navy transition-all duration-300`}>
           <div class="flex items-start gap-4">
             <div class="w-12 h-12 rounded-xl bg-gradient-azure flex items-center justify-center shrink-0 shadow-azure">
@@ -26,5 +31,27 @@ import cv from '../data/cv.json';
         </div>
       ))}
     </div>
+
+    {languages.length > 0 && (
+      <div class="reveal mt-10 bg-canvas border border-border rounded-2xl p-6 md:p-8">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-azure/10 border border-azure/20 flex items-center justify-center">
+            <svg class="w-4 h-4 text-azure" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+            </svg>
+          </div>
+          <h3 class="font-display font-bold text-navy text-base">Languages</h3>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          {languages.map((lang: Language) => (
+            <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-border text-sm font-medium text-navy">
+              <span class="font-semibold">{lang.name}</span>
+              <span class="text-muted">—</span>
+              <span class="text-muted">{lang.level}</span>
+            </span>
+          ))}
+        </div>
+      </div>
+    )}
   </div>
 </section>

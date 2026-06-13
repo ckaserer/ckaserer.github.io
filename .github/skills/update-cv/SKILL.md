@@ -30,6 +30,9 @@ All CV content lives in **`src/data/cv.json`**. Editing this one file updates th
   // NOTE: there is intentionally NO "email" field.
   // Contact is LinkedIn first, GitHub second. Do not add a mailto anywhere.
 
+  // Selected achievements — array of strings, shown in the Achievements section
+  "achievements": ["string"],   // 3–6 short proof-point sentences
+
   // About
   "summary": "string",           // ~400–500 chars; rendered as one paragraph
 
@@ -78,6 +81,11 @@ All CV content lives in **`src/data/cv.json`**. Editing this one file updates th
       "start":       "string",     // free-form, often ""
       "end":         "string"      // free-form description, e.g. "Matura"
     }
+  ],
+
+  // Languages (optional, shown below education cards)
+  "languages": [
+    { "name": "string", "level": "string" }  // e.g. "German", "Native"
   ]
 }
 ```
