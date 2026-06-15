@@ -74,26 +74,16 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       a:hover { text-decoration: underline; }
 
       /* ─── Document sections ───────────────────────────────── */
-      .cv-section {
-        border-top: 1px solid var(--rule);
-      }
+      /* Section divider is the heading underline (see .section-head) */
 
       .section-head {
         font-weight: 700;
-        letter-spacing: 0.15em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--accent);
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-        flex-shrink: 0;
-      }
-      .section-head::before {
-        content: '';
-        display: inline-block;
-        width: 20px; height: 2px;
-        background: var(--accent);
-        flex-shrink: 0;
+        display: block;
+        border-bottom: 1.5px solid var(--accent);
+        padding-bottom: 0.28em;
       }
 
       /* Role */
@@ -112,14 +102,14 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       .role-bullets li { color: var(--soft); line-height: 1.5; padding-left: 1.1em; position: relative; }
       .role-bullets li::before { content: '•'; color: var(--accent); font-weight: 700; position: absolute; left: 0; }
 
-      /* Skills */
-      .skill-row { display: flex; gap: 0.4em; align-items: baseline; }
-      .skill-label { font-weight: 700; color: var(--ink); white-space: nowrap; flex-shrink: 0; }
+      /* Skills — block paragraph; bold lead-in label, items wrap to the left margin */
+      .skill-row { }
+      .skill-label { font-weight: 700; color: var(--ink); white-space: nowrap; }
       .skill-items { color: var(--muted); }
 
-      /* Certifications */
-      .cert-row { display: flex; gap: 0.4em; align-items: baseline; }
-      .cert-issuer  { font-weight: 700; color: var(--ink); white-space: nowrap; flex-shrink: 0; }
+      /* Certifications — block paragraph; bold issuer lead-in, names wrap to the left margin */
+      .cert-row { }
+      .cert-issuer  { font-weight: 700; color: var(--ink); white-space: nowrap; }
       .cert-names   { color: var(--muted); }
 
       /* Education */
@@ -130,10 +120,10 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       /* Tagline — italic subtitle under role title in header */
       .cv-tagline { font-style: italic; color: var(--muted); }
 
-      /* Achievement list */
+      /* Achievement list — blue dot bullets, matching experience (and original CV) */
       .ach-list { list-style: none; }
-      .ach-list li { color: var(--soft); line-height: 1.5; display: flex; gap: 0.5em; }
-      .ach-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+      .ach-list li { color: var(--soft); line-height: 1.5; padding-left: 1.1em; position: relative; }
+      .ach-list li::before { content: '•'; color: var(--accent); font-weight: 700; position: absolute; left: 0; }
 
       /* Languages */
       .lang-row { color: var(--muted); }
@@ -142,17 +132,15 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       /* Continuation section — page 2 experience rolls on without border or padding */
       .cv-section-cont { border-top: none; }
 
-      /* Photo — square with gradient ring, matching homepage photo-ring */
+      /* Photo — plain square, subtle hairline border (matches original CV) */
       .cv-photo-frame {
-        background: linear-gradient(135deg, #0078D4 0%, #50E6FF 100%);
-        padding: 3px;
-        border-radius: calc(1.25rem + 3px);
         flex-shrink: 0;
         display: inline-block;
       }
       .cv-photo {
-        object-fit: cover; border-radius: 1.25rem;
+        object-fit: cover; border-radius: 6px;
         display: block;
+        border: 1px solid var(--rule);
       }
 
       /* ─── SCREEN ──────────────────────────────────────────── */
@@ -229,8 +217,8 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         /* Header */
         .cv-header { margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 3px solid var(--accent); display: flex; align-items: flex-start; gap: 1.5rem; }
         .cv-header-text { flex: 1; min-width: 0; }
-        .cv-name   { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
-        .cv-title  { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-top: 0.2rem; }
+        .cv-name   { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; color: var(--accent); }
+        .cv-title  { font-size: 1.05rem; color: var(--soft); font-weight: 600; margin-top: 0.2rem; }
         .cv-contact { margin-top: 0.65rem; font-size: 0.87rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
         .cv-contact .sep { color: var(--rule); }
         .cv-tagline { font-size: 0.87rem; margin-top: 0.25rem; }
@@ -275,13 +263,13 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
       /* ─── PRINT ───────────────────────────────────────────── */
       @media print {
-        @page { size: A4; margin: 15mm 14mm 14mm 14mm; }
+        @page { size: A4; margin: 14mm 13mm 13mm 13mm; }
         .top-bar { display: none !important; }
 
         body {
           background: white;
-          font-size: 9pt;
-          line-height: 1.5;
+          font-size: 9.8pt;
+          line-height: 1.4;
           -webkit-print-color-adjust: exact;
           color-adjust: exact;
         }
@@ -290,39 +278,38 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .cv-page--two { break-before: page; }
         .page-gap { display: none; }
 
-        .cv-header { margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 2pt solid var(--accent); display: flex; align-items: flex-start; gap: 1.2rem; }
+        .cv-header { margin-bottom: 0.75rem; padding-bottom: 0.55rem; border-bottom: 2pt solid var(--accent); display: flex; align-items: flex-start; gap: 1.3rem; }
         .cv-header-text { flex: 1; min-width: 0; }
-        .cv-name   { font-size: 19pt; font-weight: 800; letter-spacing: -0.01em; }
-        .cv-title  { font-size: 10.5pt; color: var(--accent); font-weight: 600; margin-top: 0.1rem; }
-        .cv-contact { margin-top: 0.35rem; font-size: 8pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
+        .cv-name   { font-size: 22pt; font-weight: 800; letter-spacing: -0.01em; color: var(--accent); }
+        .cv-title  { font-size: 11pt; color: var(--soft); font-weight: 600; margin-top: 0.1rem; }
+        .cv-contact { margin-top: 0.42rem; font-size: 8.8pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
         .cv-contact .sep { color: var(--dim); }
-        .cv-tagline { font-size: 8.5pt; margin-top: 0.15rem; }
-        .cv-photo { width: 56pt; height: 56pt; }
-        .cv-photo-frame { padding: 2pt; }
+        .cv-tagline { font-size: 9pt; margin-top: 0.16rem; }
+        .cv-photo { width: 80pt; height: 80pt; }
 
 
 
-        .cv-section { padding: 0.55rem 0; break-inside: avoid; }
-        .section-head { font-size: 6.5pt; margin-bottom: 0.4rem; break-after: avoid; }
+        .cv-section { padding: 0.5rem 0; }
+        .section-head { font-size: 7.5pt; margin-bottom: 0.38rem; break-after: avoid; }
 
-        .cv-role { margin-bottom: 0.7rem; break-inside: avoid; orphans: 3; widows: 3; }
+        .cv-role { margin-bottom: 0.62rem; break-inside: avoid; orphans: 3; widows: 3; }
         .cv-role:last-child { margin-bottom: 0; }
-        .role-title { font-size: 9pt; }
-        .role-date  { font-size: 7.5pt; }
-        .role-meta  { font-size: 7.5pt; margin: 0.04rem 0 0.2rem; display: block; }
-        .role-desc  { font-size: 8pt; margin-bottom: 0.2rem; line-height: 1.4; }
-        .role-bullets li { font-size: 8pt; margin-bottom: 0.1rem; }
+        .role-title { font-size: 10pt; }
+        .role-date  { font-size: 8.5pt; }
+        .role-meta  { font-size: 9pt; margin: 0.05rem 0 0.22rem; display: block; }
+        .role-desc  { font-size: 9pt; margin-bottom: 0.2rem; line-height: 1.38; }
+        .role-bullets li { font-size: 9.3pt; margin-bottom: 0.12rem; }
 
-        .skill-row   { margin-bottom: 0.18rem; font-size: 8pt; }
-        .cert-row    { margin-bottom: 0.18rem; font-size: 8pt; }
-        .ach-list li { font-size: 8pt; margin-bottom: 0.12rem; }
-        .lang-row    { font-size: 8pt; }
+        .skill-row   { margin-bottom: 0.22rem; font-size: 9pt; }
+        .cert-row    { margin-bottom: 0.22rem; font-size: 9pt; }
+        .ach-list li { font-size: 9.3pt; margin-bottom: 0.16rem; }
+        .lang-row    { font-size: 9pt; }
 
-        .cv-edu { margin-bottom: 0.4rem; page-break-inside: avoid; }
+        .cv-edu { margin-bottom: 0.38rem; page-break-inside: avoid; }
         .cv-edu:last-child { margin-bottom: 0; }
-        .edu-degree { font-size: 8.5pt; }
-        .edu-inst   { font-size: 8pt; margin-top: 0.04rem; display: block; }
-        .edu-meta   { font-size: 7.5pt; margin-top: 0.04rem; display: block; }
+        .edu-degree { font-size: 9.8pt; }
+        .edu-inst   { font-size: 9pt; margin-top: 0.05rem; display: block; }
+        .edu-meta   { font-size: 8.5pt; margin-top: 0.05rem; display: block; }
       }
     </style>
   </head>
@@ -399,7 +386,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
             <div class="cv-role">
               <div class="role-header">
                 <span class="role-title">{role.title}</span>
-                <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
+                <span class="role-date">{formatDate(role.start)} – {formatDate(role.end)}</span>
               </div>
               <span class="role-meta">{role.company} · {role.location}</span>
               {role.description && <p class="role-desc">{role.description}</p>}
@@ -426,7 +413,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
             <div class="cv-role">
               <div class="role-header">
                 <span class="role-title">{role.title}</span>
-                <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
+                <span class="role-date">{formatDate(role.start)} – {formatDate(role.end)}</span>
               </div>
               <span class="role-meta">{role.company} · {role.location}</span>
               {role.description && <p class="role-desc">{role.description}</p>}
@@ -478,7 +465,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
               {languages.map((lang, i) => (
                 <>
                   <strong>{lang.name}</strong> — {lang.level}
-                  {i < languages.length - 1 && <span style="margin: 0 0.5rem; color: var(--dim);">|</span>}
+                  {i < languages.length - 1 && <span style="margin: 0 0.4rem; color: var(--dim);">·</span>}
                 </>
               ))}
             </p>
