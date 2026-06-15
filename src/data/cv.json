@@ -3,20 +3,20 @@
   "initials": "CK",
   "title": "Manager · Cloud Engineering at Avanade",
   "photo": "/photo.jpg",
-  "tagline": "Engineering leader & Azure platform architect — AI-augmented delivery for regulated enterprises across finance, public sector and logistics.",
+  "tagline": "Engineering leader & Azure platform architect — AI-augmented delivery for regulated enterprises",
   "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones (CAF/ALZ/SLZ), AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery for regulated enterprises.",
   "location": "Vienna, Austria",
   "website": "https://ckaserer.dev",
   "github": "ckaserer",
   "linkedin": "ckaserer",
   "twitter": "ckaserer",
-  "summary": "Cloud engineering manager with a decade in Azure, leading delivery for regulated enterprises across finance, public sector and logistics. I architect and engineer Azure platforms — CAF and Sovereign Landing Zones, AKS / OpenShift and serverless — and embed AI-augmented delivery on top. As one of the people responsible for Avanade's GitHub Copilot rollout, I make AI tooling production-safe at organisational scale — equally at home in the architecture review and the commercial conversation about what to build and what it's worth.",
+  "summary": "Cloud engineering manager with a decade in Azure, leading delivery for regulated enterprises across finance, public sector and logistics. I architect and engineer Azure platforms and embed AI-augmented delivery on top, making AI tooling production-safe at organisational scale — equally at home in the architecture review and the commercial conversation about what to build and what it's worth.",
   "achievements": [
     "Initiated and lead Avanade's regional GitHub Copilot adoption — treated as a change problem, not a tooling one: a shared, compliance-ready platform now reaching up to 32 engineers a week, and being packaged as a client offering.",
     "Delivered 4+ enterprise Azure landing zones (single- and multi-tenant, Cloud Adoption Framework) running 50+ workloads for regulated clients.",
     "Led an AI-augmented digital-twin MVP for an industrial-logistics client, delivered at ~3.2× the pace of a traditional build.",
     "Active across 5+ competitive enterprise and public-sector tenders in 2026 (DACH), including on-site client negotiation — contributing solution design and cloud-governance responses.",
-    "Co-built AI architecture-decision agents for legacy modernization, recognized cross-border within Avanade as a high-value asset."
+    "Co-built AI \"architecture-decision\" agents for legacy modernization, recognized cross-border within Avanade as a high-value asset."
   ],
   "experience": [
     {
@@ -29,12 +29,10 @@
           "start": "2023-12",
           "end": null,
           "location": "Vienna, Austria",
-          "description": "Lead cloud engineering delivery across multiple concurrent enterprise engagements in finance, public sector and logistics — running architecture reviews, mentoring engineers and building the practice.",
+          "description": null,
           "highlights": [
-            "Lead cloud engineering delivery across finance, public sector and logistics — architecture reviews, mentoring and practice-building",
-            "Own GitHub Copilot compliance, licensing and enablement at Avanade — making AI tooling safe to run on regulated client code",
-            "Embed AI-augmented engineering in delivery — latest project at ~3.2× the speed of a traditional engagement",
-            "Standardize AKS / OpenShift, Functions and Web Apps delivery on IaC + pipelines, with spec-driven and agentic AI workflows"
+            "Lead cloud engineering delivery across multiple concurrent enterprise engagements in finance, public sector and logistics — running architecture reviews, mentoring engineers and building the practice.",
+            "Standardize AKS / OpenShift, Functions and Web Apps delivery on infrastructure-as-code and pipelines, with spec-driven and agentic AI workflows."
           ]
         },
         {
@@ -42,7 +40,7 @@
           "start": "2022-02",
           "end": "2023-12",
           "location": "Vienna, Austria",
-          "description": "Delivered Azure platform and DevOps transformation for enterprise clients.",
+          "description": null,
           "highlights": [
             "Built AKS platforms with Terraform / Bicep and GitOps delivery, leading a team of up to 15",
             "Established trunk-based development and pipeline-as-code on GitHub Actions and Azure DevOps"
@@ -60,11 +58,11 @@
           "start": "2019-10",
           "end": "2022-02",
           "location": "Vienna, Austria",
-          "description": "Designed and operated container platforms and CI/CD for SaaS and enterprise customers.",
+          "description": null,
           "highlights": [
-            "Architected multi-tenant Kubernetes / OpenShift platforms for production, leading a team of 3–5",
-            "Automated provisioning with Terraform and Helm — environments in minutes, not days",
-            "Introduced GitOps and pipeline-driven delivery across product teams"
+            "Architected and operated multi-tenant Kubernetes / OpenShift platforms for production SaaS and enterprise customers, leading a team of 3–5.",
+            "Automated provisioning with Terraform and Helm — environments in minutes, not days.",
+            "Introduced GitOps and pipeline-driven delivery across product teams."
           ]
         }
       ]
@@ -79,11 +77,10 @@
           "start": "2017-08",
           "end": "2019-09",
           "location": "Vienna, Austria",
-          "description": "Progressed from Cloud Analyst to Cloud Specialist delivering Azure platform and DevOps engagements across the DACH region.",
+          "description": null,
           "highlights": [
-            "Progressed across three levels, leading a team of 4 as Cloud Specialist — Azure migration, platform and DevOps for DACH enterprise clients",
-            "Designed Azure topologies and CI/CD pipelines on Azure Pipelines and ARM templates",
-            "Mentored junior analysts on Azure fundamentals and DevOps practices"
+            "Progressed across three levels delivering Azure migration, platform and DevOps engagements for enterprise clients across the DACH region, leading a team of 4 as Cloud Specialist.",
+            "Designed Azure topologies and CI/CD pipelines and mentored junior analysts on Azure and DevOps practice."
           ]
         }
       ]
@@ -98,15 +95,15 @@
           "start": "2015-05",
           "end": "2016-06",
           "location": "Geneva, Switzerland",
-          "description": "Operated HPC clusters with RDMA 10 GbE interconnects in support of research workloads.",
+          "description": null,
           "highlights": [
-            "Puppetised an HPC cluster and built a job-performance feedback framework"
+            "Operated HPC clusters with RDMA 10 GbE interconnects; puppetised a cluster and built a job-performance feedback framework."
           ]
         }
       ]
     },
     {
-      "company": "VAPC interactive solutions",
+      "company": "VAPC interactive solutions (Philips joint venture)",
       "logo": "",
       "url": null,
       "roles": [
@@ -115,10 +112,9 @@
           "start": "2011-10",
           "end": "2012-09",
           "location": "Vienna, Austria",
-          "description": "Software development and IT administration at a Philips joint venture.",
+          "description": null,
           "highlights": [
-            "C# and PHP development alongside Windows / Linux server and network administration",
-            "Promoted to deputy network administrator"
+            "Software development (C#, PHP) plus Windows / Linux server and network administration; promoted to deputy network administrator."
           ]
         }
       ]
@@ -227,15 +223,15 @@
   "education": [
     {
       "institution": "Republic of Austria",
-      "degree": "Ingenieur (Ing.) — Information Technology",
+      "degree": "Ingenieur (Ing.), Information Technology",
       "start": "",
-      "end": "NQR/EQF Level 6 — awarded on formal education and assessed professional practice"
+      "end": "NQR / EQF Level 6 (bachelor reference level), awarded on formal education and assessed professional practice."
     },
     {
-      "institution": "HTL — Höhere Technische Lehranstalt",
-      "degree": "Information Technology, Network Infrastructure",
+      "institution": "Matura (school-leaving diploma)",
+      "degree": "HTL — Information Technology & Network Infrastructure",
       "start": "",
-      "end": "Matura"
+      "end": ""
     }
   ],
   "languages": [
