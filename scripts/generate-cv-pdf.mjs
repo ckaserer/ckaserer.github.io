@@ -80,34 +80,15 @@ async function main() {
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
-  // Read CV name for the PDF header
-  let displayName = 'Curriculum Vitae';
-  try {
-    const cvJson = JSON.parse(await readFile(pathResolve(process.cwd(), 'src/data/cv.json'), 'utf8'));
-    if (cvJson?.name) displayName = `${cvJson.name} — Curriculum Vitae`;
-  } catch { /* fall back to default */ }
-
-  const headerTemplate = `
-    <div style="font-size:8px; color:#64748B; width:100%; padding:0 14mm; display:flex; justify-content:space-between; font-family: 'Helvetica', sans-serif;">
-      <span>${displayName}</span>
-      <span>${new Date().toISOString().slice(0, 10)}</span>
-    </div>`;
-  const footerTemplate = `
-    <div style="font-size:8px; color:#64748B; width:100%; padding:0 14mm; display:flex; justify-content:space-between; font-family: 'Helvetica', sans-serif;">
-      <span>ckaserer.dev</span>
-      <span>Page <span class="pageNumber"></span> of <span class="totalPages"></span></span>
-    </div>`;
-
   try {
     await page.goto(`http://localhost:${PORT}/cv`, { waitUntil: 'networkidle' });
+    // No running header/footer — the web /cv design has none, and the print CSS
+    // owns page size + margins via `@page` (preferCSSPageSize). This avoids the
+    // header/date overlapping the body content.
     await page.pdf({
       path: pathResolve(DIST_DIR, 'clemens-kaserer-cv.pdf'),
-      format: 'A4',
       printBackground: true,
-      displayHeaderFooter: true,
-      headerTemplate,
-      footerTemplate,
-      margin: { top: '18mm', right: '14mm', bottom: '16mm', left: '14mm' },
+      preferCSSPageSize: true,
     });
     console.log('✅ clemens-kaserer-cv.pdf generated at dist/clemens-kaserer-cv.pdf');
   } finally {

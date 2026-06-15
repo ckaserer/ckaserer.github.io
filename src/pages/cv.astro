@@ -275,7 +275,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
       /* ─── PRINT ───────────────────────────────────────────── */
       @media print {
-        @page { size: A4; margin: 0; }
+        @page { size: A4; margin: 15mm 14mm 14mm 14mm; }
         .top-bar { display: none !important; }
 
         body {
@@ -287,7 +287,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         }
 
         .cv-page { padding: 0; box-shadow: none; border-radius: 0; max-width: none; }
-        .cv-page + .cv-page { break-before: page; }
+        .cv-page--two { break-before: page; }
         .page-gap { display: none; }
 
         .cv-header { margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 2pt solid var(--accent); display: flex; align-items: flex-start; gap: 1.2rem; }
@@ -418,7 +418,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       </div>
 
       <!-- ═══ PAGE 2 ═══════════════════════════════════════════════════════ -->
-      <div class="cv-page">
+      <div class="cv-page cv-page--two">
 
         <!-- EXPERIENCE — continued (CERN + VAPC; no repeated heading) -->
         <section class="cv-section cv-section-cont">
