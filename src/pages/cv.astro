@@ -80,7 +80,16 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         letter-spacing: 0.15em;
         text-transform: uppercase;
         color: var(--accent);
-        display: block;
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+        flex-shrink: 0;
+      }
+      .section-head::before {
+        content: '';
+        display: inline-block;
+        width: 20px; height: 2px;
+        background: var(--accent);
         flex-shrink: 0;
       }
 
@@ -120,10 +129,17 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       .lang-row { color: var(--muted); }
       .lang-row strong { color: var(--ink); font-weight: 600; }
 
-      /* Photo */
+      /* Photo — square with gradient ring, matching homepage photo-ring */
+      .cv-photo-frame {
+        background: linear-gradient(135deg, #0078D4 0%, #50E6FF 100%);
+        padding: 3px;
+        border-radius: calc(1.25rem + 3px);
+        flex-shrink: 0;
+        display: inline-block;
+      }
       .cv-photo {
-        object-fit: cover; border-radius: 50%;
-        display: block; flex-shrink: 0;
+        object-fit: cover; border-radius: 1.25rem;
+        display: block;
       }
 
       /* ─── SCREEN ──────────────────────────────────────────── */
@@ -148,7 +164,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         }
         .top-bar-brand .avatar {
           width: 32px; height: 32px; border-radius: 8px;
-          background: linear-gradient(135deg, #0078D4, #005a9e);
+          background: linear-gradient(135deg, #0078D4, #50E6FF);
           display: flex; align-items: center; justify-content: center;
           color: white; font-size: 0.78rem; font-weight: 800;
         }
@@ -188,7 +204,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .cv-title  { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-top: 0.2rem; }
         .cv-contact { margin-top: 0.65rem; font-size: 0.87rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
         .cv-contact .sep { color: var(--rule); }
-        .cv-photo { width: 96px; height: 96px; border: 3px solid var(--rule); margin-top: 0.25rem; }
+        .cv-photo { width: 96px; height: 96px; margin-top: 0.25rem; }
 
         /* Page-break indicator (screen only) */
         .page-break-indicator {
@@ -266,7 +282,8 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .cv-title  { font-size: 10.5pt; color: var(--accent); font-weight: 600; margin-top: 0.1rem; }
         .cv-contact { margin-top: 0.35rem; font-size: 8pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
         .cv-contact .sep { color: var(--dim); }
-        .cv-photo { width: 56pt; height: 56pt; border: 1.5pt solid var(--rule); }
+        .cv-photo { width: 56pt; height: 56pt; }
+        .cv-photo-frame { padding: 2pt; }
 
         /* Page-break indicator: hidden in print — the break is enforced via break-before on the following role */
         .page-break-indicator { display: none; }
@@ -340,7 +357,9 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
             <a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a>
           </p>
         </div>
-        <img src={cv.photo} alt={cv.name} class="cv-photo" />
+        <div class="cv-photo-frame">
+          <img src={cv.photo} alt={cv.name} class="cv-photo" />
+        </div>
       </header>
 
       <!-- PROFILE -->
