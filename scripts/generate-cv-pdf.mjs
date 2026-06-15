@@ -25,6 +25,9 @@ const MIME = {
   '.ico':  'image/x-icon',
   '.txt':  'text/plain',
   '.xml':  'application/xml',
+  '.woff': 'font/woff',
+  '.woff2':'font/woff2',
+  '.ttf':  'font/ttf',
 };
 
 /** Minimal static file server for the dist/ output */
@@ -82,6 +85,9 @@ async function main() {
 
   try {
     await page.goto(`http://localhost:${PORT}/cv`, { waitUntil: 'networkidle' });
+    // Ensure all @font-face files (Carlito) are fully loaded before printing so
+    // the PDF embeds the real font instead of falling back to a system font.
+    await page.evaluate(() => document.fonts.ready);
     // No running header/footer — the web /cv design has none, and the print CSS
     // owns page size + margins via `@page` (preferCSSPageSize). This avoids the
     // header/date overlapping the body content.
