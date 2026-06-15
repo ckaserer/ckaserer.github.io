@@ -3,14 +3,21 @@
   "initials": "CK",
   "title": "Manager · Cloud Engineering at Avanade",
   "photo": "/photo.jpg",
-  "tagline": "AI-augmented Azure delivery — Azure Landing Zones (CAF/ALZ), AKS/OpenShift, GitHub Copilot rollout. Latest project shipped at 3.2× the speed of a traditional engagement.",
-  "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones (CAF/ALZ), AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery. Vienna, Austria.",
+  "tagline": "Engineering leader & Azure platform architect — AI-augmented delivery for regulated enterprises",
+  "metaDescription": "Cloud Engineering Manager at Avanade. Azure Landing Zones (CAF/ALZ/SLZ), AKS/OpenShift, GitHub Copilot rollout & AI-augmented delivery for regulated enterprises.",
   "location": "Vienna, Austria",
   "website": "https://ckaserer.dev",
   "github": "ckaserer",
   "linkedin": "ckaserer",
   "twitter": "ckaserer",
-  "summary": "Cloud Engineering Manager at Avanade with a decade in Azure. I lead engineering teams, design Azure platforms — Landing Zones (CAF and Sovereign), AKS/OpenShift, Functions and Web Apps — and embed AI-augmented delivery on top. As one of the people responsible at Avanade for the GitHub Copilot rollout, I make AI tooling production-safe for enterprise teams. Latest project shipped at ~3.2× the speed of a traditional engagement.",
+  "summary": "Cloud engineering manager with a decade in Azure, leading delivery for regulated enterprises across finance, public sector and logistics. I architect and engineer Azure platforms and embed AI-augmented delivery on top, making AI tooling production-safe at organisational scale — equally at home in the architecture review and the commercial conversation about what to build and what it's worth.",
+  "achievements": [
+    "Initiated and lead Avanade's regional GitHub Copilot adoption — treated as a change problem, not a tooling one: a shared, compliance-ready platform now reaching up to 32 engineers a week, and being packaged as a client offering.",
+    "Delivered 4+ enterprise Azure landing zones (single- and multi-tenant, Cloud Adoption Framework) running 50+ workloads for regulated clients.",
+    "Led an AI-augmented digital-twin MVP for an industrial-logistics client, delivered at ~3.2× the pace of a traditional build.",
+    "Active across 5+ competitive enterprise and public-sector tenders in 2026 (DACH), including on-site client negotiation — contributing solution design and cloud-governance responses.",
+    "Co-built AI \"architecture-decision\" agents for legacy modernization, recognized cross-border within Avanade as a high-value asset."
+  ],
   "experience": [
     {
       "company": "Avanade",
@@ -22,13 +29,10 @@
           "start": "2023-12",
           "end": null,
           "location": "Vienna, Austria",
-          "description": "Lead cloud engineering delivery for enterprise clients. One of the people responsible at Avanade for the GitHub Copilot programme — compliance, licensing, enablement.",
+          "description": null,
           "highlights": [
-            "Lead Azure Landing Zone delivery (CAF, Sovereign LZ) for regulated clients",
-            "Own GitHub Copilot compliance, licensing and enablement at Avanade",
-            "Embed AI-augmented engineering in delivery — latest project at ~3.2× speed",
-            "Standardize AKS/OpenShift, Functions and Web Apps delivery on IaC + pipelines",
-            "Build the cloud engineering practice; mentor and run architecture reviews"
+            "Lead cloud engineering delivery across multiple concurrent enterprise engagements in finance, public sector and logistics — running architecture reviews, mentoring engineers and building the practice.",
+            "Standardize AKS / OpenShift, Functions and Web Apps delivery on infrastructure-as-code and pipelines, with spec-driven and agentic AI workflows."
           ]
         },
         {
@@ -36,11 +40,10 @@
           "start": "2022-02",
           "end": "2023-12",
           "location": "Vienna, Austria",
-          "description": "Delivered Azure platform and DevOps transformation for enterprise clients.",
+          "description": null,
           "highlights": [
-            "Designed Azure Landing Zones (CAF) for regulated-industry clients",
-            "Built AKS platforms with Terraform/Bicep and GitOps delivery",
-            "Established trunk-based dev and pipeline-as-code (GitHub Actions, Azure DevOps)"
+            "Built AKS platforms with Terraform / Bicep and GitOps delivery, leading a team of up to 15",
+            "Established trunk-based development and pipeline-as-code on GitHub Actions and Azure DevOps"
           ]
         }
       ]
@@ -55,11 +58,11 @@
           "start": "2019-10",
           "end": "2022-02",
           "location": "Vienna, Austria",
-          "description": "Designed and operated container platforms and CI/CD for SaaS and enterprise customers.",
+          "description": null,
           "highlights": [
-            "Architected multi-tenant Kubernetes / OpenShift platforms for production",
-            "Automated provisioning with Terraform and Helm — environments in minutes, not days",
-            "Introduced GitOps and pipeline-driven delivery across product teams"
+            "Architected and operated multi-tenant Kubernetes / OpenShift platforms for production SaaS and enterprise customers, leading a team of 3–5.",
+            "Automated provisioning with Terraform and Helm — environments in minutes, not days.",
+            "Introduced GitOps and pipeline-driven delivery across product teams."
           ]
         }
       ]
@@ -74,11 +77,10 @@
           "start": "2017-08",
           "end": "2019-09",
           "location": "Vienna, Austria",
-          "description": "Progressed from Cloud Analyst to Cloud Specialist delivering Azure platform and DevOps engagements across the DACH region.",
+          "description": null,
           "highlights": [
-            "Led Azure migration and modernisation workstreams for enterprise clients",
-            "Designed Azure topologies and CI/CD on Azure Pipelines and ARM templates",
-            "Mentored junior cloud analysts on Azure fundamentals and DevOps practices"
+            "Progressed across three levels delivering Azure migration, platform and DevOps engagements for enterprise clients across the DACH region, leading a team of 4 as Cloud Specialist.",
+            "Designed Azure topologies and CI/CD pipelines and mentored junior analysts on Azure and DevOps practice."
           ]
         }
       ]
@@ -89,13 +91,30 @@
       "url": "https://home.cern",
       "roles": [
         {
-          "title": "Technical Student (Internship) — System Administration",
+          "title": "Technical Student — System Administration (Internship)",
           "start": "2015-05",
           "end": "2016-06",
           "location": "Geneva, Switzerland",
-          "description": "Operated HPC clusters with RDMA 10 Gbit interconnects in support of research workloads.",
+          "description": null,
           "highlights": [
-            "Puppetised an HPC cluster and built a job-performance feedback framework"
+            "Operated HPC clusters with RDMA 10 GbE interconnects; puppetised a cluster and built a job-performance feedback framework."
+          ]
+        }
+      ]
+    },
+    {
+      "company": "VAPC interactive solutions (Philips joint venture)",
+      "logo": "",
+      "url": null,
+      "roles": [
+        {
+          "title": "Software Developer / IT Administrator",
+          "start": "2011-10",
+          "end": "2012-09",
+          "location": "Vienna, Austria",
+          "description": null,
+          "highlights": [
+            "Software development (C#, PHP) plus Windows / Linux server and network administration; promoted to deputy network administrator."
           ]
         }
       ]
@@ -103,76 +122,69 @@
   ],
   "skills": {
     "azurePlatform": [
-      "Cloud Adoption Framework (CAF)",
-      "Azure Landing Zone (ALZ) Design",
-      "Sovereign Landing Zone (SLZ)",
-      "Azure Policy & Governance",
-      "Azure Networking",
-      "Azure Monitor"
-    ],
-    "cloudNative": [
-      "Azure Kubernetes Service (AKS)",
-      "OpenShift / ARO",
-      "Kubernetes",
-      "Azure Functions",
-      "Azure Web Apps",
-      "Azure Container Apps"
-    ],
-    "automation": [
-      "Terraform",
-      "Bicep",
-      "GitHub Actions",
-      "Azure DevOps",
-      "Helm",
-      "GitOps",
-      "Python",
-      "PowerShell",
-      "Bash"
-    ],
-    "ai": [
-      "Spec-driven development",
-      "Agentic workflows",
-      "MCP (Model Context Protocol)",
-      "Prompt engineering for engineers",
-      "Copilot enablement at scale",
-      "AI governance & compliance",
-      "Claude Code",
-    "GitHub Copilot"
-    ],
-    "practices": [
-      "Engineering Management",
-      "Mentoring & Coaching",
-      "Architecture Reviews",
-      "DevSecOps",
-      "Standardization",
-      "Client Engagement",
-      "FinOps"
-    ]
+        "Cloud Adoption Framework (CAF)",
+        "Azure Landing Zones (ALZ)",
+        "Sovereign LZ",
+        "Azure Policy & Governance",
+        "Networking",
+        "Monitor",
+        "FinOps"
+      ],
+      "cloudNative": [
+        "AKS",
+        "OpenShift / ARO",
+        "Kubernetes",
+        "Azure Functions",
+        "Web Apps",
+        "Container Apps"
+      ],
+      "automation": [
+        "Terraform",
+        "Bicep",
+        "GitHub Actions",
+        "Azure DevOps",
+        "Helm",
+        "GitOps",
+        "Python",
+        "PowerShell",
+        "Bash"
+      ],
+      "ai": [
+        "GitHub Copilot enablement at scale",
+        "Claude Code",
+        "spec-driven & agentic workflows",
+        "MCP",
+        "AI governance & compliance"
+      ],
+      "practices": [
+        "Engineering Management",
+        "Mentoring & Coaching",
+        "Enablement & Adoption",
+        "Architecture Reviews",
+        "DevSecOps",
+        "Client Engagement & FinOps"
+      ]
   },
   "certifications": [
     {
-      "name": "Microsoft Certified: Azure Solutions Architect Expert",
+      "name": "GitHub Actions",
+      "issuer": "GitHub",
+      "year": 2026,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/CC52143922602F06?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "Azure Solutions Architect",
       "issuer": "Microsoft",
+      "level": "Expert",
       "year": 2025,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/869AD2929959E0BB?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "Microsoft Certified: DevOps Engineer Expert",
+      "name": "DevOps Engineer",
       "issuer": "Microsoft",
+      "level": "Expert",
       "year": 2025,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/30BB17C37CF65205?sharingId=55FE29056B9A8FEB"
-    },
-    {
-      "name": "Microsoft Certified: Azure Network Engineer Associate",
-      "issuer": "Microsoft",
-      "year": 2023,
-      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/1C18B84062558C4F?sharingId=55FE29056B9A8FEB"
-    },
-    {
-      "name": "Microsoft Certified: Azure Administrator Associate",
-      "issuer": "Microsoft",
-      "year": 2023,
-      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/EB89EF46DB31EF9D?sharingId=55FE29056B9A8FEB"
     },
     {
       "name": "GitHub Copilot",
@@ -181,31 +193,50 @@
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/79AA2A84097D0365?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "GitHub Actions",
-      "issuer": "GitHub",
-      "year": 2026,
-      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/CC52143922602F06?sharingId=55FE29056B9A8FEB"
-    },
-    {
       "name": "GitHub Foundations",
       "issuer": "GitHub",
       "year": 2025,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/25C12F2E47BE6C5B?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "Azure Network Engineer",
+      "issuer": "Microsoft",
+      "level": "Associate",
+      "year": 2023,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/1C18B84062558C4F?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "Azure Administrator",
+      "issuer": "Microsoft",
+      "level": "Associate",
+      "year": 2023,
+      "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/EB89EF46DB31EF9D?sharingId=55FE29056B9A8FEB"
+    },
+    {
+      "name": "Der Samurai Manager Basic",
+      "issuer": "Leadership",
+      "year": 2021,
+      "description": "Executive Leadership Seminar",
+      "url": null
     }
   ],
   "education": [
     {
       "institution": "Republic of Austria",
-      "degree": "Ingenieur (Ing.) — Information Technology",
+      "degree": "Ingenieur (Ing.), Information Technology",
       "start": "",
-      "end": "Engineering title — earned via professional practice and qualifying exam"
+      "end": "NQR / EQF Level 6 (bachelor reference level), awarded on formal education and assessed professional practice."
     },
     {
-      "institution": "HTL — Höhere Technische Lehranstalt",
-      "degree": "Information Technology, Network Infrastructure",
+      "institution": "Matura (school-leaving diploma)",
+      "degree": "HTL — Information Technology & Network Infrastructure",
       "start": "",
-      "end": "Matura"
+      "end": ""
     }
+  ],
+  "languages": [
+    { "name": "German", "level": "Native" },
+    { "name": "English", "level": "Fluent" }
   ],
   "highlight": {
     "metric": "3.2×",
