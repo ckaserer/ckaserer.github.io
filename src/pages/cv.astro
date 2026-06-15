@@ -9,17 +9,9 @@ function formatDate(dateStr: string | null): string {
   return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
 }
 
-const flatRoles = cv.experience.flatMap((employer) =>
+const allRoles = cv.experience.flatMap((employer) =>
   employer.roles.map((role) => ({ ...role, company: employer.company }))
 );
-
-const p1Roles   = flatRoles.slice(0, 2);   // Manager + Senior Consultant (Avanade)
-const pastRoles = flatRoles.slice(2);       // Gepardec, Accenture, CERN
-
-const sortedCerts = [
-  ...cv.certifications.filter(c => c.issuer === 'Microsoft').sort((a, b) => Number(b.year) - Number(a.year)),
-  ...cv.certifications.filter(c => c.issuer !== 'Microsoft').sort((a, b) => Number(b.year) - Number(a.year)),
-];
 
 const skillGroups = [
   { label: 'Azure Platform',                items: cv.skills.azurePlatform },
@@ -28,6 +20,21 @@ const skillGroups = [
   { label: 'AI-Augmented Engineering',      items: cv.skills.ai            },
   { label: 'Leadership & Practices',        items: cv.skills.practices     },
 ];
+
+const certIssuers = ['Microsoft', 'GitHub', 'Leadership'];
+const certsByIssuer = certIssuers
+  .map(issuer => ({
+    issuer,
+    certs: cv.certifications
+      .filter(c => c.issuer === issuer)
+      .sort((a, b) => Number(b.year) - Number(a.year)),
+  }))
+  .filter(g => g.certs.length > 0);
+const otherCerts = cv.certifications.filter(c => !certIssuers.includes(c.issuer));
+if (otherCerts.length > 0) certsByIssuer.push({ issuer: 'Other', certs: otherCerts });
+
+const languages = (cv as unknown as { languages?: Array<{ name: string; level: string }> }).languages ?? [];
+const achievements = (cv as unknown as { achievements?: string[] }).achievements ?? [];
 ---
 
 <!doctype html>
@@ -40,17 +47,16 @@ const skillGroups = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
     <style>
-      /* ─── Reset & shared vars ─────────────────────────────── */
+      /* ─── Reset ──────────────────────────────────────────── */
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
       :root {
-        --ink:     #0A1628;
-        --soft:    #1e293b;
-        --muted:   #475569;
-        --dim:     #64748B;
-        --rule:    #E2E8F0;
-        --accent:  #0078D4;
-        --accent2: #dbeeff;
+        --ink:    #0A1628;
+        --soft:   #1e293b;
+        --muted:  #475569;
+        --dim:    #64748B;
+        --rule:   #E2E8F0;
+        --accent: #0078D4;
       }
 
       body {
@@ -59,96 +65,60 @@ const skillGroups = [
         font-feature-settings: 'cv11', 'ss01';
       }
 
-      /* ─── Shared structural ───────────────────────────────── */
-      .page {
-        display: grid;
-        align-items: start;
+      a { color: var(--accent); text-decoration: none; }
+      a:hover { text-decoration: underline; }
+
+      /* ─── Document sections ───────────────────────────────── */
+      .cv-section {
+        border-top: 1px solid var(--rule);
       }
-      .sidebar { border-right: 1px solid var(--rule); }
-      .sb-block { }
-      .sb-head {
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--accent);
-        display: block;
-      }
-      .photo-wrap {
-        width: 100%;
-        aspect-ratio: 1/1;
-        border-radius: 12px;
-        overflow: hidden;
-        border: 2px solid var(--accent);
-      }
-      .photo-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-      .contact-list { list-style: none; }
-      .contact-list li { color: var(--muted); line-height: 1.45; word-break: break-word; }
-      .contact-list a { color: var(--accent); font-weight: 500; text-decoration: none; }
-      .cert { page-break-inside: avoid; }
-      .cert-name { font-weight: 600; display: block; line-height: 1.3; color: var(--ink); text-decoration: none; }
-      a.cert-name { color: var(--accent); }
-      .cert-meta { color: var(--dim); }
-      .edu { page-break-inside: avoid; }
-      .edu-degree { font-weight: 700; color: var(--ink); line-height: 1.25; }
-      .edu-inst   { color: var(--accent); font-weight: 600; }
-      .edu-meta   { color: var(--dim); }
-      .skill-cluster { page-break-inside: avoid; }
-      .cluster-label { font-weight: 700; color: var(--ink); display: block; }
-      .chips { display: flex; flex-wrap: wrap; }
-      .chip {
-        font-weight: 500;
-        color: var(--soft);
-        background: var(--accent2);
-        border: 1px solid #b8d9f5;
-        border-radius: 999px;
-        white-space: nowrap;
-      }
-      .main { min-width: 0; }
-      .identity {
-        border-bottom: 3px solid var(--accent);
-      }
-      h1 {
-        font-weight: 800;
-        color: var(--ink);
-        letter-spacing: -0.02em;
-        line-height: 1.1;
-      }
-      .job-title { color: var(--accent); font-weight: 600; }
+
       .section-head {
         font-weight: 700;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.15em;
         text-transform: uppercase;
         color: var(--accent);
         display: block;
+        flex-shrink: 0;
       }
-      .section-wrap { }
-      .summary { color: var(--muted); line-height: 1.6; }
-      .role { }
-      .role-top {
+
+      /* Role */
+      .role-header {
         display: flex;
         justify-content: space-between;
         align-items: baseline;
-        gap: 0.5rem;
+        gap: 1rem;
       }
-      .role-top h3 { font-weight: 700; color: var(--ink); }
-      .role-date { color: var(--dim); font-weight: 500; white-space: nowrap; }
-      .role-co { font-weight: 600; color: var(--accent); }
-      .role-desc { color: var(--muted); line-height: 1.5; }
-      .role ul { }
-      .role li { color: var(--soft); line-height: 1.5; }
-      .continued-head {
-        font-weight: 700;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        color: var(--accent);
-        display: block;
-      }
+      .role-title   { font-weight: 700; color: var(--ink); }
+      .role-date    { color: var(--dim); white-space: nowrap; flex-shrink: 0; }
+      .role-meta    { color: var(--accent); font-weight: 600; }
+      .role-bullets li { color: var(--soft); line-height: 1.5; }
 
-      .achievement-list { list-style: none; margin: 0; padding: 0; }
-      .achievement-list li { color: var(--soft); line-height: 1.55; display: flex; gap: 0.5rem; }
-      .achievement-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+      /* Skills */
+      .skill-row { display: flex; gap: 0.4em; align-items: baseline; }
+      .skill-label { font-weight: 700; color: var(--ink); white-space: nowrap; flex-shrink: 0; }
+      .skill-items { color: var(--muted); }
 
-      /* ─── SCREEN styles ───────────────────────────────────── */
+      /* Certifications */
+      .cert-row { display: flex; gap: 0.4em; align-items: baseline; }
+      .cert-issuer  { font-weight: 700; color: var(--ink); white-space: nowrap; flex-shrink: 0; }
+      .cert-names   { color: var(--muted); }
+
+      /* Education */
+      .edu-degree { font-weight: 700; color: var(--ink); }
+      .edu-inst   { color: var(--accent); font-weight: 600; }
+      .edu-meta   { color: var(--dim); }
+
+      /* Achievement list */
+      .ach-list { list-style: none; }
+      .ach-list li { color: var(--soft); line-height: 1.5; display: flex; gap: 0.5em; }
+      .ach-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
+      /* Languages */
+      .lang-row { color: var(--muted); }
+      .lang-row strong { color: var(--ink); font-weight: 600; }
+
+      /* ─── SCREEN ──────────────────────────────────────────── */
       @media screen {
         body {
           background: #e8f0f8;
@@ -158,30 +128,18 @@ const skillGroups = [
 
         /* Top bar */
         .top-bar {
-          position: sticky;
-          top: 0;
-          z-index: 20;
-          background: white;
-          border-bottom: 1px solid var(--rule);
+          position: sticky; top: 0; z-index: 20;
+          background: white; border-bottom: 1px solid var(--rule);
           padding: 0.75rem 1.5rem;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
+          display: flex; align-items: center; justify-content: space-between; gap: 1rem;
           box-shadow: 0 1px 8px rgba(10,22,40,0.07);
         }
         .top-bar-brand {
-          display: flex;
-          align-items: center;
-          gap: 0.6rem;
-          text-decoration: none;
-          color: var(--ink);
-          font-weight: 700;
-          font-size: 0.9rem;
+          display: flex; align-items: center; gap: 0.6rem;
+          text-decoration: none; color: var(--ink); font-weight: 700; font-size: 0.9rem;
         }
         .top-bar-brand .avatar {
-          width: 32px; height: 32px;
-          border-radius: 8px;
+          width: 32px; height: 32px; border-radius: 8px;
           background: linear-gradient(135deg, #0078D4, #005a9e);
           display: flex; align-items: center; justify-content: center;
           color: white; font-size: 0.78rem; font-weight: 800;
@@ -206,77 +164,63 @@ const skillGroups = [
         }
         .btn-download:hover { background: #005a9e; box-shadow: 0 4px 14px rgba(0,120,212,0.4); }
 
-        /* Card wrapper */
+        /* Card */
         .cv-wrap {
-          max-width: 980px;
-          margin: 2rem auto;
-          background: white;
-          border-radius: 12px;
+          max-width: 820px; margin: 2rem auto;
+          background: white; border-radius: 12px;
           box-shadow: 0 8px 40px rgba(10,22,40,0.12);
           overflow: hidden;
+          padding: 3rem 3.5rem;
         }
 
-        /* Page divider (between page 1 and page 2 sections) */
-        .page-2 { border-top: 2px solid var(--rule); }
+        /* Header */
+        .cv-header { margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 3px solid var(--accent); }
+        .cv-name   { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
+        .cv-title  { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-top: 0.2rem; }
+        .cv-contact { margin-top: 0.65rem; font-size: 0.87rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
+        .cv-contact .sep { color: var(--rule); }
 
-        /* Grid */
-        .page {
-          grid-template-columns: 240px 1fr;
-          gap: 0;
-        }
+        /* Sections */
+        .cv-section { padding: 1.35rem 0; }
+        .cv-section:last-child { padding-bottom: 0; }
+        .section-head { font-size: 0.65rem; margin-bottom: 0.75rem; }
 
-        /* Sidebar */
-        .sidebar {
-          background: #f4f9ff;
-          padding: 2rem 1.5rem;
-        }
-        .sb-block { margin-bottom: 1.75rem; }
-        .sb-block:last-child { margin-bottom: 0; }
-        .sb-head { font-size: 0.65rem; margin-bottom: 0.65rem; }
-        .photo-wrap { margin-bottom: 1.5rem; }
-        .contact-list li { font-size: 0.83rem; margin-bottom: 0.35rem; }
-        .cert { margin-bottom: 0.55rem; }
-        .cert:last-child { margin-bottom: 0; }
-        .cert-name { font-size: 0.82rem; }
-        .cert-meta { font-size: 0.72rem; margin-top: 0.05rem; }
-        .edu { margin-bottom: 0.65rem; }
-        .edu:last-child { margin-bottom: 0; }
-        .edu-degree { font-size: 0.85rem; }
-        .edu-inst   { font-size: 0.78rem; margin-top: 0.08rem; }
-        .edu-meta   { font-size: 0.73rem; }
-        .skill-cluster { margin-bottom: 1rem; }
-        .skill-cluster:last-child { margin-bottom: 0; }
-        .cluster-label { font-size: 0.78rem; margin-bottom: 0.4rem; }
-        .chips { gap: 0.35rem; }
-        .chip { font-size: 0.75rem; padding: 0.18rem 0.6rem 0.2rem; }
+        /* Roles */
+        .cv-role { margin-bottom: 1.25rem; }
+        .cv-role:last-child { margin-bottom: 0; }
+        .role-title  { font-size: 1rem; }
+        .role-date   { font-size: 0.83rem; }
+        .role-meta   { font-size: 0.88rem; margin: 0.1rem 0 0.35rem; display: block; }
+        .role-desc   { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.35rem; line-height: 1.5; }
+        .role-bullets { margin-left: 1.1rem; }
+        .role-bullets li { font-size: 0.87rem; margin-bottom: 0.2rem; }
 
-        /* Main */
-        .main { padding: 2.5rem 2.75rem; }
-        .identity { padding-bottom: 1rem; margin-bottom: 1.5rem; }
-        h1 { font-size: 2.4rem; margin-bottom: 0.25rem; }
-        .job-title { font-size: 1.05rem; }
-        .section-head { font-size: 0.65rem; margin-bottom: 0.7rem; }
-        .section-wrap { margin-bottom: 1.75rem; }
-        .section-wrap:last-child { margin-bottom: 0; }
-        .summary { font-size: 0.97rem; }
-        .achievement-list li { font-size: 0.87rem; margin-bottom: 0.22rem; }
-        .role { margin-bottom: 1.4rem; }
-        .role:last-child { margin-bottom: 0; }
-        .role-top h3 { font-size: 1.02rem; }
-        .role-date { font-size: 0.83rem; }
-        .role-co { font-size: 0.88rem; margin: 0.1rem 0 0.4rem; }
-        .role-desc { font-size: 0.88rem; margin-bottom: 0.4rem; }
-        .role ul { margin-left: 1.1rem; }
-        .role li { font-size: 0.87rem; margin-bottom: 0.2rem; }
-        .continued-head { font-size: 0.65rem; margin-bottom: 0.9rem; }
+        /* Skills */
+        .skill-row   { margin-bottom: 0.35rem; font-size: 0.88rem; }
+        .skill-row:last-child { margin-bottom: 0; }
+
+        /* Certs */
+        .cert-row    { margin-bottom: 0.35rem; font-size: 0.88rem; }
+        .cert-row:last-child { margin-bottom: 0; }
+
+        /* Achievements */
+        .ach-list li { font-size: 0.88rem; margin-bottom: 0.25rem; }
+
+        /* Languages */
+        .lang-row { font-size: 0.88rem; }
+
+        /* Education */
+        .cv-edu { margin-bottom: 0.65rem; }
+        .cv-edu:last-child { margin-bottom: 0; }
+        .edu-degree { font-size: 0.95rem; }
+        .edu-inst   { font-size: 0.85rem; margin-top: 0.1rem; display: block; }
+        .edu-meta   { font-size: 0.8rem; margin-top: 0.1rem; display: block; }
       }
 
-      /* ─── PRINT styles ────────────────────────────────────── */
+      /* ─── PRINT ───────────────────────────────────────────── */
       @media print {
-        @page { size: A4; margin: 14mm 14mm 15mm 14mm; }
+        @page { size: A4; margin: 14mm 16mm 15mm 16mm; }
         .top-bar { display: none !important; }
-        .cv-wrap { box-shadow: none; border-radius: 0; }
-        a { color: #0078D4 !important; text-decoration: none; }
 
         body {
           background: white;
@@ -284,48 +228,36 @@ const skillGroups = [
           line-height: 1.55;
         }
 
-        .page { grid-template-columns: 62mm 1fr; gap: 9mm; }
-        .page-2 { page-break-before: always; break-before: page; border-top: none; }
+        .cv-wrap { padding: 0; box-shadow: none; border-radius: 0; }
 
-        .sidebar { background: transparent; padding: 0; padding-right: 7mm; }
-        .sb-block { margin-bottom: 1.35rem; }
-        .sb-block:last-child { margin-bottom: 0; }
-        .sb-head { font-size: 0.68rem; margin-bottom: 0.55rem; }
-        .photo-wrap { margin-bottom: 1.25rem; }
-        .contact-list li { font-size: 0.79rem; margin-bottom: 0.3rem; }
-        .cert { margin-bottom: 0.48rem; }
-        .cert:last-child { margin-bottom: 0; }
-        .cert-name { font-size: 0.77rem; }
-        .cert-meta { font-size: 0.69rem; margin-top: 0.04rem; }
-        .edu { margin-bottom: 0.55rem; }
-        .edu:last-child { margin-bottom: 0; }
-        .edu-degree { font-size: 0.8rem; }
-        .edu-inst   { font-size: 0.73rem; margin-top: 0.05rem; }
-        .edu-meta   { font-size: 0.69rem; }
-        .skill-cluster { margin-bottom: 0.8rem; }
-        .skill-cluster:last-child { margin-bottom: 0; }
-        .cluster-label { font-size: 0.72rem; margin-bottom: 0.32rem; }
-        .chips { gap: 0.28rem; }
-        .chip { font-size: 0.71rem; padding: 0.1rem 0.48rem 0.12rem; }
+        .cv-header { margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 2pt solid var(--accent); }
+        .cv-name   { font-size: 20pt; font-weight: 800; letter-spacing: -0.01em; }
+        .cv-title  { font-size: 11pt; color: var(--accent); font-weight: 600; margin-top: 0.15rem; }
+        .cv-contact { margin-top: 0.45rem; font-size: 8.5pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem; }
+        .cv-contact .sep { color: var(--dim); }
 
-        .main { padding: 0; }
-        .identity { padding-bottom: 0.7rem; margin-bottom: 0.95rem; }
-        h1 { font-size: 1.9rem; margin-bottom: 0.15rem; }
-        .job-title { font-size: 1rem; }
-        .section-head { font-size: 0.72rem; margin-bottom: 0.55rem; }
-        .section-wrap { margin-bottom: 1rem; }
-        .section-wrap:last-child { margin-bottom: 0; }
-        .summary { font-size: 0.9rem; }
-        .achievement-list li { font-size: 0.82rem; margin-bottom: 0.16rem; }
-        .role { margin-bottom: 0.95rem; }
-        .role:last-child { margin-bottom: 0; }
-        .role-top h3 { font-size: 0.96rem; }
-        .role-date { font-size: 0.77rem; }
-        .role-co { font-size: 0.83rem; margin: 0.08rem 0 0.28rem; }
-        .role-desc { font-size: 0.83rem; margin-bottom: 0.28rem; }
-        .role ul { margin-left: 1rem; }
-        .role li { font-size: 0.82rem; margin-bottom: 0.14rem; }
-        .continued-head { font-size: 0.72rem; margin-bottom: 0.65rem; }
+        .cv-section { padding: 0.7rem 0; page-break-inside: avoid; }
+        .section-head { font-size: 7pt; margin-bottom: 0.5rem; }
+
+        .cv-role { margin-bottom: 0.85rem; page-break-inside: avoid; }
+        .cv-role:last-child { margin-bottom: 0; }
+        .role-title { font-size: 9.5pt; }
+        .role-date  { font-size: 8pt; }
+        .role-meta  { font-size: 8.5pt; margin: 0.06rem 0 0.25rem; display: block; }
+        .role-desc  { font-size: 8.5pt; margin-bottom: 0.25rem; line-height: 1.45; }
+        .role-bullets { margin-left: 0.9rem; }
+        .role-bullets li { font-size: 8.5pt; margin-bottom: 0.12rem; }
+
+        .skill-row   { margin-bottom: 0.2rem; font-size: 8.5pt; }
+        .cert-row    { margin-bottom: 0.2rem; font-size: 8.5pt; }
+        .ach-list li { font-size: 8.5pt; margin-bottom: 0.15rem; }
+        .lang-row    { font-size: 8.5pt; }
+
+        .cv-edu { margin-bottom: 0.45rem; page-break-inside: avoid; }
+        .cv-edu:last-child { margin-bottom: 0; }
+        .edu-degree { font-size: 9pt; }
+        .edu-inst   { font-size: 8.5pt; margin-top: 0.06rem; display: block; }
+        .edu-meta   { font-size: 8pt; margin-top: 0.06rem; display: block; }
       }
     </style>
   </head>
@@ -355,134 +287,116 @@ const skillGroups = [
 
     <div class="cv-wrap">
 
-    <!-- ══════════════════════ PAGE 1 ══════════════════════ -->
-    <div class="page">
+      <!-- Header: Name · Title · Contact (in document body — ATS requires contact outside header/footer) -->
+      <header class="cv-header">
+        <h1 class="cv-name">{cv.name}</h1>
+        <p class="cv-title">{cv.title}</p>
+        <p class="cv-contact">
+          <span>📍 {cv.location}</span>
+          <span class="sep">·</span>
+          <a href={cv.website}>{cv.website.replace('https://', '')}</a>
+          <span class="sep">·</span>
+          <a href={`https://linkedin.com/in/${cv.linkedin}`}>linkedin.com/in/{cv.linkedin}</a>
+          <span class="sep">·</span>
+          <a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a>
+        </p>
+      </header>
 
-      <!-- Sidebar: photo · contact · certs · education -->
-      <aside class="sidebar">
-        {cv.photo && (
-          <div class="photo-wrap">
-            <img src={cv.photo} alt={cv.name} />
-          </div>
-        )}
+      <!-- PROFILE -->
+      <section class="cv-section">
+        <span class="section-head">Profile</span>
+        <p style="color: var(--muted); line-height: 1.6;">{cv.summary}</p>
+      </section>
 
-        <div class="sb-block">
-          <span class="sb-head">Contact</span>
-          <ul class="contact-list">
-            <li>📍 {cv.location}</li>
-            <li><a href={cv.website}>{cv.website.replace('https://', '')}</a></li>
-            <li><a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a></li>
-            <li><a href={`https://linkedin.com/in/${cv.linkedin}`}>linkedin.com/in/{cv.linkedin}</a></li>
+      <!-- SELECTED ACHIEVEMENTS -->
+      {achievements.length > 0 && (
+        <section class="cv-section">
+          <span class="section-head">Selected Achievements</span>
+          <ul class="ach-list">
+            {achievements.map((a) => <li>{a}</li>)}
           </ul>
-        </div>
+        </section>
+      )}
 
-        <div class="sb-block">
-          <span class="sb-head">Certifications</span>
-          {sortedCerts.map((cert) => (
-            <div class="cert">
-              {cert.url
-                ? <a class="cert-name" href={cert.url}>{cert.name}</a>
-                : <span class="cert-name">{cert.name}</span>
-              }
-              <div class="cert-meta">{cert.issuer} · {cert.year}</div>
-            </div>
-          ))}
-        </div>
-
-        <div class="sb-block">
-          <span class="sb-head">Education</span>
-          {cv.education.map((edu) => (
-            <div class="edu">
-              <div class="edu-degree">{edu.degree}</div>
-              <div class="edu-inst">{edu.institution}</div>
-              {[edu.start, edu.end].filter(Boolean).length > 0 && (
-                <div class="edu-meta">{[edu.start, edu.end].filter(Boolean).join(' — ')}</div>
-              )}
-            </div>
-          ))}
-        </div>
-      </aside>
-
-      <!-- Main: identity · profile · current role -->
-      <main class="main">
-        <header class="identity">
-          <h1>{cv.name}</h1>
-          <span class="job-title">{cv.title}</span>
-        </header>
-
-        <div class="section-wrap">
-          <span class="section-head">Profile</span>
-          <p class="summary">{cv.summary}</p>
-        </div>
-
-        {(cv as unknown as { achievements?: string[] }).achievements?.length && (
-          <div class="section-wrap">
-            <span class="section-head">Selected Achievements</span>
-            <ul class="achievement-list">
-              {(cv as unknown as { achievements: string[] }).achievements.map((a) => (
-                <li>{a}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        <div class="section-wrap">
-          <span class="section-head">Experience</span>
-          {p1Roles.map((role) => (
-            <div class="role">
-              <div class="role-top">
-                <h3>{role.title}</h3>
-                <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
-              </div>
-              <div class="role-co">{role.company} · {role.location}</div>
-              <p class="role-desc">{role.description}</p>
-              <ul>
-                {role.highlights.map((h) => <li>{h}</li>)}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </main>
-    </div>
-
-    <!-- ══════════════════════ PAGE 2 ══════════════════════ -->
-    <div class="page page-2">
-
-      <!-- Sidebar: skills -->
-      <aside class="sidebar">
-        <div class="sb-block">
-          <span class="sb-head">Skills</span>
-          {skillGroups.map((group) => (
-            <div class="skill-cluster">
-              <span class="cluster-label">{group.label}</span>
-              <div class="chips">
-                {group.items.map((skill) => (
-                  <span class="chip">{skill}</span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </aside>
-
-      <!-- Main: remaining experience -->
-      <main class="main">
-        <span class="continued-head">Experience (continued)</span>
-        {pastRoles.map((role) => (
-          <div class="role">
-            <div class="role-top">
-              <h3>{role.title}</h3>
+      <!-- EXPERIENCE -->
+      <section class="cv-section">
+        <span class="section-head">Experience</span>
+        {allRoles.map((role) => (
+          <div class="cv-role">
+            <div class="role-header">
+              <span class="role-title">{role.title}</span>
               <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
             </div>
-            <div class="role-co">{role.company} · {role.location}</div>
-            <p class="role-desc">{role.description}</p>
-            <ul>
+            <span class="role-meta">{role.company} · {role.location}</span>
+            {role.description && <p class="role-desc">{role.description}</p>}
+            <ul class="role-bullets">
               {role.highlights.map((h) => <li>{h}</li>)}
             </ul>
           </div>
         ))}
-      </main>
-    </div>
+      </section>
+
+      <!-- SKILLS (plain text — ATS parses label: item, item format) -->
+      <section class="cv-section">
+        <span class="section-head">Skills</span>
+        {skillGroups.map((group) => (
+          <p class="skill-row">
+            <span class="skill-label">{group.label}:</span>
+            <span class="skill-items">{group.items.join(', ')}</span>
+          </p>
+        ))}
+      </section>
+
+      <!-- CERTIFICATIONS (grouped by issuer, text format) -->
+      <section class="cv-section">
+        <span class="section-head">Certifications</span>
+        {certsByIssuer.map((group) => (
+          <p class="cert-row">
+            <span class="cert-issuer">{group.issuer}:</span>
+            <span class="cert-names">
+              {group.certs.map((cert, ci) => (
+                <>
+                  {cert.url
+                    ? <a href={cert.url} target="_blank" rel="noopener noreferrer">{cert.name}</a>
+                    : <span>{cert.name}</span>
+                  }
+                  <span style="color: var(--dim);"> ({cert.year})</span>
+                  {ci < group.certs.length - 1 && <span style="color: var(--dim);"> · </span>}
+                </>
+              ))}
+            </span>
+          </p>
+        ))}
+      </section>
+
+      <!-- LANGUAGES -->
+      {languages.length > 0 && (
+        <section class="cv-section">
+          <span class="section-head">Languages</span>
+          <p class="lang-row">
+            {languages.map((lang, i) => (
+              <>
+                <strong>{lang.name}</strong> — {lang.level}
+                {i < languages.length - 1 && <span style="margin: 0 0.5rem; color: var(--dim);">|</span>}
+              </>
+            ))}
+          </p>
+        </section>
+      )}
+
+      <!-- EDUCATION -->
+      <section class="cv-section">
+        <span class="section-head">Education</span>
+        {cv.education.map((edu) => (
+          <div class="cv-edu">
+            <div class="edu-degree">{edu.degree}</div>
+            <span class="edu-inst">{edu.institution}</span>
+            {(edu.start || edu.end) && (
+              <span class="edu-meta">{[edu.start, edu.end].filter(Boolean).join(' — ')}</span>
+            )}
+          </div>
+        ))}
+      </section>
 
     </div><!-- /cv-wrap -->
   </body>

@@ -23,7 +23,7 @@ lastReviewed: 2026-05-12
 **Key files:**
 - `src/data/cv.json` — edit this to update any CV content
 - `src/pages/index.astro` — main landing page (composes the section components)
-- `src/pages/cv.astro` — print-optimised page used by Playwright to generate `clemens-kaserer-cv.pdf` (`noindex`, excluded from sitemap)
+- `src/pages/cv.astro` — single-column ATS-friendly page used by Playwright to generate `clemens-kaserer-cv.pdf` (`noindex`, excluded from sitemap). Browser view at `/cv` is identical to the downloaded PDF — do not add a sidebar or multi-column layout here.
 - `src/pages/og.astro` — 1200×630 page used by Playwright to render `og-image.png` (`noindex`, excluded from sitemap)
 - `src/components/` — Hero, About, StatsBar, Experience, Skills, Education, Contact, CvDownload, Footer, Seo
 - `src/components/Seo.astro` — meta tags, Open Graph, Twitter card, Person + ContactPoint JSON-LD
@@ -56,6 +56,7 @@ lastReviewed: 2026-05-12
 - Never hardcode secrets, API keys, or personal tokens
 - Keep page titles and headings meaningful — the site has a sitemap and robots.txt for SEO
 - `/og` and `/cv` must stay `noindex` and excluded from the sitemap
+- **Living documentation rule:** When any task reveals new architectural decisions, conventions, or best practices (ATS compatibility, layout choices, tooling constraints), update the relevant `.github/skills/*.md` and `.github/instructions/*.md` files in the same commit. Skills and instructions are the institutional memory for this repo — keep them current.
 
 ## Skills (load on demand)
 

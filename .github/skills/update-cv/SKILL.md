@@ -69,7 +69,7 @@ All CV content lives in **`src/data/cv.json`**. Editing this one file updates th
       "name":   "string",
       "issuer": "string",
       "year":   number,            // year EARNED (verified via MS Learn share URL)
-      "url":    "string"           // public credential share URL (omit for fundamentals)
+      "url":    "string | null"    // public credential share URL; null for certs without a public link
     }
   ],
 
@@ -164,7 +164,64 @@ Use the `worktree-workflow` skill. Suggested commit prefixes:
 
 After the PR merges to `main`, GitHub Actions rebuilds and regenerates `clemens-kaserer-cv.pdf` and `og-image.png`.
 
-## Things to Avoid
+## ATS Compliance — `cv.astro` Layout Rules
+
+The `/cv` page is the **single source of truth** for both the browser CV view and the Playwright-generated `clemens-kaserer-cv.pdf`. They must be identical. This page **must remain single-column** to be parseable by Applicant Tracking Systems.
+
+### Why single-column matters
+
+7 authoritative sources (Jobscan 1M+ scans, TopResume 1,000-resume study, PDFMiner official docs, ResumeGenius vendor matrix) confirm:
+
+| ATS System | Documented failure on multi-column PDFs |
+|---|---|
+| **Workday** (39% of Fortune 500) | Multiple columns, non-standard headings, graphics |
+| **Greenhouse** | Tables, graphics, large files |
+| **Lever** | Tables and graphics |
+| **Oracle/Taleo** | Double & triple columns |
+
+PDF parsers read by x/y coordinate proximity — sidebar content ends up interleaved with or silently dropped from the main text stream. TopResume: *"Yes, they're pretty. No, they won't get past the ATS."*
+
+### Forbidden in `cv.astro`
+
+| Element | Why |
+|---|---|
+| CSS grid with ≥2 columns | Text-stream interleaving |
+| Sidebar / aside column | Sidebar content silently dropped (Jobscan live demo) |
+| `<img>` (photo) | TopResume: garbles into `$&%#*` or triggers corrupt-file rejection |
+| Skill chips/badges/flex-wrap | Parsed as decorative noise, skills missed |
+| Tables | Skipped entirely by parsers that can't process 2D grids |
+| Contact in HTML `<header>`/`<footer>` | 25% parse loss (TopResume study) |
+
+### Required
+
+| Rule | Detail |
+|---|---|
+| Single-column block layout | All sections flow top-to-bottom, full width |
+| Skills as `Label: item, item, item` text | Plain text, ATS extracts keyword + context |
+| Contact in document body | Location · website · LinkedIn · GitHub (no email/phone) |
+| Standard section headings | "Profile", "Experience", "Skills", "Certifications", "Education" |
+| `url: null` for certs without a public link | Valid — components must handle null gracefully |
+
+### Section order (matches WU_MBA PDF, approved)
+
+```
+Name / Title
+Contact row (in document body)
+PROFILE
+SELECTED ACHIEVEMENTS
+EXPERIENCE  (all roles, reverse-chronological)
+SKILLS      (label: comma-separated text)
+CERTIFICATIONS (grouped by issuer: Microsoft → GitHub → Leadership)
+LANGUAGES
+EDUCATION
+```
+
+### Tech abbreviation strategy (Lever & Taleo)
+
+Lever cannot expand acronyms; Taleo does literal keyword matching. Use `Full Name (Abbreviation)` on first use:
+- `Kubernetes (K8s)`, `Azure DevOps (ADO)`, `Infrastructure as Code (IaC)`, `CI/CD`
+
+
 
 - Do NOT reintroduce an `email` field or `mailto:` link anywhere
 - Do NOT hardcode dates as plain years for `experience` — always `"YYYY-MM"` or `null`
