@@ -2,7 +2,7 @@
 import cv from '../data/cv.json';
 const stats = [
   { value: 10,   suffix: '+',  label: 'Years in Cloud & DevOps' },
-  { value: 3.2,  suffix: '×',  label: 'AI-augmented delivery speed', tooltip: 'Latest project: AI-augmented delivery vs. comparable traditional engagement', highlight: true, decimals: 1 },
+  { value: 3,  prefix: '~',  suffix: '×',  label: 'AI-augmented delivery speed', tooltip: 'Latest project: AI-augmented delivery vs. comparable traditional engagement', highlight: true, decimals: 0 },
   { value: cv.certifications.length, suffix: '', label: 'Active Microsoft Certifications' },
   { value: null, text: 'Azure', label: 'Cloud Platform of Choice' },
 ];
@@ -25,6 +25,7 @@ const stats = [
                style="font-size: clamp(2.5rem, 5vw, 4rem);">
             {stat.value !== null ? (
               <>
+                {stat.prefix && <span class="text-azure">{stat.prefix}</span>}
                 <span
                   class={`counter ${stat.highlight ? 'bg-gradient-to-r from-sky via-white to-sky bg-clip-text text-transparent' : 'bg-gradient-to-r from-sky to-white bg-clip-text text-transparent'}`}
                   data-count={stat.value}

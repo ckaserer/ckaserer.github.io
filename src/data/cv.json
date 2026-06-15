@@ -14,7 +14,7 @@
   "achievements": [
     "Initiated and lead Avanade's regional GitHub Copilot adoption — treated as a change problem, not a tooling one: a shared, compliance-ready platform now reaching up to 32 engineers a week, and being packaged as a client offering.",
     "Delivered 4+ enterprise Azure landing zones (single- and multi-tenant, Cloud Adoption Framework) running 50+ workloads for regulated clients.",
-    "Led an AI-augmented digital-twin MVP for an industrial-logistics client, delivered at ~3.2× the pace of a traditional build.",
+    "Led an AI-augmented digital-twin MVP for an industrial-logistics client, delivered at roughly 3× the pace of a traditional build.",
     "Active across 5+ competitive enterprise and public-sector tenders in 2026 (DACH), including on-site client negotiation — contributing solution design and cloud-governance responses.",
     "Co-built AI \"architecture-decision\" agents for legacy modernization, recognized cross-border within Avanade as a high-value asset."
   ],
@@ -239,7 +239,7 @@
     { "name": "English", "level": "Fluent" }
   ],
   "highlight": {
-    "metric": "3.2×",
+    "metric": "~3×",
     "label": "Delivery speed",
     "context": "Latest project, AI-augmented vs. traditional"
   }
