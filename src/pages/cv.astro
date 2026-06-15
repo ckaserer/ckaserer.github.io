@@ -14,23 +14,25 @@ const allRoles = cv.experience.flatMap((employer) =>
 );
 
 const skillGroups = [
-  { label: 'Azure Platform',                items: cv.skills.azurePlatform },
-  { label: 'Cloud-Native & Containers',     items: cv.skills.cloudNative   },
-  { label: 'Automation, CI/CD & Scripting', items: cv.skills.automation    },
-  { label: 'AI-Augmented Engineering',      items: cv.skills.ai            },
-  { label: 'Leadership & Practices',        items: cv.skills.practices     },
+  { label: 'Azure & Platform',             items: cv.skills.azurePlatform },
+  { label: 'Cloud-Native & Containers',    items: cv.skills.cloudNative   },
+  { label: 'Automation & DevOps',          items: cv.skills.automation    },
+  { label: 'AI-Augmented Engineering',     items: cv.skills.ai            },
+  { label: 'Leadership & Practice',        items: cv.skills.practices     },
 ];
+
+type CertFull = { name: string; issuer: string; year: number; url: string | null; level?: string; description?: string };
 
 const certIssuers = ['Microsoft', 'GitHub', 'Leadership'];
 const certsByIssuer = certIssuers
   .map(issuer => ({
     issuer,
-    certs: cv.certifications
+    certs: (cv.certifications as unknown as CertFull[])
       .filter(c => c.issuer === issuer)
       .sort((a, b) => Number(b.year) - Number(a.year)),
   }))
   .filter(g => g.certs.length > 0);
-const otherCerts = cv.certifications.filter(c => !certIssuers.includes(c.issuer));
+const otherCerts = (cv.certifications as unknown as CertFull[]).filter(c => !certIssuers.includes(c.issuer));
 if (otherCerts.length > 0) certsByIssuer.push({ issuer: 'Other', certs: otherCerts });
 
 const languages = (cv as unknown as { languages?: Array<{ name: string; level: string }> }).languages ?? [];
@@ -219,45 +221,46 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
       /* ─── PRINT ───────────────────────────────────────────── */
       @media print {
-        @page { size: A4; margin: 14mm 16mm 15mm 16mm; }
+        @page { size: A4; margin: 0; }
         .top-bar { display: none !important; }
 
         body {
           background: white;
-          font-size: 9.5pt;
-          line-height: 1.55;
+          font-size: 9pt;
+          line-height: 1.5;
         }
 
         .cv-wrap { padding: 0; box-shadow: none; border-radius: 0; }
 
-        .cv-header { margin-bottom: 1rem; padding-bottom: 0.75rem; border-bottom: 2pt solid var(--accent); }
-        .cv-name   { font-size: 20pt; font-weight: 800; letter-spacing: -0.01em; }
-        .cv-title  { font-size: 11pt; color: var(--accent); font-weight: 600; margin-top: 0.15rem; }
-        .cv-contact { margin-top: 0.45rem; font-size: 8.5pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem; }
+        .cv-header { margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 2pt solid var(--accent); }
+        .cv-name   { font-size: 19pt; font-weight: 800; letter-spacing: -0.01em; }
+        .cv-title  { font-size: 10.5pt; color: var(--accent); font-weight: 600; margin-top: 0.1rem; }
+        .cv-contact { margin-top: 0.35rem; font-size: 8pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
         .cv-contact .sep { color: var(--dim); }
 
-        .cv-section { padding: 0.7rem 0; page-break-inside: avoid; }
-        .section-head { font-size: 7pt; margin-bottom: 0.5rem; }
+        .cv-section { padding: 0.55rem 0; }
+        .cv-section:not(.experience-section) { break-inside: avoid; }
+        .section-head { font-size: 6.5pt; margin-bottom: 0.4rem; break-after: avoid; }
 
-        .cv-role { margin-bottom: 0.85rem; page-break-inside: avoid; }
+        .cv-role { margin-bottom: 0.7rem; break-inside: avoid; orphans: 3; widows: 3; }
         .cv-role:last-child { margin-bottom: 0; }
-        .role-title { font-size: 9.5pt; }
-        .role-date  { font-size: 8pt; }
-        .role-meta  { font-size: 8.5pt; margin: 0.06rem 0 0.25rem; display: block; }
-        .role-desc  { font-size: 8.5pt; margin-bottom: 0.25rem; line-height: 1.45; }
-        .role-bullets { margin-left: 0.9rem; }
-        .role-bullets li { font-size: 8.5pt; margin-bottom: 0.12rem; }
+        .role-title { font-size: 9pt; }
+        .role-date  { font-size: 7.5pt; }
+        .role-meta  { font-size: 8pt; margin: 0.04rem 0 0.2rem; display: block; }
+        .role-desc  { font-size: 8pt; margin-bottom: 0.2rem; line-height: 1.4; }
+        .role-bullets { margin-left: 0.85rem; }
+        .role-bullets li { font-size: 8pt; margin-bottom: 0.1rem; }
 
-        .skill-row   { margin-bottom: 0.2rem; font-size: 8.5pt; }
-        .cert-row    { margin-bottom: 0.2rem; font-size: 8.5pt; }
-        .ach-list li { font-size: 8.5pt; margin-bottom: 0.15rem; }
-        .lang-row    { font-size: 8.5pt; }
+        .skill-row   { margin-bottom: 0.18rem; font-size: 8pt; }
+        .cert-row    { margin-bottom: 0.18rem; font-size: 8pt; }
+        .ach-list li { font-size: 8pt; margin-bottom: 0.12rem; }
+        .lang-row    { font-size: 8pt; }
 
-        .cv-edu { margin-bottom: 0.45rem; page-break-inside: avoid; }
+        .cv-edu { margin-bottom: 0.4rem; page-break-inside: avoid; }
         .cv-edu:last-child { margin-bottom: 0; }
-        .edu-degree { font-size: 9pt; }
-        .edu-inst   { font-size: 8.5pt; margin-top: 0.06rem; display: block; }
-        .edu-meta   { font-size: 8pt; margin-top: 0.06rem; display: block; }
+        .edu-degree { font-size: 8.5pt; }
+        .edu-inst   { font-size: 8pt; margin-top: 0.04rem; display: block; }
+        .edu-meta   { font-size: 7.5pt; margin-top: 0.04rem; display: block; }
       }
     </style>
   </head>
@@ -319,9 +322,9 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       )}
 
       <!-- EXPERIENCE -->
-      <section class="cv-section">
+      <section class="cv-section experience-section">
         <span class="section-head">Experience</span>
-        {allRoles.map((role) => (
+        {allRoles.map((role, roleIdx) => (
           <div class="cv-role">
             <div class="role-header">
               <span class="role-title">{role.title}</span>
@@ -360,7 +363,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
                     ? <a href={cert.url} target="_blank" rel="noopener noreferrer">{cert.name}</a>
                     : <span>{cert.name}</span>
                   }
-                  <span style="color: var(--dim);"> ({cert.year})</span>
+                  <span style="color: var(--dim);">{` (${cert.level ? cert.level + ' · ' : cert.description ? cert.description + ' · ' : ''}${cert.year})`}</span>
                   {ci < group.certs.length - 1 && <span style="color: var(--dim);"> · </span>}
                 </>
               ))}

@@ -66,10 +66,12 @@ All CV content lives in **`src/data/cv.json`**. Editing this one file updates th
   // Certifications (sorted by year DESC; older renewable certs may stay at original year)
   "certifications": [
     {
-      "name":   "string",
-      "issuer": "string",
-      "year":   number,            // year EARNED (verified via MS Learn share URL)
-      "url":    "string | null"    // public credential share URL; null for certs without a public link
+      "name":        "string",
+      "issuer":      "string",
+      "year":        number,            // year EARNED (verified via MS Learn share URL)
+      "url":         "string | null",   // public credential share URL; null for certs without a public link
+      "level":       "string?",         // optional — e.g. "Expert" or "Associate" (Microsoft certs); displayed as "Name (Level · year)" in cv.astro
+      "description": "string?"          // optional — e.g. "Executive Leadership Seminar" (Leadership certs); displayed as "Name (Description · year)" in cv.astro
     }
   ],
 

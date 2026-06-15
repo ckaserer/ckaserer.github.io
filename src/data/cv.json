@@ -94,7 +94,7 @@
       "url": "https://home.cern",
       "roles": [
         {
-          "title": "Technical Student (Internship) — System Administration",
+          "title": "Technical Student — System Administration (Internship)",
           "start": "2015-05",
           "end": "2016-06",
           "location": "Geneva, Switzerland",
@@ -126,51 +126,48 @@
   ],
   "skills": {
     "azurePlatform": [
-      "Cloud Adoption Framework (CAF)",
-      "Azure Landing Zone (ALZ) Design",
-      "Sovereign Landing Zone (SLZ)",
-      "Azure Policy & Governance",
-      "Azure Networking",
-      "Azure Monitor",
-      "FinOps"
-    ],
-    "cloudNative": [
-      "Azure Kubernetes Service (AKS)",
-      "OpenShift / ARO",
-      "Kubernetes",
-      "Azure Functions",
-      "Azure Web Apps",
-      "Azure Container Apps"
-    ],
-    "automation": [
-      "Terraform",
-      "Bicep",
-      "GitHub Actions",
-      "Azure DevOps",
-      "Helm",
-      "GitOps",
-      "Python",
-      "PowerShell",
-      "Bash"
-    ],
-    "ai": [
-      "Spec-driven development",
-      "Agentic workflows",
-      "MCP (Model Context Protocol)",
-      "Prompt engineering for engineers",
-      "Copilot enablement at scale",
-      "AI governance & compliance",
-      "Claude Code",
-      "GitHub Copilot"
-    ],
-    "practices": [
-      "Engineering Management",
-      "Mentoring & Coaching",
-      "Enablement & Adoption",
-      "Architecture Reviews",
-      "DevSecOps",
-      "Client Engagement"
-    ]
+        "Cloud Adoption Framework (CAF)",
+        "Azure Landing Zones (ALZ)",
+        "Sovereign LZ",
+        "Azure Policy & Governance",
+        "Networking",
+        "Monitor",
+        "FinOps"
+      ],
+      "cloudNative": [
+        "AKS",
+        "OpenShift / ARO",
+        "Kubernetes",
+        "Azure Functions",
+        "Web Apps",
+        "Container Apps"
+      ],
+      "automation": [
+        "Terraform",
+        "Bicep",
+        "GitHub Actions",
+        "Azure DevOps",
+        "Helm",
+        "GitOps",
+        "Python",
+        "PowerShell",
+        "Bash"
+      ],
+      "ai": [
+        "GitHub Copilot enablement at scale",
+        "Claude Code",
+        "spec-driven & agentic workflows",
+        "MCP",
+        "AI governance & compliance"
+      ],
+      "practices": [
+        "Engineering Management",
+        "Mentoring & Coaching",
+        "Enablement & Adoption",
+        "Architecture Reviews",
+        "DevSecOps",
+        "Client Engagement & FinOps"
+      ]
   },
   "certifications": [
     {
@@ -180,14 +177,16 @@
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/CC52143922602F06?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "Microsoft Certified: Azure Solutions Architect Expert",
+      "name": "Azure Solutions Architect",
       "issuer": "Microsoft",
+      "level": "Expert",
       "year": 2025,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/869AD2929959E0BB?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "Microsoft Certified: DevOps Engineer Expert",
+      "name": "DevOps Engineer",
       "issuer": "Microsoft",
+      "level": "Expert",
       "year": 2025,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/30BB17C37CF65205?sharingId=55FE29056B9A8FEB"
     },
@@ -204,14 +203,16 @@
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/25C12F2E47BE6C5B?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "Microsoft Certified: Azure Network Engineer Associate",
+      "name": "Azure Network Engineer",
       "issuer": "Microsoft",
+      "level": "Associate",
       "year": 2023,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/1C18B84062558C4F?sharingId=55FE29056B9A8FEB"
     },
     {
-      "name": "Microsoft Certified: Azure Administrator Associate",
+      "name": "Azure Administrator",
       "issuer": "Microsoft",
+      "level": "Associate",
       "year": 2023,
       "url": "https://learn.microsoft.com/api/credentials/share/en-gb/ckaserer/EB89EF46DB31EF9D?sharingId=55FE29056B9A8FEB"
     },
@@ -219,6 +220,7 @@
       "name": "Der Samurai Manager Basic",
       "issuer": "Leadership",
       "year": 2021,
+      "description": "Executive Leadership Seminar",
       "url": null
     }
   ],
