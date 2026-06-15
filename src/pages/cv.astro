@@ -105,8 +105,12 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       }
       .role-title   { font-weight: 700; color: var(--ink); }
       .role-date    { color: var(--dim); white-space: nowrap; flex-shrink: 0; }
-      .role-meta    { color: var(--accent); font-weight: 600; }
-      .role-bullets li { color: var(--soft); line-height: 1.5; }
+      .role-meta    { color: var(--muted); font-weight: 500; }
+
+      /* Bullet list — custom blue dot, works in both screen and print */
+      .role-bullets { list-style: none; padding-left: 0; }
+      .role-bullets li { color: var(--soft); line-height: 1.5; padding-left: 1.1em; position: relative; }
+      .role-bullets li::before { content: '•'; color: var(--accent); font-weight: 700; position: absolute; left: 0; }
 
       /* Skills */
       .skill-row { display: flex; gap: 0.4em; align-items: baseline; }
@@ -120,8 +124,11 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
       /* Education */
       .edu-degree { font-weight: 700; color: var(--ink); }
-      .edu-inst   { color: var(--accent); font-weight: 600; }
+      .edu-inst   { color: var(--muted); font-weight: 500; }
       .edu-meta   { color: var(--dim); }
+
+      /* Tagline — italic subtitle under role title in header */
+      .cv-tagline { font-style: italic; color: var(--muted); }
 
       /* Achievement list */
       .ach-list { list-style: none; }
@@ -226,6 +233,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .cv-title  { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-top: 0.2rem; }
         .cv-contact { margin-top: 0.65rem; font-size: 0.87rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
         .cv-contact .sep { color: var(--rule); }
+        .cv-tagline { font-size: 0.87rem; margin-top: 0.25rem; }
         .cv-photo { width: 96px; height: 96px; margin-top: 0.25rem; }
 
 
@@ -241,7 +249,6 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .role-date   { font-size: 0.83rem; }
         .role-meta   { font-size: 0.88rem; margin: 0.1rem 0 0.35rem; display: block; }
         .role-desc   { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.35rem; line-height: 1.5; }
-        .role-bullets { margin-left: 1.1rem; }
         .role-bullets li { font-size: 0.87rem; margin-bottom: 0.2rem; }
 
         /* Skills */
@@ -275,6 +282,8 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
           background: white;
           font-size: 9pt;
           line-height: 1.5;
+          -webkit-print-color-adjust: exact;
+          color-adjust: exact;
         }
 
         .cv-page { padding: 0; box-shadow: none; border-radius: 0; max-width: none; }
@@ -287,6 +296,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .cv-title  { font-size: 10.5pt; color: var(--accent); font-weight: 600; margin-top: 0.1rem; }
         .cv-contact { margin-top: 0.35rem; font-size: 8pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
         .cv-contact .sep { color: var(--dim); }
+        .cv-tagline { font-size: 8.5pt; margin-top: 0.15rem; }
         .cv-photo { width: 56pt; height: 56pt; }
         .cv-photo-frame { padding: 2pt; }
 
@@ -299,9 +309,8 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         .cv-role:last-child { margin-bottom: 0; }
         .role-title { font-size: 9pt; }
         .role-date  { font-size: 7.5pt; }
-        .role-meta  { font-size: 8pt; margin: 0.04rem 0 0.2rem; display: block; }
+        .role-meta  { font-size: 7.5pt; margin: 0.04rem 0 0.2rem; display: block; }
         .role-desc  { font-size: 8pt; margin-bottom: 0.2rem; line-height: 1.4; }
-        .role-bullets { margin-left: 0.85rem; }
         .role-bullets li { font-size: 8pt; margin-bottom: 0.1rem; }
 
         .skill-row   { margin-bottom: 0.18rem; font-size: 8pt; }
@@ -351,6 +360,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
           <div class="cv-header-text">
             <h1 class="cv-name">{cv.name}</h1>
             <p class="cv-title">{cv.title}</p>
+            <p class="cv-tagline">{cv.tagline}</p>
             <p class="cv-contact">
               <span>📍 {cv.location}</span>
               <span class="sep">·</span>

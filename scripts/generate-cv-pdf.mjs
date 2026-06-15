@@ -20,6 +20,8 @@ const MIME = {
   '.js':   'application/javascript',
   '.svg':  'image/svg+xml',
   '.png':  'image/png',
+  '.jpg':  'image/jpeg',
+  '.jpeg': 'image/jpeg',
   '.ico':  'image/x-icon',
   '.txt':  'text/plain',
   '.xml':  'application/xml',
@@ -101,7 +103,7 @@ async function main() {
     await page.pdf({
       path: pathResolve(DIST_DIR, 'clemens-kaserer-cv.pdf'),
       format: 'A4',
-      printBackground: false,
+      printBackground: true,
       displayHeaderFooter: true,
       headerTemplate,
       footerTemplate,
