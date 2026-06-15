@@ -120,6 +120,12 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       .lang-row { color: var(--muted); }
       .lang-row strong { color: var(--ink); font-weight: 600; }
 
+      /* Photo */
+      .cv-photo {
+        object-fit: cover; border-radius: 50%;
+        display: block; flex-shrink: 0;
+      }
+
       /* ─── SCREEN ──────────────────────────────────────────── */
       @media screen {
         body {
@@ -176,11 +182,33 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
         }
 
         /* Header */
-        .cv-header { margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 3px solid var(--accent); }
+        .cv-header { margin-bottom: 1.75rem; padding-bottom: 1.5rem; border-bottom: 3px solid var(--accent); display: flex; align-items: flex-start; gap: 1.5rem; }
+        .cv-header-text { flex: 1; min-width: 0; }
         .cv-name   { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; }
         .cv-title  { font-size: 1.05rem; color: var(--accent); font-weight: 600; margin-top: 0.2rem; }
         .cv-contact { margin-top: 0.65rem; font-size: 0.87rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.25rem 0.6rem; align-items: center; }
         .cv-contact .sep { color: var(--rule); }
+        .cv-photo { width: 96px; height: 96px; border: 3px solid var(--rule); margin-top: 0.25rem; }
+
+        /* Page-break indicator (screen only) */
+        .page-break-indicator {
+          display: flex; align-items: center; gap: 0.75rem;
+          margin: 0.75rem 0;
+          padding: 0.45rem 0.75rem;
+          background: #eff6ff;
+          border: 1.5px dashed #93c5fd;
+          border-radius: 6px;
+        }
+        .page-break-indicator span {
+          font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em;
+          text-transform: uppercase; color: #2563eb; white-space: nowrap;
+        }
+        .page-break-indicator::before {
+          content: '↓'; color: #2563eb; font-size: 0.8rem; flex-shrink: 0;
+        }
+        .page-break-indicator::after {
+          content: ''; flex: 1; height: 1px; background: #bfdbfe;
+        }
 
         /* Sections */
         .cv-section { padding: 1.35rem 0; }
@@ -232,11 +260,16 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
         .cv-wrap { padding: 0; box-shadow: none; border-radius: 0; }
 
-        .cv-header { margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 2pt solid var(--accent); }
+        .cv-header { margin-bottom: 0.8rem; padding-bottom: 0.6rem; border-bottom: 2pt solid var(--accent); display: flex; align-items: flex-start; gap: 1.2rem; }
+        .cv-header-text { flex: 1; min-width: 0; }
         .cv-name   { font-size: 19pt; font-weight: 800; letter-spacing: -0.01em; }
         .cv-title  { font-size: 10.5pt; color: var(--accent); font-weight: 600; margin-top: 0.1rem; }
         .cv-contact { margin-top: 0.35rem; font-size: 8pt; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.1rem 0.5rem; }
         .cv-contact .sep { color: var(--dim); }
+        .cv-photo { width: 56pt; height: 56pt; border: 1.5pt solid var(--rule); }
+
+        /* Page-break indicator: hidden in print — the break is enforced via break-before on the following role */
+        .page-break-indicator { display: none; }
 
         .cv-section { padding: 0.55rem 0; }
         .cv-section:not(.experience-section) { break-inside: avoid; }
@@ -244,6 +277,8 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
         .cv-role { margin-bottom: 0.7rem; break-inside: avoid; orphans: 3; widows: 3; }
         .cv-role:last-child { margin-bottom: 0; }
+        /* Force CERN (and anything after a page-break-indicator) to start on a fresh page */
+        .page-break-indicator + .cv-role { break-before: page; }
         .role-title { font-size: 9pt; }
         .role-date  { font-size: 7.5pt; }
         .role-meta  { font-size: 8pt; margin: 0.04rem 0 0.2rem; display: block; }
@@ -292,17 +327,20 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
 
       <!-- Header: Name · Title · Contact (in document body — ATS requires contact outside header/footer) -->
       <header class="cv-header">
-        <h1 class="cv-name">{cv.name}</h1>
-        <p class="cv-title">{cv.title}</p>
-        <p class="cv-contact">
-          <span>📍 {cv.location}</span>
-          <span class="sep">·</span>
-          <a href={cv.website}>{cv.website.replace('https://', '')}</a>
-          <span class="sep">·</span>
-          <a href={`https://linkedin.com/in/${cv.linkedin}`}>linkedin.com/in/{cv.linkedin}</a>
-          <span class="sep">·</span>
-          <a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a>
-        </p>
+        <div class="cv-header-text">
+          <h1 class="cv-name">{cv.name}</h1>
+          <p class="cv-title">{cv.title}</p>
+          <p class="cv-contact">
+            <span>📍 {cv.location}</span>
+            <span class="sep">·</span>
+            <a href={cv.website}>{cv.website.replace('https://', '')}</a>
+            <span class="sep">·</span>
+            <a href={`https://linkedin.com/in/${cv.linkedin}`}>linkedin.com/in/{cv.linkedin}</a>
+            <span class="sep">·</span>
+            <a href={`https://github.com/${cv.github}`}>github.com/{cv.github}</a>
+          </p>
+        </div>
+        <img src={cv.photo} alt={cv.name} class="cv-photo" />
       </header>
 
       <!-- PROFILE -->
@@ -325,17 +363,24 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       <section class="cv-section experience-section">
         <span class="section-head">Experience</span>
         {allRoles.map((role, roleIdx) => (
-          <div class="cv-role">
-            <div class="role-header">
-              <span class="role-title">{role.title}</span>
-              <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
+          <>
+            {roleIdx === 4 && (
+              <div class="page-break-indicator" aria-hidden="true">
+                <span>Page 2</span>
+              </div>
+            )}
+            <div class="cv-role">
+              <div class="role-header">
+                <span class="role-title">{role.title}</span>
+                <span class="role-date">{formatDate(role.start)} — {formatDate(role.end)}</span>
+              </div>
+              <span class="role-meta">{role.company} · {role.location}</span>
+              {role.description && <p class="role-desc">{role.description}</p>}
+              <ul class="role-bullets">
+                {role.highlights.map((h) => <li>{h}</li>)}
+              </ul>
             </div>
-            <span class="role-meta">{role.company} · {role.location}</span>
-            {role.description && <p class="role-desc">{role.description}</p>}
-            <ul class="role-bullets">
-              {role.highlights.map((h) => <li>{h}</li>)}
-            </ul>
-          </div>
+          </>
         ))}
       </section>
 
