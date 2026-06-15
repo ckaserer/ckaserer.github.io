@@ -5,7 +5,6 @@ import StatsBar from '../components/StatsBar.astro';
 import About from '../components/About.astro';
 import Experience from '../components/Experience.astro';
 import Skills from '../components/Skills.astro';
-import Achievements from '../components/Achievements.astro';
 import Education from '../components/Education.astro';
 import CvDownload from '../components/CvDownload.astro';
 import Contact from '../components/Contact.astro';
@@ -31,7 +30,6 @@ const pageDescription = cv.metaDescription ?? cv.tagline;
         <!-- Desktop nav -->
         <div class="hidden md:flex items-center gap-8 text-sm font-medium text-muted">
           <a href="#about"        class="hover:text-azure transition-colors">About</a>
-          <a href="#achievements" class="hover:text-azure transition-colors">Achievements</a>
           <a href="#experience"   class="hover:text-azure transition-colors">Experience</a>
           <a href="#skills"     class="hover:text-azure transition-colors">Skills</a>
           <a href="#education"  class="hover:text-azure transition-colors">Education</a>
@@ -69,7 +67,6 @@ const pageDescription = cv.metaDescription ?? cv.tagline;
       <div id="mobile-nav-menu" class="hidden md:hidden border-t border-border bg-canvas">
         <div class="px-6 py-4 flex flex-col gap-1 text-base font-medium text-navy">
           <a href="#about"        class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">About</a>
-          <a href="#achievements" class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Achievements</a>
           <a href="#experience"   class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Experience</a>
           <a href="#skills"     class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Skills</a>
           <a href="#education"  class="px-3 py-3 rounded-lg hover:bg-surface hover:text-azure transition-colors">Education</a>
@@ -90,7 +87,6 @@ const pageDescription = cv.metaDescription ?? cv.tagline;
     <Hero />
     <StatsBar />
     <About />
-    <Achievements />
     <Experience />
     <Skills />
     <Education />

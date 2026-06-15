@@ -144,6 +144,10 @@ const skillGroups = [
         display: block;
       }
 
+      .achievement-list { list-style: none; margin: 0; padding: 0; }
+      .achievement-list li { color: var(--soft); line-height: 1.55; display: flex; gap: 0.5rem; }
+      .achievement-list li::before { content: '✓'; color: var(--accent); font-weight: 700; flex-shrink: 0; }
+
       /* ─── SCREEN styles ───────────────────────────────────── */
       @media screen {
         body {
@@ -255,6 +259,7 @@ const skillGroups = [
         .section-wrap { margin-bottom: 1.75rem; }
         .section-wrap:last-child { margin-bottom: 0; }
         .summary { font-size: 0.97rem; }
+        .achievement-list li { font-size: 0.87rem; margin-bottom: 0.22rem; }
         .role { margin-bottom: 1.4rem; }
         .role:last-child { margin-bottom: 0; }
         .role-top h3 { font-size: 1.02rem; }
@@ -311,6 +316,7 @@ const skillGroups = [
         .section-wrap { margin-bottom: 1rem; }
         .section-wrap:last-child { margin-bottom: 0; }
         .summary { font-size: 0.9rem; }
+        .achievement-list li { font-size: 0.82rem; margin-bottom: 0.16rem; }
         .role { margin-bottom: 0.95rem; }
         .role:last-child { margin-bottom: 0; }
         .role-top h3 { font-size: 0.96rem; }
@@ -408,6 +414,17 @@ const skillGroups = [
           <span class="section-head">Profile</span>
           <p class="summary">{cv.summary}</p>
         </div>
+
+        {(cv as unknown as { achievements?: string[] }).achievements?.length && (
+          <div class="section-wrap">
+            <span class="section-head">Selected Achievements</span>
+            <ul class="achievement-list">
+              {(cv as unknown as { achievements: string[] }).achievements.map((a) => (
+                <li>{a}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <div class="section-wrap">
           <span class="section-head">Experience</span>
