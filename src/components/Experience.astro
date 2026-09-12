@@ -59,7 +59,7 @@ function formatDate(dateStr: string | null): string {
                     <span>{role.location}</span>
                   </div>
 
-                  <p class="text-navy/75 leading-relaxed mb-4">{role.description}</p>
+                  {role.description && <p class="text-navy/75 leading-relaxed mb-4">{role.description}</p>}
 
                   <ul class="space-y-2">
                     {role.highlights.map((h) => (

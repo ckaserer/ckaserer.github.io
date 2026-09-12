@@ -346,8 +346,9 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       <!-- ═══ PAGE 1 ═══════════════════════════════════════════════════════ -->
       <div class="cv-page">
 
-        <!-- Header -->
-        <header class="cv-header">
+        <!-- Header — plain div, not <header>: ATS parsers (per TopResume) skip
+             contact info placed in <header>/<footer> landmarks. See ADR-0001. -->
+        <div class="cv-header">
           <div class="cv-header-text">
             <h1 class="cv-name">{cv.name}</h1>
             <p class="cv-title">{cv.title}</p>
@@ -365,7 +366,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
           <div class="cv-photo-frame">
             <img src={cv.photo} alt={cv.name} class="cv-photo" />
           </div>
-        </header>
+        </div>
 
         <!-- PROFILE -->
         <section class="cv-section">
