@@ -1,9 +1,9 @@
 ---
 name: create-adr
 description: Creates Architecture Decision Records (ADRs) for ckaserer.dev — documenting significant decisions about Astro configuration, components, build pipeline, design system, deployment, or content strategy. Use when asked to create, write, or draft an ADR, or when a significant design choice needs to be captured.
-lastReviewed: 2026-05-12
-allowed-tools: ['view', 'edit', 'create', 'glob', 'grep', 'task']
-owner: '@ckaserer'
+allowed-tools: Read Write Edit Bash(git *) Bash(gh *) Glob Grep
+metadata:
+  owner: '@ckaserer'
 ---
 
 # ADR Creation Workflow
@@ -16,29 +16,20 @@ Follow these three phases in order.
 
 ### 1a. Reserve a non-colliding ADR number
 
-```powershell
+```bash
 git fetch origin --quiet
 
 # Highest number already on main
-$onMain = git ls-tree --name-only origin/main docs/adr/ 2>$null |
-  Select-String '^\d{4}' |
-  ForEach-Object { [int]($_ -replace '^(\d{4}).*','$1') } |
-  Measure-Object -Maximum | Select-Object -ExpandProperty Maximum
+on_main=$(git ls-tree --name-only origin/main docs/adr/ 2>/dev/null | grep -oE '^[0-9]{4}' | sort -n | tail -1)
 
 # Numbers claimed by open branches
-$onBranches = git ls-remote --heads origin |
-  Select-String 'adr-(\d{4})' -AllMatches |
-  ForEach-Object { $_.Matches | ForEach-Object { [int]$_.Groups[1].Value } }
+on_branches=$(git ls-remote --heads origin | grep -oE 'adr-[0-9]{4}' | grep -oE '[0-9]{4}' | sort -n | tail -1)
 
 # Numbers claimed by open PRs
-$onPrs = gh pr list --state open --json title,headRefName |
-  ConvertFrom-Json |
-  ForEach-Object { "$($_.title) $($_.headRefName)" } |
-  Select-String 'adr-?(\d{4})' -AllMatches |
-  ForEach-Object { $_.Matches | ForEach-Object { [int]$_.Groups[1].Value } }
+on_prs=$(gh pr list --state open --json title,headRefName --jq '.[] | "\(.title) \(.headRefName)"' | grep -oE 'adr-?[0-9]{4}' | grep -oE '[0-9]{4}' | sort -n | tail -1)
 
-$next = (@($onMain) + @($onBranches) + @($onPrs) | Measure-Object -Maximum).Maximum + 1
-"Next free ADR number: $next"
+next=$(( $(printf '%s\n' "${on_main:-0}" "${on_branches:-0}" "${on_prs:-0}" | sort -n | tail -1) + 1 ))
+printf 'Next free ADR number: %04d\n' "$next"
 ```
 
 If `docs/adr/` does not exist yet, the first ADR is `0001`.
@@ -97,7 +88,8 @@ If the topic spans multiple independent decisions, list each as a separate ADR w
 | **Deployment** | Staying on GitHub Pages vs moving to Cloudflare Pages / Azure Static Web Apps, custom domain setup |
 | **SEO & metadata** | JSON-LD shape, sitemap exclusions, robots policy |
 | **Privacy** | Contact strategy (e.g. dropping the public email), analytics opt-in |
-| **AI tooling** | Skills and instructions structure, model strategy for Copilot CLI |
+| **AI tooling** | Skills and instructions structure, model strategy for Claude Code |
+| **CV content trade-offs** | ATS-parseability vs visual/brand consistency (see ADR-0001) |
 
 ## Phase 3 — Polish and Register
 
