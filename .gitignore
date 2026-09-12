@@ -10,6 +10,9 @@
 .env
 .env.local
 
+# Personal Claude Code notes — not shared via version control
+CLAUDE.local.md
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
