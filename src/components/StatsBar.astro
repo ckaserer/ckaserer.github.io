@@ -1,9 +1,16 @@
 ---
 import cv from '../data/cv.json';
+
+// Derived from cv.highlight (single source of truth for the delivery-speed claim)
+// so the figure can't drift out of sync with cv.json, About.astro, and og.astro.
+const highlightMatch = cv.highlight.metric.match(/^(.*?)([\d.]+)(.*)$/);
+if (!highlightMatch) throw new Error(`cv.highlight.metric must contain a number: "${cv.highlight.metric}"`);
+const [, highlightPrefix, highlightValue, highlightSuffix] = highlightMatch;
+
 const stats = [
   { value: 10,   suffix: '+',  label: 'Years in Cloud & DevOps' },
-  { value: 3,  prefix: 'Up to ',  suffix: '×',  label: 'AI-augmented delivery speed', tooltip: 'Latest project: AI-augmented delivery vs. comparable traditional engagement', highlight: true, decimals: 0 },
-  { value: cv.certifications.length, suffix: '', label: 'Active Microsoft Certifications' },
+  { value: parseFloat(highlightValue), prefix: highlightPrefix, suffix: highlightSuffix, label: 'AI-augmented delivery speed', tooltip: cv.highlight.context, highlight: true, decimals: 0 },
+  { value: cv.certifications.length, suffix: '', label: 'Certifications' },
   { value: null, text: 'Azure', label: 'Cloud Platform of Choice' },
 ];
 ---
