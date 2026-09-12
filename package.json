@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "private": true,
   "engines": {
-    "node": ">=18.0"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -17,14 +17,16 @@
     "build:full": "npm run build && npm run generate-og && npm run generate-pdf"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.2.1",
-    "@astrojs/tailwind": "^5.1.4",
-    "@fontsource/carlito": "^5.2.8",
-    "astro": "^5.7.13",
-    "tailwindcss": "^3.4.17"
+    "@astrojs/sitemap": "^3.7.4",
+    "@fontsource/carlito": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.2",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
-    "@playwright/browser-chromium": "^1.49.1",
-    "playwright": "^1.49.1"
+    "@astrojs/check": "^0.9.10",
+    "@playwright/browser-chromium": "^1.63.0",
+    "playwright": "^1.63.0",
+    "typescript": "^5.9.3"
   }
 }
