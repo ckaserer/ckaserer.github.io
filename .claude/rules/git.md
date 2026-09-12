@@ -1,10 +1,3 @@
----
-description: 'Git hard rules — trunk-based development, branch naming, Conventional Commits. Operational workflow lives in the worktree-workflow skill.'
-applyTo: '**'
-owner: '@ckaserer'
-lastReviewed: 2026-05-12
----
-
 # Git Hard Rules
 
 These rules apply to every commit. Operational workflow lives in the `worktree-workflow` skill.
@@ -48,7 +41,7 @@ Scope is optional; use `cv`, `hero`, `ci`, `config`, etc.
 | `ci` | GitHub Actions changes |
 | `chore` | Dependencies, maintenance |
 
-## Copilot Workflow
+## Standard Workflow
 
 1. Create a worktree from `origin/main` (see `worktree-workflow` skill)
 2. Verify `git branch --show-current` is not `main` before editing

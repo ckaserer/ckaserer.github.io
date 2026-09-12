@@ -1,19 +1,19 @@
 ---
 name: pipeline-debug
 description: Diagnoses GitHub Actions failures (deploy on push to main, or PR build validation) for ckaserer.dev — fetches the failing step, classifies the error type, and recommends a targeted fix. Use when a workflow fails. Never executes remediation.
-lastReviewed: 2026-05-12
-allowed-tools: ['powershell', 'view', 'grep', 'ask_user']
-arguments:
-  - name: run_url
-    description: 'GitHub Actions run URL or run ID. Skill will ask if missing.'
-  - name: error_snippet
-    description: 'Error text from the Actions log, if already pasted. Optional — skill fetches it if absent.'
-owner: '@ckaserer'
+argument-hint: "[run-url-or-id] [error-snippet]"
+arguments: [run_url, error_snippet]
+allowed-tools: Bash(gh *) Read Grep
+metadata:
+  owner: '@ckaserer'
 ---
 
 # Pipeline Debug
 
 Read-only diagnosis only. Never push commits, merge PRs, or modify workflow files from this skill without explicit user confirmation.
+
+`$run_url` — GitHub Actions run URL or run ID. Ask if missing.
+`$error_snippet` — error text from the Actions log, if already pasted. Optional — fetch it if absent.
 
 ## Workflows
 
@@ -38,8 +38,8 @@ Both workflows share these steps in order:
 
 ## Step 1 — Identify the Failing Step
 
-```powershell
-gh run view <run-id> --log-failed
+```bash
+gh run view $run_url --log-failed
 ```
 
 Or open the run URL in the browser and expand the failing step.
@@ -61,13 +61,14 @@ Or open the run URL in the browser and expand the failing step.
 | Pattern | Cause | Fix |
 |---------|-------|-----|
 | `npm error ENOTFOUND` | Network issue fetching registry | Re-run the workflow; transient |
-| `npm error ERESOLVE` | Peer dependency conflict | `npm install` locally, commit updated `package-lock.json` |
+| `npm error ERESOLVE` | Peer dependency conflict | `npm install` locally, commit updated `package-lock.json`. Check whether an integration package (e.g. `@astrojs/*`) has fallen behind a major-version bump of its peer (`astro`, `tailwindcss`) — the fix may be dropping that integration, not forcing the install |
 | `npm error Cannot find module` | `package-lock.json` out of sync | `npm install` locally, commit updated lock |
 | Lock file not committed | `npm ci` requires committed lock | Commit `package-lock.json` |
+| `EBADENGINE` warning | Installed Node doesn't satisfy a package's `engines.node` | Usually non-fatal; check `package.json`'s own `engines.node` still matches what CI's `setup-node` installs |
 
 ## §Astro & TS Errors
 
-```powershell
+```bash
 # Reproduce locally
 npm run typecheck
 npm run build
@@ -78,12 +79,13 @@ npm run build
 | `Cannot find module '../data/cv.json'` | File moved/deleted | Restore path or update import |
 | `Property '<x>' does not exist on type` | New field referenced from a component, missing in `cv.json` (or vice versa) | Either add the field to `cv.json` or remove the reference |
 | `[ERROR] [astro]` with file:line | Astro template syntax error | Open the offending `.astro` file at that line |
+| `astro check` prints "Packages cannot be installed automatically in CI" and exits 0 anyway | `@astrojs/check` / `typescript` missing from `devDependencies` — `npm run typecheck` was silently a no-op | `npm install --save-dev @astrojs/check typescript` and commit; this class of failure won't show as a red CI step, only as bugs that should have been caught by typecheck slipping through |
 
 ## §cv.json Errors
 
 | Pattern | Cause | Fix |
 |---------|-------|-----|
-| `Unexpected token } in JSON` | Trailing comma or stray character | Run `Get-Content cv.json -Raw \| ConvertFrom-Json` to locate |
+| `Unexpected token } in JSON` | Trailing comma or stray character | Read the file and check for it directly, or `node -e "JSON.parse(require('fs').readFileSync('src/data/cv.json'))"` to get the exact parse error |
 | `Cannot read properties of null` while rendering Experience | A role has missing `start` or malformed `end` | Set `end` to `"YYYY-MM"` or `null`, never `""` |
 | Missing skill card on rendered page | Skill key renamed without updating `Skills.astro` | Use exactly: `azurePlatform`, `cloudNative`, `automation`, `ai`, `practices` |
 
@@ -92,6 +94,8 @@ npm run build
 | Pattern | Cause | Fix |
 |---------|-------|-----|
 | `browserType.launch: Executable doesn't exist` | Playwright browser not installed in CI | Verify `npx playwright install --with-deps chromium` step ran before the generator scripts |
+| `error while loading shared libraries: libatk-1.0.so.0` (or similar `.so` file) | Chromium binary downloaded but OS-level shared libraries are missing (common in a fresh sandbox/container that skipped `--with-deps`) | `sudo npx playwright install-deps chromium` — this needs sudo locally, unlike CI where the runner already has package-manager privileges |
+| `Playwright does not support chromium on <platform>` | Pinned Playwright version predates support for a very new OS release | Bump `playwright` / `@playwright/browser-chromium` to latest — newer releases add support for newer platforms faster than this repo tends to notice |
 | `playwright/.cache` cache miss every run | No browser cache step | Add `actions/cache` keyed on the Playwright version (already wired in `deploy.yml`) |
 | Local pass, CI fail with chromium errors | Linux missing system libs | `--with-deps` flag installs them; ensure it's not stripped |
 
@@ -104,7 +108,7 @@ The generators spin up a static server against `dist/` then drive Chromium again
 | `net::ERR_CONNECTION_REFUSED` | Static server didn't start (build failed) | Fix the build first; `dist/` must exist |
 | `TimeoutError: page.goto` | `/cv` or `/og` route missing or 500-ing | Verify `src/pages/cv.astro` and `src/pages/og.astro` build correctly |
 | PDF generated but blank | Page CSS uses fonts that didn't load before snapshot | Generators wait for `networkidle`; if changed, restore that wait |
-| `clemens-kaserer-cv.pdf` contains an email | Email reintroduced in `cv.json` or `cv.astro` | Remove; verify with `Select-String 'clemens\.kaserer' dist\clemens-kaserer-cv.pdf` |
+| `clemens-kaserer-cv.pdf` contains an email | Email reintroduced in `cv.json` or `cv.astro` | Remove; verify with `grep -a 'clemens\.kaserer' dist/clemens-kaserer-cv.pdf` — note this grep is a weak check against a compressed PDF; don't treat a clean result as proof |
 
 ## §Deploy Errors (`actions/deploy-pages`)
 
@@ -122,13 +126,14 @@ The generators spin up a static server against `dist/` then drive Chromium again
 |---------|-----|
 | `id-token` / OIDC error | Workflow `permissions:` block must include `pages: write` and `id-token: write` |
 | Environment protection blocks deploy | Settings → Environments → `github-pages` → adjust required reviewers / branch rules |
+| `git push` rejected: "refusing to allow a Personal Access Token to create or update workflow" | The PAT lacks the `workflow` OAuth scope, needed for any commit touching `.github/workflows/*.yml`. This is a credential change — surface it to the user rather than working around it (e.g. `gh auth refresh -s workflow`) |
 
 ## Quick Local Reproduction
 
-```powershell
+```bash
 # Full reproduction of what deploy CI does
 npm ci
-npx playwright install --with-deps chromium
+npx playwright install --with-deps chromium   # or: sudo npx playwright install-deps chromium
 npm run build:full
 ```
 

@@ -51,7 +51,7 @@ Pushes to `main` trigger `.github/workflows/deploy.yml`, which runs the full pip
 ## Project layout
 ```
 src/
-  components/    — Hero, About, Experience, Skills, Education, StatsBar, CvDownload, Footer, Seo
+  components/    — Hero, StatsBar, About, Achievements, Experience, Skills, Education, CvDownload, Contact, Footer, Seo
   data/cv.json   — single source of truth (CV content)
   layouts/Base.astro — shared <html>/<head>/<body> shell
   pages/
@@ -65,4 +65,9 @@ public/
 scripts/
   generate-cv-pdf.mjs
   generate-og-image.mjs
+docs/adr/        — Architecture Decision Records
+CLAUDE.md        — Claude Code project instructions
+.claude/
+  rules/git.md   — branch naming, commit format, forbidden actions
+  skills/        — update-cv, worktree-workflow, open-pull-request, pipeline-debug, create-adr, repo-stats
 ```
