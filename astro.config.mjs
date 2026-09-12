@@ -1,13 +1,15 @@
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://ckaserer.dev',
   integrations: [
-    tailwind({ applyBaseStyles: false }),
     sitemap({
       filter: (page) => !page.includes('/og') && !page.includes('/cv'),
     }),
   ],
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });

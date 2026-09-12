@@ -1,14 +1,14 @@
 # ckaserer.dev
 
-Personal portfolio & CV site — built with [Astro 5](https://astro.build/) + Tailwind, deployed to GitHub Pages with an auto-generated PDF CV.
+Personal portfolio & CV site — built with [Astro 7](https://astro.build/) + Tailwind CSS 4, deployed to GitHub Pages with an auto-generated PDF CV. Requires Node >=22.12.
 
 **Live:** [ckaserer.dev](https://ckaserer.dev) · **PDF:** [ckaserer.dev/clemens-kaserer-cv.pdf](https://ckaserer.dev/clemens-kaserer-cv.pdf)
 
 ## Stack
-- **Astro 5** static site generator
-- **Tailwind CSS** for styling
+- **Astro 7** static site generator
+- **Tailwind CSS 4** (via `@tailwindcss/vite`) for styling — theme lives in `src/styles/global.css`
 - **Playwright** to snapshot a print-optimised `/cv` page → `cv.pdf`, and render `/og` → `og-image.png`
-- **GitHub Actions** builds, generates assets, deploys to `gh-pages`
+- **GitHub Actions** builds, generates assets, deploys via `actions/deploy-pages` (no `gh-pages` branch)
 
 ## Single source of truth
 Everything CV-related lives in [`src/data/cv.json`](src/data/cv.json). Components and the print page read from it — never hardcode CV content into `.astro` files.
@@ -41,12 +41,12 @@ npx playwright install chromium
 | `npm run dev` | Astro dev server with HMR |
 | `npm run build` | Static site → `dist/` |
 | `npm run generate-og` | Snapshots `/og` → `public/og-image.png` and `dist/og-image.png` (1200×630) |
-| `npm run generate-pdf` | Snapshots `/cv` → `dist/cv.pdf` (with header/footer + page numbers) |
+| `npm run generate-pdf` | Snapshots `/cv` → `dist/clemens-kaserer-cv.pdf` (no browser header/footer — page size and margins come from the page's own `@page` CSS) |
 | `npm run build:full` | The full pipeline (build + og + pdf) |
 | `npm run typecheck` | `astro check` |
 
 ## Deployment
-Pushes to `main` trigger `.github/workflows/deploy.yml`, which runs the full pipeline and publishes `dist/` to `gh-pages` (with `cname: ckaserer.dev`).
+Pushes to `main` trigger `.github/workflows/deploy.yml`, which runs the full pipeline and publishes `dist/` to GitHub Pages via `actions/deploy-pages` (no `gh-pages` branch; custom domain set via `public/CNAME`).
 
 ## Project layout
 ```

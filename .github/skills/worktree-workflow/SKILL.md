@@ -142,6 +142,6 @@ git branch -d <branch-name>    # safe delete; refuses unmerged branches
 
 **Playwright fails locally with "Executable doesn't exist"** — run `npx playwright install chromium` inside the worktree.
 
-**Build passes locally but fails in CI** — check the Node version. Both workflows use Node 20; verify locally with `node --version`. Astro 5 requires Node ≥ 18.18.
+**Build passes locally but fails in CI** — check the Node version. Both workflows use Node 22; verify locally with `node --version`. Astro 7 requires Node ≥ 22.12.
 
 **Rebase conflict on `cv.json`** — resolve carefully (it is structured data, not prose). After resolving: `git add src/data/cv.json && git rebase --continue && npm run build:full` to confirm shape integrity.

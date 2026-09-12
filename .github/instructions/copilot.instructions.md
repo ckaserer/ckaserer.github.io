@@ -9,11 +9,11 @@ lastReviewed: 2026-05-12
 
 ## Project Summary
 
-**ckaserer.dev** is a personal landing page / CV site built with [Astro 5](https://astro.build/) and Tailwind CSS, deployed to [ckaserer.dev](https://ckaserer.dev) via GitHub Pages.
+**ckaserer.dev** is a personal landing page / CV site built with [Astro 7](https://astro.build/) and Tailwind CSS, deployed to [ckaserer.dev](https://ckaserer.dev) via GitHub Pages. Requires Node >=22.12.
 
 **Stack:**
-- **Astro 5** — static site generator, zero JS by default, SEO-first
-- **Tailwind CSS 3** — utility-first styling; custom palette in `tailwind.config.mjs` (azure / navy / sky / canvas / surface / muted)
+- **Astro 7** — static site generator, zero JS by default, SEO-first
+- **Tailwind CSS 4** (via `@tailwindcss/vite`) — utility-first styling; custom palette lives in the `@theme` block in `src/styles/global.css` (azure / navy / sky / canvas / surface / muted) — there is no `tailwind.config.mjs` under v4
 - **`src/data/cv.json`** — single source of truth for all CV content (summary, experience, skills, certifications, education, contact handles)
 - **Playwright** — generates `clemens-kaserer-cv.pdf` and `og-image.png` from rendered Astro pages
 - **GitHub Actions** — builds Astro, runs OG + PDF generation, uploads Pages artifact, deploys via `actions/deploy-pages` (no `gh-pages` branch)

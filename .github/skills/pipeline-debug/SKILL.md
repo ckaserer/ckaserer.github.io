@@ -25,7 +25,7 @@ Read-only diagnosis only. Never push commits, merge PRs, or modify workflow file
 Both workflows share these steps in order:
 
 1. `actions/checkout@v4`
-2. `actions/setup-node@v4` — Node 20, npm cache
+2. `actions/setup-node@v4` — Node 22, npm cache
 3. `npm ci` — install dependencies
 4. (deploy only) Cache Playwright browsers
 5. `npx playwright install --with-deps chromium`

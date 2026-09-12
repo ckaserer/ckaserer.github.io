@@ -1,8 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@theme {
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+  --color-canvas: #FFFFFF;
+  --color-surface: #F0F4FF;
+  --color-navy: #0A1628;
+  --color-ink: #0A1628;
+  --color-muted: #475569;
+  --color-border: #E2E8F0;
+  --color-card: #FFFFFF;
+  --color-azure: #0078D4;
+  --color-azure-light: #2B9DEA;
+  --color-azure-dark: #005A9E;
+  --color-sky: #50E6FF;
+  --color-sky-light: #8FF0FF;
+
+  --tracking-tightest: -0.045em;
+
+  --background-image-gradient-azure: linear-gradient(135deg, #0078D4 0%, #50E6FF 100%);
+  --background-image-gradient-navy: linear-gradient(135deg, #0A1628 0%, #0078D4 100%);
+
+  --shadow-azure: 0 20px 60px -20px rgba(0, 120, 212, 0.4);
+  --shadow-navy: 0 20px 60px -20px rgba(10, 22, 40, 0.3);
+}
 
 @layer base {
   html {
