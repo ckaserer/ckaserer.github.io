@@ -6,11 +6,15 @@
 
 - **Astro 7** — static site generator, zero JS by default, SEO-first
 - **Tailwind CSS 4** (via `@tailwindcss/vite`) — utility-first styling; custom palette lives in the `@theme` block in `src/styles/global.css` (azure / navy / sky / canvas / surface / muted) — there is no `tailwind.config.mjs` under v4
+- **`@tailwindcss/typography`** — registered via `@plugin "@tailwindcss/typography";` in `global.css`; re-themed to the site palette via `.prose` CSS variable overrides in the same file (`@layer components`) — used for blog post bodies
 - **`src/data/cv.json`** — single source of truth for all CV content (summary, experience, skills, certifications, education, contact handles, and the reusable `highlight` metric)
+- **Astro Content Collections** (`src/content.config.ts`) — the `blog` collection; Markdown posts live under `src/content/blog/`. See `docs/adr/0002-blog-in-same-repo-content-collections.md` for why the blog lives in this repo instead of a separate one.
 - **Playwright** — generates `clemens-kaserer-cv.pdf` and `og-image.png` from rendered Astro pages
 - **GitHub Actions** — builds Astro, runs OG + PDF generation, uploads Pages artifact, deploys via `actions/deploy-pages` (no `gh-pages` branch)
 
-**Site sections (single-page):** Hero → StatsBar → About (with "How I work with AI" band) → Experience → Skills → Education → Achievements → CvDownload → Contact → Footer
+**Site sections (single-page, `/`):** Hero → StatsBar → About (with "How I work with AI" band) → Experience → Skills → Education → Achievements → CvDownload → Contact → Footer
+
+**Blog (`/blog`):** `blog/index.astro` lists posts newest-first; `blog/[slug].astro` renders one via `BlogPost.astro`. Both share `Nav.astro` with the homepage.
 
 ## Key Files
 
@@ -18,7 +22,12 @@
 - `src/pages/index.astro` — main landing page (composes the section components)
 - `src/pages/cv.astro` — single-column ATS-friendly page used by Playwright to generate `clemens-kaserer-cv.pdf` (`noindex`, excluded from sitemap). Browser view at `/cv` is identical to the downloaded PDF — do not add a sidebar or multi-column layout here. See `docs/adr/0001-cv-photo-vs-ats-parsing.md` before removing the photo or restructuring the header.
 - `src/pages/og.astro` — 1200×630 page used by Playwright to render `og-image.png` (`noindex`, excluded from sitemap)
-- `src/components/` — Hero, About, StatsBar, Experience, Skills, Education, Achievements, Contact, CvDownload, Footer, Seo
+- `src/content.config.ts` — defines the `blog` content collection schema (`title`, `description`, `pubDate`, `updatedDate?`, `tags`, `draft`)
+- `src/content/blog/*.md` — blog post source; add a post by dropping a new Markdown file here with frontmatter matching the schema above
+- `src/layouts/BlogPost.astro` — shared layout for a single post (title, date, tags, `.prose` body)
+- `src/pages/blog/index.astro`, `src/pages/blog/[slug].astro` — blog list and post routes
+- `src/components/` — Hero, About, StatsBar, Experience, Skills, Education, Achievements, Contact, CvDownload, Footer, Seo, Nav
+- `src/components/Nav.astro` — sticky nav shared by the homepage and blog pages; takes a `current: 'home' | 'blog'` prop to switch section links between same-page anchors and `/#anchor` cross-page links
 - `src/components/Seo.astro` — meta tags, Open Graph, Twitter card, Person + ContactPoint JSON-LD
 - `scripts/generate-cv-pdf.mjs` — Playwright PDF generator (writes `dist/clemens-kaserer-cv.pdf`)
 - `scripts/generate-og-image.mjs` — Playwright PNG snapshot (writes `public/og-image.png` AND `dist/og-image.png`)

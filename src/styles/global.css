@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-display: 'Inter', system-ui, sans-serif;
@@ -97,6 +98,38 @@
     background: linear-gradient(135deg, #0078D4 0%, #50E6FF 100%);
     padding: 4px;
     border-radius: 1.5rem;
+  }
+
+  /* Blog post body — retheme @tailwindcss/typography to the site palette */
+  .prose {
+    --tw-prose-body: var(--color-muted);
+    --tw-prose-headings: var(--color-navy);
+    --tw-prose-links: var(--color-azure);
+    --tw-prose-bold: var(--color-navy);
+    --tw-prose-bullets: var(--color-azure);
+    --tw-prose-hr: var(--color-border);
+    --tw-prose-quotes: var(--color-navy);
+    --tw-prose-quote-borders: var(--color-azure);
+    --tw-prose-code: var(--color-navy);
+    --tw-prose-pre-bg: var(--color-navy);
+    --tw-prose-pre-code: var(--color-canvas);
+  }
+
+  .prose a {
+    @apply font-medium underline decoration-azure/30 underline-offset-2 hover:decoration-azure transition-colors;
+  }
+
+  .prose code::before,
+  .prose code::after {
+    content: none;
+  }
+
+  .prose code {
+    @apply bg-surface px-1.5 py-0.5 rounded-md font-mono text-[0.875em] font-medium;
+  }
+
+  .prose strong {
+    @apply font-bold;
   }
 }
 
