@@ -1,0 +1,76 @@
+# Git worktrees to isolate concurrent Claude Code agents in this repo
+
+- Status: Proposed
+- Date: 2026-09-13
+- Deciders: repo owner + Claude Code
+
+## Context
+
+This repo already requires every session to work from a `git worktree`
+rather than the main checkout (`worktree-workflow` skill, `.claude/rules/git.md`).
+That convention was adopted for a narrower reason: keeping `main` clean and
+enforcing the branch-per-change / PR-only rule (ADR-0003). It was never
+written down as also being *the* answer to a broader problem: more than one
+Claude Code agent can end up pointed at this same clone at once (a
+background subagent, a second interactive session, automation triggered
+mid-task), and if they shared one working directory they'd race on the same
+`.git` index — one agent's checkout or uncommitted edit could silently
+clobber the other's, and both could commit to the same branch without
+either side noticing. Nothing in the existing ADRs records that this is
+also why one-worktree-per-task matters, so a future reader (including a
+future agent deciding whether it's safe to skip the worktree step "just
+this once") has no ADR to point to.
+
+## Decision
+
+Continue requiring one `git worktree` per task/branch (mechanics unchanged,
+per `worktree-workflow`), and treat concurrent-agent isolation as an
+explicit, additional reason that rule exists and must not be bypassed —
+not just a `main`-cleanliness convention. No new tooling: this ADR
+formalizes existing practice already enforced by the skill and hard rules.
+
+## Alternatives Considered
+
+- **Separate full clones per agent** — full isolation, but duplicates the
+  object database and needs its own remote/fetch config per agent; a
+  worktree gets the same isolation for free off one shared `.git`, at the
+  cost of a separate `npm ci` per worktree (already true today).
+- **Manual coordination (agents announce which branch they're using)** — no
+  git-level enforcement; a missed announcement reintroduces the exact race
+  this exists to prevent.
+- **Serialize agents on this repo** — defeats the purpose of running agents
+  in parallel, and this repo already has session-level automation
+  (scheduled skills, background subagents) that isn't naturally serial.
+
+## Consequences
+
+### Positive
+
+- Git itself refuses to check out a branch already checked out in another
+  worktree — the failure mode this ADR is about is partly closed by git,
+  not just by the skill's documented steps.
+- Agents can each run their own `npm run build:full`, install their own
+  Playwright browser, and commit independently without observing or
+  clobbering another agent's in-progress, uncommitted work.
+- Codifies *why* `worktree-workflow` isn't optional under concurrency, for
+  any agent tempted to shortcut it "since it's just a small doc change."
+
+### Negative
+
+- Per-worktree `npm ci` (and `npx playwright install chromium` when
+  touching the OG/PDF generators) means concurrent agents each pay that
+  setup cost independently — already true today, just now also justified
+  by a second reason.
+- Disk usage grows with the number of concurrent agents, since each
+  worktree duplicates the working tree and its own `node_modules`.
+- Two agents still cannot both hold the same branch — by design, but it
+  means even read-only inspection of another agent's in-progress branch
+  needs its own worktree rather than a plain checkout.
+
+## References
+
+- `.claude/skills/worktree-workflow/SKILL.md` — operational mechanics
+- `.claude/rules/git.md` — branching and forbidden-actions rules
+- [0003](0003-trunk-based-branching-pr-only.md) — the original motivation for
+  branch-per-change; this ADR adds concurrent-agent isolation as a second,
+  independent reason the same mechanism is required
