@@ -72,7 +72,7 @@ public/
 scripts/
   generate-cv-pdf.mjs
   generate-og-image.mjs
-docs/adr/        — Architecture Decision Records
+docs/adr/        — Any Decision Records
 CLAUDE.md        — Claude Code project instructions
 .claude/
   rules/git.md   — branch naming, commit format, forbidden actions
