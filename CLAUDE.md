@@ -71,6 +71,7 @@
 | `/pipeline-debug` | Diagnosing a failed GitHub Actions deploy or PR-CI run |
 | `/adr` | Documenting any non-trivial, hard-to-reverse decision — framework, plugin, deployment, design, process, or otherwise |
 | `/repo-stats` | Getting a snapshot of content coverage and Git activity |
+| `/write-blog-post` | Drafting a new post for `/blog` (`src/content/blog/`), or reviewing one for structure/clarity/length |
 
 ## Working Style
 
