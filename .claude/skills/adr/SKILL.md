@@ -52,9 +52,11 @@ ordinary text merge conflict in one table — trivial to resolve by hand,
 unlike two files permanently claiming the same identity. Always link to an
 ADR by its filename, never by its display number alone.
 
-Pre-existing ADRs numbered the old way (`0001-...`, `0002-...`) keep their
-filenames as they are — don't rename history. Only new ADRs use the
-date-prefixed scheme.
+If this scheme itself changes again in the future, rename every existing
+ADR to match it — filenames should never be left on a stale convention.
+Update every cross-reference (ADR bodies and the README index) as part of
+that same rename; the display number doesn't need to change, since it's
+already cosmetic.
 
 ## Steps to create a new ADR
 
