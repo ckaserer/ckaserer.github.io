@@ -13,7 +13,11 @@ const {
   ogImage = 'https://ckaserer.dev/og-image.png',
 } = Astro.props;
 
+import { getImage } from 'astro:assets';
+import photo from '../assets/photo.jpg';
 import cv from '../data/cv.json';
+
+const personImage = cv.photo ? await getImage({ src: photo, width: 400, format: 'jpg' }) : undefined;
 
 const workExperience = cv.experience.flatMap((employer) =>
   employer.roles.map((role) => ({
@@ -36,7 +40,7 @@ const jsonLd = {
   jobTitle: cv.title,
   description: cv.summary,
   url: cv.website,
-  image: cv.photo ? `${cv.website}${cv.photo}` : undefined,
+  image: personImage ? `${cv.website}${personImage.src}` : undefined,
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'professional inquiries',
@@ -107,5 +111,5 @@ const jsonLd = {
 <!-- Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 

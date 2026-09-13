@@ -51,6 +51,7 @@ Pushes to `main` trigger `.github/workflows/deploy.yml`, which runs the full pip
 ## Project layout
 ```
 src/
+  assets/photo.jpg — headshot, imported via astro:assets for optimized/responsive output
   components/    — Hero, StatsBar, About, Achievements, Experience, Skills, Education, CvDownload, Contact, Footer, Seo
   data/cv.json   — single source of truth (CV content)
   layouts/Base.astro — shared <html>/<head>/<body> shell
@@ -60,7 +61,6 @@ src/
     og.astro     — 1200×630 social card snapshotted to /og-image.png
   styles/global.css
 public/
-  photo.jpg      — headshot
   og-image.png   — generated; do not edit by hand
 scripts/
   generate-cv-pdf.mjs

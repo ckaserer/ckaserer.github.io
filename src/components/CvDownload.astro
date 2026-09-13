@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import photo from '../assets/photo.jpg';
 import cv from '../data/cv.json';
 ---
 
@@ -16,8 +18,9 @@ import cv from '../data/cv.json';
     {cv.photo && (
       <div class="md:col-span-2 flex justify-center md:justify-start">
         <div class="photo-ring">
-          <img src={cv.photo} alt={cv.name}
-               class="w-44 h-44 md:w-52 md:h-52 object-cover rounded-[1.25rem]"/>
+          <Image src={photo} alt={cv.name}
+                 class="w-44 h-44 md:w-52 md:h-52 object-cover rounded-[1.25rem]"
+                 width={416} height={416} format="jpg" quality={80} />
         </div>
       </div>
     )}

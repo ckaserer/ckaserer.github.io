@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import photo from '../assets/photo.jpg';
 import cv from '../data/cv.json';
 import '../styles/global.css';
 // CV uses Carlito — the OFL, metric-compatible Calibri clone the source CV is set in.
@@ -364,7 +366,7 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
             </p>
           </div>
           <div class="cv-photo-frame">
-            <img src={cv.photo} alt={cv.name} class="cv-photo" />
+            <Image src={photo} alt={cv.name} class="cv-photo" width={320} height={320} format="jpg" quality={80} />
           </div>
         </div>
 
