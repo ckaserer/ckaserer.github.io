@@ -10,7 +10,7 @@ metadata:
 
 Every post should be recognizable as the same voice and shape — a reader who's read one post should know what to expect from the next. This skill exists so that consistency doesn't depend on remembering the rules each time.
 
-Posts are real content — `/blog` is a live Astro Content Collection (see `docs/adr/0002-blog-in-same-repo-content-collections.md`), not a staging area. **Location:** `src/content/blog/<slug>.md`. **Schema:** `src/content.config.ts` — `title`, `description`, `pubDate`, `updatedDate?`, `tags` (array), `draft` (boolean, default `false`).
+Posts are real content — `/blog` is a live Astro Content Collection (see `docs/adr/2026-09-13-blog-in-same-repo-content-collections.md`), not a staging area. **Location:** `src/content/blog/<slug>.md`. **Schema:** `src/content.config.ts` — `title`, `description`, `pubDate`, `updatedDate?`, `tags` (array), `draft` (boolean, default `false`).
 
 Not ready to publish yet? Set `draft: true` — the post renders in `npm run dev` but is excluded from the production build (`src/pages/blog/index.astro` filters on `!data.draft` when `import.meta.env.PROD`). That's the mechanism for a work-in-progress post; don't invent a separate drafts folder.
 

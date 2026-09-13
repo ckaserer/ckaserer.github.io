@@ -8,7 +8,7 @@
 - **Tailwind CSS 4** (via `@tailwindcss/vite`) — utility-first styling; custom palette lives in the `@theme` block in `src/styles/global.css` (azure / navy / sky / canvas / surface / muted) — there is no `tailwind.config.mjs` under v4
 - **`@tailwindcss/typography`** — registered via `@plugin "@tailwindcss/typography";` in `global.css`; re-themed to the site palette via `.prose` CSS variable overrides in the same file (`@layer components`) — used for blog post bodies
 - **`src/data/cv.json`** — single source of truth for all CV content (summary, experience, skills, certifications, education, contact handles, and the reusable `highlight` metric)
-- **Astro Content Collections** (`src/content.config.ts`) — the `blog` collection; Markdown posts live under `src/content/blog/`. See `docs/adr/0002-blog-in-same-repo-content-collections.md` for why the blog lives in this repo instead of a separate one.
+- **Astro Content Collections** (`src/content.config.ts`) — the `blog` collection; Markdown posts live under `src/content/blog/`. See `docs/adr/2026-09-13-blog-in-same-repo-content-collections.md` for why the blog lives in this repo instead of a separate one.
 - **Playwright** — generates `clemens-kaserer-cv.pdf` and `og-image.png` from rendered Astro pages
 - **GitHub Actions** — builds Astro, runs OG + PDF generation, uploads Pages artifact, deploys via `actions/deploy-pages` (no `gh-pages` branch)
 
@@ -20,7 +20,7 @@
 
 - `src/data/cv.json` — edit this to update any CV content. See the `update-cv` skill before touching it.
 - `src/pages/index.astro` — main landing page (composes the section components)
-- `src/pages/cv.astro` — single-column ATS-friendly page used by Playwright to generate `clemens-kaserer-cv.pdf` (`noindex`, excluded from sitemap). Browser view at `/cv` is identical to the downloaded PDF — do not add a sidebar or multi-column layout here. See `docs/adr/0001-cv-photo-vs-ats-parsing.md` before removing the photo or restructuring the header.
+- `src/pages/cv.astro` — single-column ATS-friendly page used by Playwright to generate `clemens-kaserer-cv.pdf` (`noindex`, excluded from sitemap). Browser view at `/cv` is identical to the downloaded PDF — do not add a sidebar or multi-column layout here. See `docs/adr/2026-09-12-cv-photo-vs-ats-parsing.md` before removing the photo or restructuring the header.
 - `src/pages/og.astro` — 1200×630 page used by Playwright to render `og-image.png` (`noindex`, excluded from sitemap)
 - `src/content.config.ts` — defines the `blog` content collection schema (`title`, `description`, `pubDate`, `updatedDate?`, `tags`, `draft`)
 - `src/content/blog/*.md` — blog post source; add a post by dropping a new Markdown file here with frontmatter matching the schema above
