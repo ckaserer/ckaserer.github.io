@@ -1,6 +1,6 @@
 # Git worktrees to isolate concurrent Claude Code agents in this repo
 
-- Status: Proposed
+- Status: Accepted
 - Date: 2026-09-13
 - Deciders: repo owner + Claude Code
 
