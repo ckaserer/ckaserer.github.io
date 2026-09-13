@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import photo from '../assets/photo.jpg';
 import cv from '../data/cv.json';
 const hasPhoto = Boolean(cv.photo);
 const employer = cv.experience[0]?.company ?? '';
@@ -91,11 +93,14 @@ const pillText = [employer, city].filter(Boolean).join(' · ');
 
         {hasPhoto ? (
           <div class="photo-ring shadow-azure">
-            <img
-              src={cv.photo}
+            <Image
+              src={photo}
               alt={`Portrait of ${cv.name}`}
               class="w-72 h-72 md:w-80 md:h-80 object-cover rounded-[1.25rem]"
-              width="320" height="320"
+              width={640}
+              height={640}
+              format="jpg"
+              quality={80}
               loading="eager"
             />
           </div>
