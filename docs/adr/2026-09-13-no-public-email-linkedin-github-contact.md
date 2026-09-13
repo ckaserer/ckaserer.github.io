@@ -1,4 +1,4 @@
-# 0008. No public email — LinkedIn and GitHub only for contact
+# No public email — LinkedIn and GitHub only for contact
 
 - Status: Accepted
 - Date: 2026-09-13

@@ -1,4 +1,4 @@
-# 0004. Require a local full-pipeline build before opening a PR
+# Require a local full-pipeline build before opening a PR
 
 - Status: Accepted
 - Date: 2026-09-13

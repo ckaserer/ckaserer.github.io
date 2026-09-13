@@ -1,4 +1,4 @@
-# 0009. Standardize AI-agent tooling on Claude Code conventions
+# Standardize AI-agent tooling on Claude Code conventions
 
 - Status: Accepted
 - Date: 2026-09-13

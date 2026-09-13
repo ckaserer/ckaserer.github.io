@@ -1,4 +1,4 @@
-# 0006. Deploy via `actions/deploy-pages`, not a `gh-pages` branch
+# Deploy via `actions/deploy-pages`, not a `gh-pages` branch
 
 - Status: Accepted
 - Date: 2026-09-13

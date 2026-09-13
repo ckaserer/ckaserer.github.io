@@ -1,4 +1,4 @@
-# 0003. Trunk-based development, PR-only workflow
+# Trunk-based development, PR-only workflow
 
 - Status: Accepted
 - Date: 2026-09-13

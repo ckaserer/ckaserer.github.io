@@ -1,4 +1,4 @@
-# 0007. Astro over Docusaurus as the site framework
+# Astro over Docusaurus as the site framework
 
 - Status: Accepted
 - Date: 2026-09-13
