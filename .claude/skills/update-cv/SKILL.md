@@ -227,7 +227,7 @@ PDF parsers read by x/y coordinate proximity — sidebar content ends up interle
 | Tables | Skipped entirely by parsers that can't process 2D grids |
 | Contact in HTML `<header>`/`<footer>` | 25% parse loss (TopResume study) — use a plain `<div class="cv-header">` |
 
-### Accepted trade-off — see [ADR-0001](../../../docs/adr/0001-cv-photo-vs-ats-parsing.md)
+### Accepted trade-off — see [ADR-0001](../../../docs/adr/2026-09-12-cv-photo-vs-ats-parsing.md)
 
 | Element | Why it's normally avoided | Why it's here anyway |
 |---|---|---|

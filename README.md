@@ -7,7 +7,7 @@ Personal portfolio & CV site — built with [Astro 7](https://astro.build/) + Ta
 ## Stack
 - **Astro 7** static site generator
 - **Tailwind CSS 4** (via `@tailwindcss/vite`) for styling — theme lives in `src/styles/global.css`; `@tailwindcss/typography` re-themed for blog post bodies
-- **Astro Content Collections** (`src/content.config.ts`) for the blog — see `docs/adr/0002-blog-in-same-repo-content-collections.md`
+- **Astro Content Collections** (`src/content.config.ts`) for the blog — see `docs/adr/2026-09-13-blog-in-same-repo-content-collections.md`
 - **Playwright** to snapshot a print-optimised `/cv` page → `cv.pdf`, and render `/og` → `og-image.png`
 - **GitHub Actions** builds, generates assets, deploys via `actions/deploy-pages` (no `gh-pages` branch)
 
