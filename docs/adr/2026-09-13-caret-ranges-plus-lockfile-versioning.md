@@ -1,4 +1,4 @@
-# 0005. Dependency versioning — caret ranges plus a committed lockfile
+# Dependency versioning — caret ranges plus a committed lockfile
 
 - Status: Accepted
 - Date: 2026-09-13

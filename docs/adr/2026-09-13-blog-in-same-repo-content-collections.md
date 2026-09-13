@@ -1,4 +1,4 @@
-# 0002. Add the blog to this repo using Astro Content Collections
+# Add the blog to this repo using Astro Content Collections
 
 - Status: Accepted
 - Date: 2026-09-13

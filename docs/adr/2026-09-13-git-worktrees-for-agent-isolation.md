@@ -71,6 +71,6 @@ formalizes existing practice already enforced by the skill and hard rules.
 
 - `.claude/skills/worktree-workflow/SKILL.md` — operational mechanics
 - `.claude/rules/git.md` — branching and forbidden-actions rules
-- [0003](0003-trunk-based-branching-pr-only.md) — the original motivation for
+- [0003](2026-09-13-trunk-based-branching-pr-only.md) — the original motivation for
   branch-per-change; this ADR adds concurrent-agent isolation as a second,
   independent reason the same mechanism is required

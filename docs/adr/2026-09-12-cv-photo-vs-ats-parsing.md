@@ -1,4 +1,4 @@
-# 0001. Keep the photo in the CV, accept the ATS parsing trade-off
+# Keep the photo in the CV, accept the ATS parsing trade-off
 
 - Status: Accepted
 - Date: 2026-09-12
