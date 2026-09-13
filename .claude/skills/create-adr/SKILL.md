@@ -16,19 +16,21 @@ Follow these three phases in order.
 
 ### 1a. Reserve a non-colliding ADR number
 
+An ADR can land on any branch, not just one named `adr-NNNN` — e.g. a blog
+feature branch that also adds an ADR documenting that feature's own
+architecture. Matching on branch-name or PR-title patterns misses those, so
+scan the actual `docs/adr/` tree on every open remote branch directly:
+
 ```bash
 git fetch origin --quiet
 
-# Highest number already on main
-on_main=$(git ls-tree --name-only origin/main docs/adr/ 2>/dev/null | grep -oE '^[0-9]{4}' | sort -n | tail -1)
+highest=$(
+  for b in $(git ls-remote --heads origin | awk '{print $2}' | sed 's#refs/heads/##'); do
+    git ls-tree --name-only "origin/$b" docs/adr/ 2>/dev/null
+  done | grep -oE '[0-9]{4}' | sort -un | tail -1
+)
 
-# Numbers claimed by open branches
-on_branches=$(git ls-remote --heads origin | grep -oE 'adr-[0-9]{4}' | grep -oE '[0-9]{4}' | sort -n | tail -1)
-
-# Numbers claimed by open PRs
-on_prs=$(gh pr list --state open --json title,headRefName --jq '.[] | "\(.title) \(.headRefName)"' | grep -oE 'adr-?[0-9]{4}' | grep -oE '[0-9]{4}' | sort -n | tail -1)
-
-next=$(( $(printf '%s\n' "${on_main:-0}" "${on_branches:-0}" "${on_prs:-0}" | sort -n | tail -1) + 1 ))
+next=$(( ${highest:-0} + 1 ))
 printf 'Next free ADR number: %04d\n' "$next"
 ```
 
