@@ -14,3 +14,4 @@ Decisions are recorded using the template and rules in the `adr` skill
 | [0007](0007-astro-over-docusaurus.md) | Astro over Docusaurus as the site framework | Accepted |
 | [0008](0008-no-public-email-linkedin-github-contact.md) | No public email — LinkedIn and GitHub only for contact | Accepted |
 | [0009](0009-claude-code-over-github-copilot-conventions.md) | Standardize AI-agent tooling on Claude Code conventions | Accepted |
+| [0010](2026-09-13-git-worktrees-for-agent-isolation.md) | Git worktrees to isolate concurrent Claude Code agents in this repo | Proposed |
