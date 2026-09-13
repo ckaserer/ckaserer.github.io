@@ -1,7 +1,8 @@
-# ADR-0004: Require a local full-pipeline build before opening a PR
+# 0004. Require a local full-pipeline build before opening a PR
 
-**Date:** 2026-09-13
-**Status:** Accepted
+- Status: Accepted
+- Date: 2026-09-13
+- Deciders: repo owner + Claude Code
 
 ## Context
 
@@ -12,12 +13,12 @@ built `/cv` and `/og` pages, and screenshots/prints them
 `astro build` does not exercise this path at all, so a change that looks
 fine after `npm run build` can still break the PDF or OG output.
 
-`.github/workflows/ci.yml` already runs the full pipeline
-(`typecheck` → `build:full` → email-leak grep) on every PR. That alone
-guarantees nothing broken reaches `main`, but it means the first signal a
-contributor (human or Claude Code session) gets that something is broken
-arrives only after pushing and opening a PR, several minutes later, on
-GitHub's infrastructure instead of locally.
+`.github/workflows/ci.yml` already runs the full pipeline (`typecheck` →
+`build:full` → email-leak grep) on every PR. That alone guarantees nothing
+broken reaches `main`, but it means the first signal a contributor (human or
+Claude Code session) gets that something is broken arrives only after
+pushing and opening a PR, several minutes later, on GitHub's infrastructure
+instead of locally.
 
 ## Decision
 
@@ -27,29 +28,39 @@ so a local pass is a strong predictor of a green CI run before the PR even
 exists. It's codified as the first item in the `worktree-workflow` skill's
 "Pre-PR Verification" checklist and in `CLAUDE.md`'s Cross-Cutting Rules.
 
-## Options Considered
+## Alternatives Considered
 
-| Option | Pros | Cons |
-|--------|------|------|
-| Rely on CI only, push and see | Fastest local loop — no Playwright/Chromium needed locally | Wastes a round trip to GitHub Actions for failures that are knowable in seconds locally; opens PRs that are broken from the start |
-| Local `build:full` required before every PR (chosen) | Catches typecheck, build, OG-render, and PDF-render regressions locally, before the code is ever pushed; mirrors CI exactly, so there's no "works on my machine" gap | Requires Playwright's Chromium installed locally (`npx playwright install chromium`); adds a few seconds to the pre-PR routine |
-| Git pre-commit hook running `build:full` automatically on every commit | Impossible to forget | `build:full` takes several seconds and needs Chromium installed; forcing it on every intermediate commit (not just before a PR) would slow down normal iterative work for no added safety — the guarantee only needs to hold at the point code becomes reviewable/mergeable |
+- **Rely on CI only, push and see** — fastest local loop, no
+  Playwright/Chromium needed locally, but wastes a round trip to GitHub
+  Actions for failures that are knowable in seconds locally, and opens PRs
+  that are broken from the start.
+- **Git pre-commit hook running `build:full` automatically on every commit**
+  — impossible to forget, but `build:full` takes several seconds and needs
+  Chromium installed; forcing it on every intermediate commit (not just
+  before a PR) would slow down normal iterative work for no added safety.
 
 ## Consequences
+
+### Positive
+
+- Catches typecheck, build, OG-render, and PDF-render regressions locally,
+  before code is ever pushed, mirroring CI exactly with no "works on my
+  machine" gap.
+- Changes that touch `src/data/cv.json` also get the email-leak guardrail
+  grep run locally, for the same reason — catch it before it's pushed.
+
+### Negative
 
 - Contributors (including Claude Code sessions) must remember to run
   `build:full`, not just `astro build` — the `worktree-workflow` skill's
   checklist exists specifically so this isn't left to memory.
-- If local and CI ever disagree (e.g. a Node or Playwright version
-  mismatch), that divergence is treated as a bug to fix, not a reason to
-  drop the local check — the whole point is that the two should always
-  agree.
-- Changes that touch `src/data/cv.json` also require the email-leak
-  guardrail grep locally, for the same reason: catch it before it's pushed,
-  not after.
+- Requires Playwright's Chromium installed locally (`npx playwright install
+  chromium`), adding setup weight beyond a plain `astro build`.
 
-## Links
+## References
 
-- `.claude/skills/worktree-workflow/SKILL.md` — "Pre-PR Verification" checklist
+- `.claude/skills/worktree-workflow/SKILL.md` — "Pre-PR Verification"
+  checklist
 - `.github/workflows/ci.yml` — the CI job this local run mirrors
-- `scripts/generate-cv-pdf.mjs`, `scripts/generate-og-image.mjs` — the Playwright generators that make `astro build` alone insufficient
+- `scripts/generate-cv-pdf.mjs`, `scripts/generate-og-image.mjs` — the
+  Playwright generators that make `astro build` alone insufficient

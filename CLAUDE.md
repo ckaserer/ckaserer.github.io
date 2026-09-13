@@ -33,7 +33,7 @@
 - `scripts/generate-og-image.mjs` — Playwright PNG snapshot (writes `public/og-image.png` AND `dist/og-image.png`)
 - `astro.config.mjs` — Tailwind Vite plugin, sitemap config (filters out `/og` and `/cv`)
 - `public/robots.txt` — disallows `/og` and `/cv`; points to `/sitemap-index.xml`
-- `docs/adr/` — Architecture Decision Records; see the `create-adr` skill
+- `docs/adr/` — Any Decision Records (not just architecture); see the `adr` skill
 - `.github/workflows/deploy.yml` — push to `main` → build + OG + PDF + deploy
 - `.github/workflows/ci.yml` — PR build validation (typecheck + build:full)
 
@@ -69,7 +69,7 @@
 | `/open-pull-request` | Drafting a PR description before merging to `main` |
 | `/worktree-workflow` | Creating a branch worktree, rebasing, opening a PR, or cleaning up after merge |
 | `/pipeline-debug` | Diagnosing a failed GitHub Actions deploy or PR-CI run |
-| `/create-adr` | Documenting a significant architectural decision (framework, plugin, deployment, design) |
+| `/adr` | Documenting any non-trivial, hard-to-reverse decision — framework, plugin, deployment, design, process, or otherwise |
 | `/repo-stats` | Getting a snapshot of content coverage and Git activity |
 
 ## Working Style
