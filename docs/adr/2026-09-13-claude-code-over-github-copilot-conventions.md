@@ -1,6 +1,6 @@
 # Standardize AI-agent tooling on Claude Code conventions
 
-- Status: Accepted
+- Status: Superseded by [Add lightweight GitHub Copilot compatibility alongside Claude Code instructions](2026-09-14-github-copilot-compatibility.md)
 - Date: 2026-09-13
 - Deciders: repo owner + Claude Code
 
