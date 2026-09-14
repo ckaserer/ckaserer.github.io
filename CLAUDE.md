@@ -67,7 +67,8 @@
 |-------|----------------|
 | `/update-cv` | Adding or updating CV content (experience, skills, certifications, education, summary, tagline, headline metric) |
 | `/open-pull-request` | Drafting a PR description before merging to `main` |
-| `/worktree-workflow` | Creating a branch worktree, rebasing, opening a PR, or cleaning up after merge |
+| `/worktree-isolation` | Creating, verifying, rebasing, or cleaning up a git worktree |
+| `/worktree-workflow` | Installing deps, running the build, and opening a PR from inside a worktree |
 | `/pipeline-debug` | Diagnosing a failed GitHub Actions deploy or PR-CI run |
 | `/adr` | Documenting any non-trivial, hard-to-reverse decision — framework, plugin, deployment, design, process, or otherwise |
 | `/repo-stats` | Getting a snapshot of content coverage and Git activity |

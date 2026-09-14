@@ -1,6 +1,6 @@
 # Git Hard Rules
 
-These rules apply to every commit. Operational workflow lives in the `worktree-workflow` skill.
+These rules apply to every commit. Worktree mechanics live in the `worktree-isolation` skill; build/PR workflow lives in `worktree-workflow`.
 
 ## Branching
 
@@ -43,7 +43,7 @@ Scope is optional; use `cv`, `hero`, `ci`, `config`, etc.
 
 ## Standard Workflow
 
-1. Create a worktree from `origin/main` (see `worktree-workflow` skill) —
+1. Create a worktree from `origin/main` (see `worktree-isolation` skill) —
    required both to keep `main` clean ([ADR-0003](../../docs/adr/2026-09-13-trunk-based-branching-pr-only.md))
    and to isolate concurrent agent sessions from racing on the same `.git`
    index ([ADR-0010](../../docs/adr/2026-09-13-git-worktrees-for-agent-isolation.md))

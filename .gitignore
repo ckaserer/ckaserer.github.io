@@ -19,3 +19,7 @@ yarn-error.log*
 
 # Playwright MCP browser snapshots
 .playwright-mcp/
+
+# Per-agent git worktrees (ADR 2026-09-13-git-worktrees-for-agent-isolation) —
+# machine-local checkouts, never shared via version control.
+.claude/worktrees/

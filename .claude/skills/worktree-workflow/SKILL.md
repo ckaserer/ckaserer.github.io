@@ -1,6 +1,6 @@
 ---
 name: worktree-workflow
-description: Git worktree mechanics for ckaserer.dev — creating a branch worktree from main, rebasing on origin/main, running the pre-PR verification checklist, invoking `gh pr create`, and post-merge cleanup. For the PR description content, use the `open-pull-request` skill.
+description: Build/PR workflow for ckaserer.dev — installing deps in a worktree, running the pre-PR verification checklist, invoking `gh pr create`, and confirming cleanup. For the worktree mechanics themselves (create/verify/cleanup), use the `worktree-isolation` skill. For the PR description content, use the `open-pull-request` skill.
 allowed-tools: Bash(git *) Bash(gh *) Bash(npm *) Bash(npx *)
 metadata:
   owner: '@ckaserer'
@@ -10,35 +10,11 @@ metadata:
 
 Trunk-based development. `main` is protected — PRs only. Each session owns exactly one worktree end-to-end, including cleanup.
 
-Branch-naming and Conventional Commits rules live in `.claude/rules/git.md` (always loaded). This skill covers the operational workflow.
-
-## Starting a Task
-
-Run from the **main checkout** (repo root, not a worktree):
-
-```bash
-git fetch origin
-git merge --ff-only origin/main
-
-git worktree add -b <branch-name> .worktrees/<branch-name> origin/main
-cd .worktrees/<branch-name>
-```
-
-Worktree directory mirrors the branch name with `/` replaced by `-`:
-`feat/add-contact-section` → `.worktrees/feat-add-contact-section`
-
-### Verify Location Before Editing
-
-```bash
-git rev-parse --show-toplevel    # must end in /.worktrees/<branch-name>
-git branch --show-current        # must NOT be main
-```
-
-If either check fails — STOP and create a worktree first.
+Branch-naming and Conventional Commits rules live in `.claude/rules/git.md` (always loaded). Worktree creation, verification, and cleanup mechanics live in the `worktree-isolation` skill — this skill covers what happens inside the worktree once it exists.
 
 ## Install Dependencies
 
-After creating the worktree, install dependencies (they are not shared between worktrees):
+After creating the worktree (see `worktree-isolation`), install dependencies (they are not shared between worktrees):
 
 ```bash
 npm ci
@@ -68,14 +44,6 @@ grep -r --include='*.html' --include='*.pdf' -l 'clemens\.kaserer' dist
 
 Must return zero matches.
 
-## Keeping a Branch Fresh
-
-```bash
-git fetch origin
-git rebase origin/main
-git push --force-with-lease
-```
-
 ## Pre-PR Verification
 
 Before calling `gh pr create`:
@@ -83,7 +51,7 @@ Before calling `gh pr create`:
 - [ ] `npm run build:full` passes (typecheck + build + OG + PDF)
 - [ ] Email guardrail returns zero matches (if `cv.json` changed)
 - [ ] `git status --porcelain` is empty (all changes committed)
-- [ ] Branch is rebased on latest `origin/main`
+- [ ] Branch is rebased on latest `origin/main` (see `worktree-isolation`)
 - [ ] PR title follows `type(scope): description` (see `.claude/rules/git.md`)
 - [ ] `CLAUDE.md`, `.claude/rules/`, and `.claude/skills/` updated if any conventions or patterns changed
 
@@ -97,27 +65,7 @@ For the PR description content and `gh pr create` invocation, use the `open-pull
 
 ## Cleanup After Merge
 
-Run all checks from inside the worktree. If any fails — STOP and report; do not delete:
-
-```bash
-# 1. PR is merged
-gh pr view --json state --jq '.state'    # must be "MERGED"
-
-# 2. Working tree clean
-git status --porcelain                    # must be empty
-
-# 3. No unpushed commits
-git log origin/<branch-name>..HEAD --oneline    # must be empty
-```
-
-If all pass, from the **main checkout**:
-
-```bash
-cd <repo-root>
-git worktree remove .worktrees/<branch-name>
-git fetch --prune
-git branch -d <branch-name>    # safe delete; refuses unmerged branches
-```
+See the `worktree-isolation` skill for the merged/clean checks and `git worktree remove` steps.
 
 ## Troubleshooting
 

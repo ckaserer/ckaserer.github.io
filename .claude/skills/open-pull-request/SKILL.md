@@ -1,6 +1,6 @@
 ---
 name: open-pull-request
-description: Drafts a GitHub PR description for ckaserer.dev — inferring the Conventional Commits title from the branch name, populating the emoji-sectioned template, and verifying the build passes. For the git/worktree mechanics, use the `worktree-workflow` skill.
+description: Drafts a GitHub PR description for ckaserer.dev — inferring the Conventional Commits title from the branch name, populating the emoji-sectioned template, and verifying the build passes. For git/worktree mechanics, use `worktree-isolation`; for the build/PR workflow, use `worktree-workflow`.
 allowed-tools: Bash(git *) Bash(gh *) Bash(npm *)
 metadata:
   owner: '@ckaserer'
@@ -8,7 +8,7 @@ metadata:
 
 # Open a Pull Request
 
-Use the GitHub CLI (`gh pr create`) to open PRs against `main`. This skill covers description content only; the git mechanics live in `worktree-workflow`.
+Use the GitHub CLI (`gh pr create`) to open PRs against `main`. This skill covers description content only; worktree mechanics live in `worktree-isolation`, and the build/PR workflow lives in `worktree-workflow`.
 
 ## Pre-PR Checklist
 
