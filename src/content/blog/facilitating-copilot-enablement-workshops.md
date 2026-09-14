@@ -1,58 +1,47 @@
 ---
-title: "Lessons Learned Facilitating GitHub Copilot Enablement Workshops"
-description: "Five things I've learned the hard way from running GitHub Copilot enablement workshops: segmenting by skill level, right-sizing groups, verifying prerequisites, and planning the room."
+title: "Facilitating Copilot Workshops: What Doesn't Get a Raised Hand"
+description: "Five things that fail the same quiet way unless they're checked before the session starts: a mismatched audience, jargon I stopped noticing, group size, license prerequisites, and the venue's own network."
 pubDate: 2026-09-13
+updatedDate: 2026-09-14
 tags: ["workshops", "github-copilot", "facilitation", "enablement"]
 ---
 
-I've run a number of GitHub Copilot enablement workshops over the past while, for groups ranging from a handful of engineers to entire departments. This is the first in a series of posts on what I've learned facilitating technical workshops — starting with the lessons that showed up again and again in the Copilot sessions specifically.
+I've run a number of GitHub Copilot enablement workshops now, for groups ranging from a handful of engineers to entire departments, and the sessions that went wrong almost never went wrong on content. They went wrong on decisions I'd made about the room and the audience before I opened a single slide.
 
-None of these are exotic. They're the kind of thing that's obvious in hindsight and easy to skip when you're focused on the content instead of the room.
+## What I tried first — and why it broke
 
-## 1. Know your audience — segment by skill level
+None of this was obvious going in. It's what I actually did before I knew better, and the specific way each choice failed.
 
-The knowledge gap in a typical Copilot rollout is huge: some people just got their license yesterday, others already want to talk about cache expiry and where a specific setting lives in the UI. Put both groups in the same session and something predictable happens — the advanced people ask questions freely, because asking a detailed question doesn't make them look like they don't know something. Beginners tend to do the opposite: asking a basic question in front of people who are clearly ahead of them feels exposing, so they simply don't. The session ends up shaped entirely by the advanced questions, and the beginners quietly disengage without anyone noticing.
+**One session for everyone who signed up.** Put someone who just got their Copilot license in the same room as someone who wants to talk about cache expiry, and something predictable happens: the advanced person asks freely, because a detailed question doesn't make them look behind. The beginner does the opposite — asking the "obvious" question in front of people clearly ahead of them feels exposing, so they don't. The session ends up shaped entirely by the advanced questions, and the beginners quietly disengage without anyone noticing until it's over.
 
-A dedicated beginner track — with no advanced participants in the room — fixes this. It gives people room to learn at their own pace, ask the "obvious" question out loud, and actually feel heard, instead of getting pulled into advanced territory they haven't grasped the basics for yet.
+**One facilitator, as many people as signed up.** A large remote session works fine as a broadcast — cameras off, chat quiet, everyone half-listening through their day. It stops working the moment the goal is hands-on: even 15 people with laptops open is already too many for one person to help when they get stuck in different places at different times.
 
-**Do:** split into a beginner track and an advanced track when the group's technical range is wide; ask a one-line self-assessed skill-level question at sign-up so you know where the split should fall.
-**Don't:** assume one session can serve "I just got a license" and "when does the cache expire" at the same time.
-**Check:** before the session, confirm the skill-level spread of the registered group — if it's wide, split it before you're standing in the room.
+**The invite said "you'll need a license," so I assumed people had one.** They didn't, not always. Participants have shown up without provisioning despite it being a stated prerequisite, which meant restructuring the workshop live, in front of the room, to give them something to do while everyone else went hands-on.
 
-## 2. Right-size the group
+**"There's Wi-Fi" felt like enough.** It isn't. Running a hands-on session on a company's own network means going through their proxy, and a corporate proxy can quietly block exactly the traffic a Copilot exercise depends on — something you don't discover by asking whether there's internet, only by someone actually trying to use the tool.
 
-Format has to match size, or you get the worst of both.
+**"I know this material, so the deck is fine."** Building a workshop from scratch in a field I already work in means the curse of knowledge sets in everywhere — a term I stopped noticing is a term, a step I stopped counting as a step. A colleague reviewing the same deck won't catch it either, because they carry the same background I do. It doesn't surface as a bad slide; it surfaces as a room that's a little more lost than it should be, for reasons nobody names.
 
-A 100-person remote session is a radio show, not a workshop. Cameras off, chat quiet, everyone half-listening while they get through their actual day — you reach a lot of people and change very little. That's fine if the goal really is a broadcast, but it's worth naming it as one rather than calling it a workshop.
+## Why none of this announces itself live
 
-On the other end, even 15 people is already tricky if everyone has a laptop open and is expected to work through something hands-on — one facilitator can't meaningfully help that many people who are stuck in different places at different times. The ratio that's actually worked well for hands-on, use-case-driven sessions: roughly **4–5 participants per facilitator**. That size is small enough to avoid constant cross-talk and long alignment discussions, but still lets people bounce ideas off each other before going heads-down.
+A wrong word or an awkward phrase is recoverable — I notice, or someone asks, and I rephrase on the spot. None of the five things above work that way. By the time I'm standing in the room, the audience is already mixed or split, the facilitator ratio is already fixed, the licenses are provisioned or they aren't, and the network either carries Copilot's traffic or it doesn't. And if the material assumes background someone doesn't have, they don't raise a hand to say so — they just go quiet, the same way a beginner does in a badly mixed audience. None of it comes with a signal, so it has to be caught before the room, or it doesn't get caught at all.
 
-**Do:** match the format to the size — lecture/broadcast for large groups, small hands-on cohorts (~4–5 per facilitator) for anything where people need to actually do something.
-**Don't:** run a 100-person session and expect participation, or a 15-person hands-on session with a single facilitator and expect everyone gets help.
-**Check:** count participants against available facilitators *before* committing to a hands-on format — recruit co-facilitators if the ratio doesn't work, or shrink the group.
+That's the part that's easy to underrate when you're heads-down on the deck the night before: the room isn't the setting for the workshop, it's a set of decisions with the same deadline as the content — including the parts of the content that only look like content.
 
-## 3. Verify prerequisites — don't just list them
+## The check for the blind spot inside the material
 
-Putting "you'll need a Copilot license" in the invite is not the same as everyone having one. We've had participants show up without a license despite it being a stated pre-requirement, which meant restructuring the workshop live, on the spot, to accommodate people who couldn't do the hands-on part yet.
+A colleague of mine calls this one **singing-and-clapping validation**: could you get the idea across to a room of kindergartners — no shared vocabulary, nothing but singing and clapping — and still have them follow the shape of it? Not because participants are children. It's because I don't know what baseline they're actually starting from, and I can't see my own blind spots in a field I've been working in for years; a colleague reviewing my deck can't either, since they share the same background. Someone with zero prior exposure can.
 
-A prerequisite that's only ever been *stated* is a hope, not a fact. It needs an actual confirmation step before the day.
+I run new material through that test before it reaches a participant: if I can't get the core idea across without leaning on a term or a prior step I never actually stated, the slide isn't ready yet, no matter how accurate it is.
 
-**Do:** confirm access is provisioned a few days ahead — a short check-in with participants or whoever manages licensing on their side, not just a line in the invite.
-**Don't:** treat "it's listed as a prerequisite" as equivalent to "it's done."
-**Check:** a pre-workshop checklist, sent early enough that a missing license can still be fixed before the session starts.
+## The one that actually happened
 
-## 4. Plan the environment — network and physical space
+The clearest case was the license gap. A participant arrived, laptop open, ready to go — no license. Not a hypothetical: I had to improvise on the spot, splitting my attention between getting them unblocked and keeping the rest of the group moving through the hands-on exercise. A five-minute confirmation email sent two days earlier would have caught it before anyone was in the room. Nothing about the workshop's content would have told me that; only checking the thing itself would have.
 
-Two environmental things bit us that are easy to forget when you're focused on content:
+## What I do differently now
 
-**Network.** Running a hands-on session at a company's own office means going through *their* network — and corporate proxy configurations can quietly break exactly the kind of tooling a hands-on Copilot exercise depends on. This isn't something you find out by asking "do you have internet"; it only shows up when someone tries to actually use the tool.
+**Do:** ask a one-line self-assessed skill question at sign-up and split tracks if the range is wide; run new material through a "would a total beginner follow this" pass before anyone else sees it; size hands-on groups to roughly 4–5 participants per facilitator; confirm licenses a few days out instead of trusting the invite; test the actual network path before the day and book a dedicated room with real breaks.
+**Don't:** treat a stated prerequisite as confirmed, assume a format that works for a broadcast also works for hands-on, or trust your own read of "is this clear" on material you built yourself.
+**Check:** everything above, before the day — none of it comes with a raised hand once people are already in the room.
 
-**Physical space.** Hands-on exercises need room of their own — ideally a dedicated space, not the same room as the presentation, so people can talk through a problem without talking over someone else's presentation. And for longer in-person sessions: plan actual breaks. Enough people in one room for long enough and air quality alone becomes the reason attention drops, never mind the content.
-
-**Do:** test the actual network/proxy path participants will use, ahead of the day if at all possible; book a dedicated room for hands-on work; schedule real breaks for longer sessions.
-**Don't:** assume "there's Wi-Fi" is the same as "the tool will work," or cram a full day of hands-on work into one shared room with no breaks.
-**Check:** a live test of the hands-on tooling against the venue's actual network before the session; a room booking that accounts for hands-on space separately from presentation space.
-
----
-
-More of these will follow as I keep running workshops on other topics — the room and the audience matter as much as the content, every time.
+A raised hand tells me live when something's wrong. These five things never come with one — which is exactly why they get checked before the room does the deciding for me.
