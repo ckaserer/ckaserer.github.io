@@ -88,3 +88,27 @@ skill exists for).
 **Leftover worktree after an agent session ended abnormally** — from the
 main checkout, `git worktree list` shows all of them; confirm the branch is
 actually merged or abandoned before running `git worktree remove --force`.
+
+## Cross-Agent Notes
+
+The mechanics above are the manual fallback — plain git commands that work
+for any agent or script. They are not what every agent uses by default:
+
+- **Claude Code** — native `EnterWorktree`/`ExitWorktree` honor
+  `.claude/worktrees/` exactly (see "Preferred: Native Tooling" above).
+- **GitHub Copilot CLI / Copilot App** — creates worktrees in its own
+  external, tool-managed location (e.g. `~/copilot-worktrees/<project>/<slug>`),
+  outside this repo, and not configurable as of writing
+  ([copilot-cli#3675](https://github.com/github/copilot-cli/issues/3675)
+  tracks adding that). A Copilot worktree will not be under
+  `.claude/worktrees/` — that's expected, not a bug.
+- **OpenAI Codex CLI** — worktree support is experimental (shipped
+  2026-09-09, v0.154.0) and defaults to `$CODEX_HOME/worktrees`
+  (`~/.codex/worktrees/` unless overridden), also outside this repo. The
+  root is configurable via `CODEX_HOME` or Settings → Worktree root, but
+  that's a user/machine setting, not something this repo controls.
+
+None of this weakens the isolation itself — each tool's own worktree still
+does the job. It just means "check `.claude/worktrees/`" is Claude-Code-
+specific advice; for Copilot or Codex, check that tool's own session list
+instead.

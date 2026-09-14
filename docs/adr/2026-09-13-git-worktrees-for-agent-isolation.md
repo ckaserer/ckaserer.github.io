@@ -81,6 +81,22 @@ for any other agent, CI, or scripted use.
   means even read-only inspection of another agent's in-progress branch
   needs its own worktree rather than a plain checkout.
 
+## Cross-Agent Notes
+
+`.claude/worktrees/` only governs Claude Code's native tooling and the
+manual `git worktree add` fallback documented in `worktree-isolation`.
+GitHub Copilot CLI/App and OpenAI Codex CLI each manage their own
+worktrees in their own external, tool-specific location by default —
+outside this repo entirely — and neither currently offers a way to point
+that at this path (Copilot: open request,
+[copilot-cli#3675](https://github.com/github/copilot-cli/issues/3675);
+Codex: configurable, but only at the user/machine level via `CODEX_HOME`,
+not per-repo). This doesn't weaken the isolation this ADR is about — each
+tool's own worktree still isolates its session — it just means this
+repo's convention isn't what a Copilot or Codex session actually uses
+unless someone falls back to manual git commands. See `worktree-isolation`
+for per-tool detail.
+
 ## References
 
 - `.claude/skills/worktree-isolation/SKILL.md` — worktree mechanics and native-tool guidance
