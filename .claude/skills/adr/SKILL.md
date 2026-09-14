@@ -86,6 +86,23 @@ its own sake. Flag the trade-off to the user rather than picking silently
 if the two dates genuinely conflict and the repo has cross-references at
 stake.
 
+### When the ADR is itself a literal shared copy
+
+The "why we record decisions as ADRs" ADR is a special case even among
+backdated ADRs: it's meant to exist as a byte-for-byte identical copy in
+every repo that uses this skill, the same way `SKILL.md` and `template.md`
+already are, so any agent bootstrapping in any of these repos finds the
+same explanation and the same worked example. When that's the intent,
+don't give each repo's copy its own adoption date — use one shared date
+across every copy (the oldest instance of the decision anywhere in the
+workspace) and one shared wording, even where that date predates a given
+repo's own git history. State that explicitly in the ADR's own
+Consequences section so a reader doesn't mistake the mismatch for an
+error. This still triggers the same renumbering-and-cross-reference work
+as any backdate that moves a row's chronological position — it isn't
+exempt just because the date is shared, so check every affected repo's
+table, not just the one being edited.
+
 ## Steps to create a new ADR
 
 1. Pick a short kebab-case slug for the title, e.g. `storage-layout`,
