@@ -73,6 +73,19 @@ cosmetic number that shifts as a result — including any bare
 number that moved. The filename inside those links doesn't change, only
 the visible number does.
 
+Verify "first commit" by reading its actual diff, not just its existence —
+a skill file can appear on one date and still be renamed or reworded
+later (e.g. "Architecture Decision Record" → "Any Decision Record"); use
+whichever commit the ADR's own content actually matches. When those two
+dates diverge for a repo that already has a long ADR history, prefer the
+date the underlying *decision* was made over the date shared terminology
+was synced in — a wording sync isn't a new decision, and repointing every
+`[ADR-NNNN]` cross-reference in a large history to renumber around a
+one-word rename is a cost worth avoiding, not a rule worth enforcing for
+its own sake. Flag the trade-off to the user rather than picking silently
+if the two dates genuinely conflict and the repo has cross-references at
+stake.
+
 ## Steps to create a new ADR
 
 1. Pick a short kebab-case slug for the title, e.g. `storage-layout`,

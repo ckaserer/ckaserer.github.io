@@ -15,13 +15,15 @@ the practice itself — why these decisions get written down as ADRs under
 `CLAUDE.md`. A future reader (including a future Claude Code or Copilot
 session) landing in `docs/adr/` sees the outcome of the convention — a
 dated folder of files — with no record of why the convention exists or
-what it replaced. This ADR is dated to 2026-09-13 (commit `e8b8f61`,
-"consolidate on a general-purpose Any Decision Record skill"), not to the
-day it was actually written (2026-09-14), per the `adr` skill's own
-backdating rule for retroactive ADRs — that commit is when the `adr` skill,
-and the "Any" in ADR, actually arrived in this repo, even though the first
-several decision records here predate it, written under the original
-"Architecture Decision Record" framing before it generalized.
+what it replaced. This ADR is dated to 2026-09-13, not to the day it was
+actually written (2026-09-14), per the `adr` skill's own backdating rule for
+retroactive ADRs. Specifically, commit `e8b8f61` ("consolidate on a
+general-purpose Any Decision Record skill") is when the `adr` skill, and the
+"Any" in ADR, arrived in *this* repo — but that commit was itself a sync,
+41 seconds behind the workspace root's `8805ebc`, where "Architecture
+Decision Record" was actually generalized to "Any Decision Record" first.
+The first several decision records here predate both, written under the
+original "Architecture Decision Record" framing before it generalized.
 
 ## Decision
 
@@ -67,8 +69,8 @@ in every other repo that uses the same skill.
 
 - Still can't become "0001" here, but for a real reason now, not a
   numbering artifact: nine decisions in this repo genuinely predate the
-  `adr` skill's arrival, written under the original "Architecture Decision
-  Record" framing before commit `e8b8f61` generalized it. This ADR
+  `adr` skill's generalization, written under the original "Architecture
+  Decision Record" framing before that reached this repo. This ADR
   correctly sorts after those, not before them.
 - Backdating and reordering required renumbering two ADRs already in this
   table (old 0010→0011, 0011→0012) and fixing the one bare `[ADR-0010]`
@@ -82,5 +84,6 @@ in every other repo that uses the same skill.
   including its backdating rule for retroactive ADRs
 - `proxmox/docs/adr/2026-09-04-record-decisions-as-adrs.md` — the same
   decision, recorded there as that repo's actual 0001
-- workspace root `docs/adr/2026-09-12-record-decisions-as-adrs.md` — the
-  same decision applied to the workspace root repo, backdated the same way
+- workspace root `docs/adr/2026-09-13-record-decisions-as-adrs.md` — the
+  same decision applied to the workspace root repo, where "Any Decision
+  Record" actually originated (commit `8805ebc`)
