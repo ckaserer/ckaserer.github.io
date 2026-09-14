@@ -16,3 +16,4 @@ Decisions are recorded using the template and rules in the `adr` skill
 | [0009](2026-09-13-claude-code-over-github-copilot-conventions.md) | Standardize AI-agent tooling on Claude Code conventions | Superseded by 0011 |
 | [0010](2026-09-13-git-worktrees-for-agent-isolation.md) | Git worktrees to isolate concurrent Claude Code agents in this repo | Accepted |
 | [0011](2026-09-14-github-copilot-compatibility.md) | Add lightweight GitHub Copilot compatibility alongside Claude Code instructions | Accepted |
+| [0012](2026-09-14-record-decisions-as-adrs.md) | Record decisions as ADRs | Accepted |
