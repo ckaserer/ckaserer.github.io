@@ -76,5 +76,5 @@ docs/adr/        — Any Decision Records
 CLAUDE.md        — Claude Code project instructions
 .claude/
   rules/git.md   — branch naming, commit format, forbidden actions
-  skills/        — update-cv, worktree-workflow, open-pull-request, pipeline-debug, adr, repo-stats
+  skills/        — update-cv, worktree-isolation, worktree-workflow, open-pull-request, pipeline-debug, adr, repo-stats
 ```

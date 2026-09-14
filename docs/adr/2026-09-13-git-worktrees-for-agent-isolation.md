@@ -21,16 +21,30 @@ also why one-worktree-per-task matters, so a future reader (including a
 future agent deciding whether it's safe to skip the worktree step "just
 this once") has no ADR to point to.
 
+Separately, the worktree directory used to live at a plain top-level
+`.worktrees/`, reasoned as agent-agnostic. The workspace root reconsidered
+that trade-off and moved to `.claude/worktrees/` instead, since Claude Code
+is the only agent actually in use across the workspace and that path
+matches its native `EnterWorktree`/`ExitWorktree` tooling with no
+confirmation friction. This repo follows the same reasoning.
+
 ## Decision
 
-Continue requiring one `git worktree` per task/branch (mechanics unchanged,
-per `worktree-workflow`), and treat concurrent-agent isolation as an
-explicit, additional reason that rule exists and must not be bypassed —
-not just a `main`-cleanliness convention. No new tooling: this ADR
-formalizes existing practice already enforced by the skill and hard rules.
+Continue requiring one `git worktree` per task/branch, now at
+`.claude/worktrees/<branch-slug>` (mechanics: `worktree-isolation` skill;
+build/PR-specific steps: `worktree-workflow`), and treat concurrent-agent
+isolation as an explicit, additional reason that rule exists and must not
+be bypassed — not just a `main`-cleanliness convention. Where the agent is
+Claude Code, prefer its native `EnterWorktree`/`ExitWorktree` tools over
+manual git commands; the manual sequence stays documented as the fallback
+for any other agent, CI, or scripted use.
 
 ## Alternatives Considered
 
+- **Top-level `.worktrees/`, agent-agnostic** — this repo's own prior
+  choice; works identically for any agent, but fights Claude Code's native
+  `EnterWorktree` default and its confirmation prompt, for a portability
+  benefit not needed while Claude Code is the only agent in use here.
 - **Separate full clones per agent** — full isolation, but duplicates the
   object database and needs its own remote/fetch config per agent; a
   worktree gets the same isolation for free off one shared `.git`, at the
@@ -69,8 +83,12 @@ formalizes existing practice already enforced by the skill and hard rules.
 
 ## References
 
-- `.claude/skills/worktree-workflow/SKILL.md` — operational mechanics
+- `.claude/skills/worktree-isolation/SKILL.md` — worktree mechanics and native-tool guidance
+- `.claude/skills/worktree-workflow/SKILL.md` — build/PR-specific steps
 - `.claude/rules/git.md` — branching and forbidden-actions rules
 - [0003](2026-09-13-trunk-based-branching-pr-only.md) — the original motivation for
   branch-per-change; this ADR adds concurrent-agent isolation as a second,
   independent reason the same mechanism is required
+- Workspace root `docs/adr/2026-09-14-git-worktrees-for-agent-isolation.md` —
+  the workspace root's own decision to use `.claude/worktrees/` for the same
+  reason, after reconsidering the tool-agnostic alternative
