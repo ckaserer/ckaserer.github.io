@@ -13,5 +13,6 @@ Decisions are recorded using the template and rules in the `adr` skill
 | [0006](2026-09-13-deploy-via-actions-deploy-pages.md) | Deploy via `actions/deploy-pages`, not a `gh-pages` branch | Accepted |
 | [0007](2026-09-13-astro-over-docusaurus.md) | Astro over Docusaurus as the site framework | Accepted |
 | [0008](2026-09-13-no-public-email-linkedin-github-contact.md) | No public email — LinkedIn and GitHub only for contact | Accepted |
-| [0009](2026-09-13-claude-code-over-github-copilot-conventions.md) | Standardize AI-agent tooling on Claude Code conventions | Accepted |
+| [0009](2026-09-13-claude-code-over-github-copilot-conventions.md) | Standardize AI-agent tooling on Claude Code conventions | Superseded by 0011 |
 | [0010](2026-09-13-git-worktrees-for-agent-isolation.md) | Git worktrees to isolate concurrent Claude Code agents in this repo | Accepted |
+| [0011](2026-09-14-github-copilot-compatibility.md) | Add lightweight GitHub Copilot compatibility alongside Claude Code instructions | Accepted |
