@@ -58,6 +58,21 @@ Update every cross-reference (ADR bodies and the README index) as part of
 that same rename; the display number doesn't need to change, since it's
 already cosmetic.
 
+## Backdating a retroactive ADR
+
+Some ADRs document a practice that was already in effect before anyone
+wrote it down — most commonly, the "why we record decisions as ADRs" ADR
+itself, added after the fact to a repo that already had one. Backdate its
+filename and `Date:` field to when that practice actually started (the
+first commit that added `.claude/skills/adr/`, or the first file under
+`docs/adr/` if that came first — whichever is earlier), not to the day it
+was written. Then insert its row into `docs/adr/README.md` at its correct
+chronological position instead of appending it, and renumber every
+cosmetic number that shifts as a result — including any bare
+`[ADR-NNNN]`-style cross-references elsewhere in the repo that cite a
+number that moved. The filename inside those links doesn't change, only
+the visible number does.
+
 ## Steps to create a new ADR
 
 1. Pick a short kebab-case slug for the title, e.g. `storage-layout`,

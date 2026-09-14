@@ -1,7 +1,7 @@
 # Record decisions as ADRs
 
 - Status: Accepted
-- Date: 2026-09-14
+- Date: 2026-09-13
 - Deciders: repo owner + Claude Code
 
 ## Context
@@ -15,7 +15,13 @@ the practice itself — why these decisions get written down as ADRs under
 `CLAUDE.md`. A future reader (including a future Claude Code or Copilot
 session) landing in `docs/adr/` sees the outcome of the convention — a
 dated folder of files — with no record of why the convention exists or
-what it replaced.
+what it replaced. This ADR is dated to 2026-09-13 (commit `e8b8f61`,
+"consolidate on a general-purpose Any Decision Record skill"), not to the
+day it was actually written (2026-09-14), per the `adr` skill's own
+backdating rule for retroactive ADRs — that commit is when the `adr` skill,
+and the "Any" in ADR, actually arrived in this repo, even though the first
+several decision records here predate it, written under the original
+"Architecture Decision Record" framing before it generalized.
 
 ## Decision
 
@@ -52,21 +58,29 @@ in every other repo that uses the same skill.
 - Matches the identical ADR added to the workspace root and to every other
   repo cloned there that follows the `adr` skill, so the reasoning doesn't
   have to be rediscovered per repo.
+- Backdating this ADR to the skill's actual arrival date, rather than the
+  day it was written, lets it sort into its true chronological position
+  (0010) instead of being silently appended after everything, including
+  ADRs written a full day later.
 
 ### Negative
 
-- Cannot retroactively become "0001" in this repo's numbering — the `adr`
-  skill assigns the display number when a row is added to the table and
-  never renumbers existing rows, so this lands at the end of the index
-  despite describing the practice that, in hindsight, should have come
-  first.
-- Adds one more file every future `adr`-skill or numbering-scheme change
-  must keep consistent across repos, on top of the ones that already exist.
+- Still can't become "0001" here, but for a real reason now, not a
+  numbering artifact: nine decisions in this repo genuinely predate the
+  `adr` skill's arrival, written under the original "Architecture Decision
+  Record" framing before commit `e8b8f61` generalized it. This ADR
+  correctly sorts after those, not before them.
+- Backdating and reordering required renumbering two ADRs already in this
+  table (old 0010→0011, 0011→0012) and fixing the one bare `[ADR-0010]`
+  cross-reference to the worktrees ADR in `.claude/rules/git.md` — the kind
+  of upkeep the `adr` skill's backdating rule now calls out explicitly, but
+  that a future repo attempting the same thing must still do by hand.
 
 ## References
 
-- `.claude/skills/adr/` — the skill and template this ADR itself follows
-- `proxmox/docs/adr/2026-09-04-record-architecture-decisions.md` — the same
+- `.claude/skills/adr/` — the skill and template this ADR itself follows,
+  including its backdating rule for retroactive ADRs
+- `proxmox/docs/adr/2026-09-04-record-decisions-as-adrs.md` — the same
   decision, recorded there as that repo's actual 0001
-- workspace root `docs/adr/2026-09-14-record-decisions-as-adrs.md` — the
-  same decision applied to the workspace root repo
+- workspace root `docs/adr/2026-09-12-record-decisions-as-adrs.md` — the
+  same decision applied to the workspace root repo, backdated the same way
