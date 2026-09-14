@@ -5,7 +5,7 @@ pubDate: 2026-09-13
 tags: ["adr", "documentation", "ai-agents", "decision-records"]
 ---
 
-Every non-trivial, hard-to-reverse decision I make — a deployment mechanism, a framework choice, a contact policy, a storage layout, even whether to keep a photo on an ATS-unfriendly CV — gets a decision record: **Context**, **Decision**, **Alternatives Considered**, **Consequences**. Nothing exotic; the format is decades old, going back to Michael Nygard's original write-up on Architecture Decision Records.
+Every non-trivial, hard-to-reverse decision I make — a deployment mechanism, a framework choice, a contact policy, a storage layout, even whether to keep a photo on an ATS-unfriendly CV — gets a decision record: **Context**, **Decision**, **Alternatives Considered**, **Consequences**. Nothing exotic; the format is decades old, going back to Michael Nygard's original write-up on what he called Architecture Decision Records.
 
 I've stopped calling it "architecture" in my head, though. Across the repos I run this in — a personal site, a homelab infrastructure project, work codebases — most of what earns a record isn't architecture at all: a branching model, a versioning policy, a privacy trade-off, a tooling choice between two AI coding assistants. "Any Decision Record" is the more honest expansion of the same three letters, and I keep it in every repo I touch, not just the ones with a system to design.
 

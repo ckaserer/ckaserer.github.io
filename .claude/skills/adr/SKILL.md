@@ -58,6 +58,51 @@ Update every cross-reference (ADR bodies and the README index) as part of
 that same rename; the display number doesn't need to change, since it's
 already cosmetic.
 
+## Backdating a retroactive ADR
+
+Some ADRs document a practice that was already in effect before anyone
+wrote it down — most commonly, the "why we record decisions as ADRs" ADR
+itself, added after the fact to a repo that already had one. Backdate its
+filename and `Date:` field to when that practice actually started (the
+first commit that added `.claude/skills/adr/`, or the first file under
+`docs/adr/` if that came first — whichever is earlier), not to the day it
+was written. Then insert its row into `docs/adr/README.md` at its correct
+chronological position instead of appending it, and renumber every
+cosmetic number that shifts as a result — including any bare
+`[ADR-NNNN]`-style cross-references elsewhere in the repo that cite a
+number that moved. The filename inside those links doesn't change, only
+the visible number does.
+
+Verify "first commit" by reading its actual diff, not just its existence —
+a skill file can appear on one date and still be renamed or reworded
+later (e.g. "Architecture Decision Record" → "Any Decision Record"); use
+whichever commit the ADR's own content actually matches. When those two
+dates diverge for a repo that already has a long ADR history, prefer the
+date the underlying *decision* was made over the date shared terminology
+was synced in — a wording sync isn't a new decision, and repointing every
+`[ADR-NNNN]` cross-reference in a large history to renumber around a
+one-word rename is a cost worth avoiding, not a rule worth enforcing for
+its own sake. Flag the trade-off to the user rather than picking silently
+if the two dates genuinely conflict and the repo has cross-references at
+stake.
+
+### When the ADR is itself a literal shared copy
+
+The "why we record decisions as ADRs" ADR is a special case even among
+backdated ADRs: it's meant to exist as a byte-for-byte identical copy in
+every repo that uses this skill, the same way `SKILL.md` and `template.md`
+already are, so any agent bootstrapping in any of these repos finds the
+same explanation and the same worked example. When that's the intent,
+don't give each repo's copy its own adoption date — use one shared date
+across every copy (the oldest instance of the decision anywhere in the
+workspace) and one shared wording, even where that date predates a given
+repo's own git history. State that explicitly in the ADR's own
+Consequences section so a reader doesn't mistake the mismatch for an
+error. This still triggers the same renumbering-and-cross-reference work
+as any backdate that moves a row's chronological position — it isn't
+exempt just because the date is shared, so check every affected repo's
+table, not just the one being edited.
+
 ## Steps to create a new ADR
 
 1. Pick a short kebab-case slug for the title, e.g. `storage-layout`,
