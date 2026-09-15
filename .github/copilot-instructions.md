@@ -16,6 +16,9 @@ separate `.github/skills` copy needed.
   GitHub handle.
 - Never commit directly to `main`. Every change, including a one-line fix,
   goes on a feature branch and lands via a pull request.
+- Trunk-based development: merge every PR via "Squash and merge" only —
+  never a merge commit, never rebase-and-merge — so `main` stays one
+  commit per PR.
 - Commit messages follow Conventional Commits: `type(scope): summary`,
   imperative mood, summary line ideally ≤72 chars.
 - Treat a red CI run on your own PR the same as a red run on `main` — fix it

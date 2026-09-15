@@ -6,6 +6,9 @@ These rules apply to every commit. Worktree mechanics live in the `worktree-isol
 
 - One protected branch: `main` — always deployable; deploy triggers on push to `main`
 - All work on short-lived branches, merged via PR only
+- Merge every PR via GitHub's "Squash and merge" only — never a merge commit, never
+  rebase-and-merge — so `main` stays one commit per PR
+  ([ADR 2026-09-15: Trunk-based development with squash merge](../../docs/adr/2026-09-15-trunk-based-development-squash-merge.md))
 
 | Prefix | Format | Purpose |
 |--------|--------|---------|
@@ -44,7 +47,7 @@ Scope is optional; use `cv`, `hero`, `ci`, `config`, etc.
 ## Standard Workflow
 
 1. Create a worktree from `origin/main` (see `worktree-isolation` skill) —
-   required both to keep `main` clean ([ADR 2026-09-13: Trunk-based branching, PR-only](../../docs/adr/2026-09-13-trunk-based-branching-pr-only.md))
+   required both to keep `main` clean ([ADR 2026-09-15: Trunk-based development with squash merge](../../docs/adr/2026-09-15-trunk-based-development-squash-merge.md))
    and to isolate concurrent agent sessions from racing on the same `.git`
    index ([ADR 2026-09-13: Git worktrees for agent isolation](../../docs/adr/2026-09-13-git-worktrees-for-agent-isolation.md))
 2. Verify `git branch --show-current` is not `main` before editing
