@@ -1,6 +1,6 @@
 # Trunk-based development, PR-only workflow
 
-- Status: Accepted
+- Status: Superseded by [Trunk-based development with squash merge](2026-09-15-trunk-based-development-squash-merge.md)
 - Date: 2026-09-13
 - Deciders: repo owner + Claude Code
 
