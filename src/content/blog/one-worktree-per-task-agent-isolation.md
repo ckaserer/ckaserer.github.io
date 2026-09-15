@@ -1,34 +1,40 @@
 ---
-title: "One Worktree Per Task: Stopping Concurrent Coding Agents From Clobbering Each Other"
-description: "I give every Claude Code task its own git worktree for one reason: more than one agent can end up pointed at the same repo at once, and a shared working directory means they'd race on the same .git index."
-pubDate: 2026-09-14
+title: "Why Every Coding-Agent Task Gets Its Own Git Worktree"
+description: "More than one Claude Code session can end up pointed at the same repo at once. A shared checkout turns that into a race on the same .git index — a worktree per task is how I close it."
+pubDate: 2026-09-15
 tags: ["git", "worktrees", "ai-agents", "workflow"]
 ---
 
-Every task I hand to Claude Code in this repo — even a one-line doc fix — starts in its own `git worktree`, on its own branch, never the main checkout. I introduced that rule to solve one specific problem: more than one agent can end up pointed at this same clone at once — a background subagent, a second interactive session, automation triggered mid-task — and if they share a working directory, they race on the same `.git` index.
+I never let a Claude Code task run against this repo's main checkout. Every task — a background subagent, an interactive session, a scheduled automation run — gets its own `git worktree` first, because more than one of those can be pointed at the same clone at the same time, and a shared checkout has exactly one `.git` index for them to fight over.
 
-**A shared working directory between two coding-agent sessions isn't sloppy, it's a race condition — and the fix is one worktree per task, not more discipline.**
+**Two agents sharing one checkout isn't a style problem — it's a race on the same `.git` index, and the only fix that actually holds is giving each task its own worktree.**
 
-## What sharing a directory actually breaks
+## What a shared checkout actually risks
 
-A single checkout has one index and one `HEAD`. If two agents both point at it, one agent's checkout or uncommitted edit can silently overwrite the other's — no error, no merge conflict, just lost work. Worse, both agents could end up committing to the same branch without either one noticing the other was ever there. Neither failure announces itself; you find out later, when a change you were sure you made isn't in the diff.
+A checkout has one index and one `HEAD`. If two agents are both pointed at it, one agent's checkout or uncommitted edit can silently overwrite the other's — no merge conflict, no warning, just a change that's gone. They could each commit to the same branch without ever seeing the other's commits until later. Neither failure announces itself; you find out when a change you were sure you made isn't in the diff.
 
-## A useful side effect, not the reason
+## Options I ruled out
 
-This repo also runs trunk-based development — `main` is protected, every change lands through a PR, which already implies one branch per task. A worktree happens to support that cleanly too: each task gets its own branch instead of jostling for space in one checkout. But that overlap is a side effect, not the justification. Branch-per-change would still hold even if every agent shared one working directory and switched branches by hand — it just wouldn't be safe the moment two agents were active at once. The worktree is what makes it safe under concurrency; the clean `main` history is a bonus it happens to come with.
+**Manual coordination** — agents announce which branch they're using before touching the repo — has no git-level enforcement. One missed announcement, and the exact race this is meant to prevent comes right back.
 
-## What actually enforces it
+**A full clone per agent** gives real isolation, but it duplicates the entire object database and needs its own remote and fetch configuration per agent — a heavier fix than the problem calls for, when a worktree gets the same isolation off one shared `.git`.
 
-Git itself refuses to check out a branch that's already checked out in another worktree. That's not a convention I have to police — it's a hard stop baked into the tool, so the failure mode this exists to prevent is partly closed by git, not just by a rule an agent could choose to ignore. Each worktree lives at `.claude/worktrees/<branch-slug>`, gitignored, which I picked specifically because it matches Claude Code's own native `EnterWorktree`/`ExitWorktree` tooling — using that path means creating and tearing down a worktree needs no extra confirmation prompt, since it's exactly where the tool already expects to put it.
+**Serializing agents on the repo** — one at a time, no overlap — removes the race by removing the reason to run more than one agent. This repo already has scheduled skills and background subagents that aren't naturally serial; forcing them to queue defeats the point of running them at all.
 
-**Do** create a worktree before editing anything, even a change that looks tiny, whenever more than one agent could plausibly touch this repo. **Don't** force past `git worktree add`'s "already checked out" refusal — that error is the isolation working, not a bug to route around. **Check**: could a second agent be pointed at this repo right now — a background subagent, a scheduled skill run, another session I forgot was open? If the honest answer is "maybe," the worktree isn't optional.
+## The rule, and what actually backs it
 
-## Where it still costs something
+One worktree per task, at `.claude/worktrees/<branch-slug>`, gitignored. I picked that path deliberately because it matches Claude Code's own native `EnterWorktree`/`ExitWorktree` tooling — creating and removing a worktree there needs no extra confirmation prompt, since it's exactly where the tool already expects to find them.
 
-Isolation isn't free. Dependencies aren't shared between worktrees, so every one pays its own `npm ci`. Disk usage scales with how many agents are active at once, since each worktree duplicates the working tree. And the isolation cuts both ways: I can't even peek read-only at another agent's in-progress branch without giving it its own worktree too — there's no shortcut for "just looking."
+It isn't just a rule an agent has to remember to follow, either. Git itself refuses to check out a branch that's already checked out in another worktree — part of the protection is enforced by the tool, not left to discipline.
 
-## Not every agent honors the same convention
+**Do** create the worktree before touching a single file, even for a change that looks trivial, any time a second agent could plausibly be active. **Don't** force past git's "already checked out" refusal with `--force` — that refusal is the safeguard doing its job, not an obstacle. **Check**: could another agent — a background subagent, a scheduled skill run, a session I forgot was open — be pointed at this repo right now? If the answer isn't a clear no, create the worktree.
 
-`.claude/worktrees/` is Claude Code–specific. GitHub Copilot's CLI and app manage their own worktrees in their own external location outside the repo entirely, and OpenAI's Codex CLI defaults to a path under its own home directory — neither currently lets me point them at `.claude/worktrees/`. That doesn't weaken the isolation itself; each tool still keeps its own sessions apart. It just means "check `.claude/worktrees/`" is advice for Claude Code specifically, not a universal place to look for what any agent is doing.
+## What it costs
 
-The worktree step was never really about tidiness. It's what stands between "two agents happened to both touch this repo today" and one of them quietly losing the other's work.
+Isolation isn't free. Dependencies aren't shared between worktrees, so each one pays for its own install. Disk usage grows with how many worktrees are open at once, since each duplicates the working tree. And there's no free read-only peek at another agent's in-progress branch — even just looking needs a worktree of its own.
+
+## Not every tool keeps the same rule
+
+`.claude/worktrees/` is a Claude Code-specific location. GitHub Copilot's CLI and app, and OpenAI's Codex CLI, each manage worktrees in their own external location outside the repo, and neither currently lets me redirect that into `.claude/worktrees/`. That doesn't undo the isolation — each tool still keeps its own sessions apart — it just means checking `.claude/worktrees/` only tells me what Claude Code is doing, not any other agent.
+
+None of this is about tidy history. It's what keeps two agents that happen to touch this repo on the same day from quietly overwriting each other's work.
