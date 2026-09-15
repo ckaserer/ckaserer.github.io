@@ -1,11 +1,11 @@
 ---
 title: "One Worktree Per Task: Stopping Concurrent Coding Agents From Clobbering Each Other"
-description: "A git worktree per task started as a way to keep main clean. It turned out to be the fix for a sharper problem: two coding-agent sessions racing on the same .git index."
+description: "I give every Claude Code task its own git worktree for one reason: more than one agent can end up pointed at the same repo at once, and a shared working directory means they'd race on the same .git index."
 pubDate: 2026-09-14
 tags: ["git", "worktrees", "ai-agents", "workflow"]
 ---
 
-Every task I hand to Claude Code in this repo — even a one-line doc fix — starts in its own `git worktree`, on its own branch, never the main checkout. I adopted that rule for a narrower reason first: keeping `main` clean under a branch-per-change, PR-only workflow. I only later wrote down the bigger reason it actually matters: more than one agent can end up pointed at this same clone at once — a background subagent, a second interactive session, automation triggered mid-task — and if they share a working directory, they race on the same `.git` index.
+Every task I hand to Claude Code in this repo — even a one-line doc fix — starts in its own `git worktree`, on its own branch, never the main checkout. I introduced that rule to solve one specific problem: more than one agent can end up pointed at this same clone at once — a background subagent, a second interactive session, automation triggered mid-task — and if they share a working directory, they race on the same `.git` index.
 
 **A shared working directory between two coding-agent sessions isn't sloppy, it's a race condition — and the fix is one worktree per task, not more discipline.**
 
@@ -13,9 +13,9 @@ Every task I hand to Claude Code in this repo — even a one-line doc fix — st
 
 A single checkout has one index and one `HEAD`. If two agents both point at it, one agent's checkout or uncommitted edit can silently overwrite the other's — no error, no merge conflict, just lost work. Worse, both agents could end up committing to the same branch without either one noticing the other was ever there. Neither failure announces itself; you find out later, when a change you were sure you made isn't in the diff.
 
-## Why the original reason wasn't the real reason
+## A useful side effect, not the reason
 
-I'd already required a worktree per branch before I framed it this way, because trunk-based development with a protected `main` needs branch-per-change anyway. That's a real reason, but it's a `main`-cleanliness reason — it says nothing about what happens when two agents are both mid-task at once. Nothing in my rules said the worktree step was also the fix for that. Which meant an agent tempted to skip it "just this once, it's a tiny change" had no documented reason not to — the concurrency risk existed, but I hadn't written down that this was the mechanism already closing it.
+This repo also runs trunk-based development — `main` is protected, every change lands through a PR, which already implies one branch per task. A worktree happens to support that cleanly too: each task gets its own branch instead of jostling for space in one checkout. But that overlap is a side effect, not the justification. Branch-per-change would still hold even if every agent shared one working directory and switched branches by hand — it just wouldn't be safe the moment two agents were active at once. The worktree is what makes it safe under concurrency; the clean `main` history is a bonus it happens to come with.
 
 ## What actually enforces it
 
