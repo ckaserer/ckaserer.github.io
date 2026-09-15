@@ -13,13 +13,13 @@ enforcing the branch-per-change / PR-only rule ([ADR-0004](2026-09-13-trunk-base
 written down as also being *the* answer to a broader problem: more than one
 Claude Code agent can end up pointed at this same clone at once (a
 background subagent, a second interactive session, automation triggered
-mid-task), and if they shared one working directory they'd race on the same
-`.git` index — one agent's checkout or uncommitted edit could silently
-clobber the other's, and both could commit to the same branch without
-either side noticing. Nothing in the existing ADRs records that this is
-also why one-worktree-per-task matters, so a future reader (including a
-future agent deciding whether it's safe to skip the worktree step "just
-this once") has no ADR to point to.
+mid-task), and if they shared one working directory they'd hit a race
+condition on the same `.git` index — one agent's checkout or uncommitted
+edit could silently clobber the other's, and both could commit to the
+same branch without either side noticing. Nothing in the existing ADRs
+records that this is also why one-worktree-per-task matters, so a future
+reader (including a future agent deciding whether it's safe to skip the
+worktree step "just this once") has no ADR to point to.
 
 Separately, the worktree directory used to live at a plain top-level
 `.worktrees/`, reasoned as agent-agnostic. The workspace root reconsidered
@@ -51,10 +51,10 @@ for any other agent, CI, or scripted use.
   cost of a separate `npm ci` per worktree (already true today).
 - **Manual coordination (agents announce which branch they're using)** — no
   git-level enforcement; a missed announcement reintroduces the exact race
-  this exists to prevent.
+  condition this exists to prevent.
 - **Serialize agents on this repo** — defeats the purpose of running agents
-  in parallel, and this repo already has session-level automation
-  (scheduled skills, background subagents) that isn't naturally serial.
+  in parallel, and this repo already runs background subagents and
+  automation triggered mid-task, neither of which is naturally serial.
 
 ## Consequences
 
