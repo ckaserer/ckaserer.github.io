@@ -349,7 +349,8 @@ const achievements = (cv as unknown as { achievements?: string[] }).achievements
       <div class="cv-page">
 
         <!-- Header — plain div, not <header>: ATS parsers (per TopResume) skip
-             contact info placed in <header>/<footer> landmarks. See ADR-0001. -->
+             contact info placed in <header>/<footer> landmarks. See the
+             2026-09-12 CV-photo-vs-ATS-parsing ADR. -->
         <div class="cv-header">
           <div class="cv-header-text">
             <h1 class="cv-name">{cv.name}</h1>

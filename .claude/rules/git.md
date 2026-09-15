@@ -44,9 +44,9 @@ Scope is optional; use `cv`, `hero`, `ci`, `config`, etc.
 ## Standard Workflow
 
 1. Create a worktree from `origin/main` (see `worktree-isolation` skill) —
-   required both to keep `main` clean ([ADR-0004](../../docs/adr/2026-09-13-trunk-based-branching-pr-only.md))
+   required both to keep `main` clean ([ADR 2026-09-13: Trunk-based branching, PR-only](../../docs/adr/2026-09-13-trunk-based-branching-pr-only.md))
    and to isolate concurrent agent sessions from racing on the same `.git`
-   index ([ADR-0011](../../docs/adr/2026-09-13-git-worktrees-for-agent-isolation.md))
+   index ([ADR 2026-09-13: Git worktrees for agent isolation](../../docs/adr/2026-09-13-git-worktrees-for-agent-isolation.md))
 2. Verify `git branch --show-current` is not `main` before editing
 3. Run `npm run build:full` before committing (build + OG image + CV PDF)
 4. If `cv.json` changed, run the email guardrail (see `worktree-workflow`)
