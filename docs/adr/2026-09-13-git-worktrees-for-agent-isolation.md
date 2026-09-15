@@ -9,7 +9,7 @@
 This repo already requires every session to work from a `git worktree`
 rather than the main checkout (`worktree-workflow` skill, `.claude/rules/git.md`).
 That convention was adopted for a narrower reason: keeping `main` clean and
-enforcing the branch-per-change / PR-only rule ([ADR-0004](2026-09-13-trunk-based-branching-pr-only.md)). It was never
+enforcing the branch-per-change / PR-only rule ([ADR 2026-09-13: Trunk-based branching, PR-only](2026-09-13-trunk-based-branching-pr-only.md)). It was never
 written down as also being *the* answer to a broader problem: more than one
 Claude Code agent can end up pointed at this same clone at once (a
 background subagent, a second interactive session, automation triggered
@@ -102,7 +102,7 @@ for per-tool detail.
 - `.claude/skills/worktree-isolation/SKILL.md` — worktree mechanics and native-tool guidance
 - `.claude/skills/worktree-workflow/SKILL.md` — build/PR-specific steps
 - `.claude/rules/git.md` — branching and forbidden-actions rules
-- [0004](2026-09-13-trunk-based-branching-pr-only.md) — the original motivation for
+- [2026-09-13: Trunk-based branching, PR-only](2026-09-13-trunk-based-branching-pr-only.md) — the original motivation for
   branch-per-change; this ADR adds concurrent-agent isolation as a second,
   independent reason the same mechanism is required
 - Workspace root `docs/adr/2026-09-14-git-worktrees-for-agent-isolation.md` —

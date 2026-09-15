@@ -23,7 +23,7 @@ component-island model renders zero JS by default and imposes no
 documentation-site information architecture — there's no sidebar, doc
 versioning, or content-tree assumption to work around to get a fully custom,
 single-page, animation-driven design. This has held up under later needs
-too: the blog added in [0003](2026-09-13-blog-in-same-repo-content-collections.md)
+too: the blog added in [2026-09-13: Blog in this repo via Content Collections](2026-09-13-blog-in-same-repo-content-collections.md)
 was implemented with Astro's own Content Collections rather than requiring a
 different tool.
 
@@ -45,7 +45,7 @@ different tool.
 
 - Zero-JS-by-default components and first-class Markdown/content
   collections meant the later blog need
-  ([0003](2026-09-13-blog-in-same-repo-content-collections.md)) was solved inside
+  ([2026-09-13: Blog in this repo via Content Collections](2026-09-13-blog-in-same-repo-content-collections.md)) was solved inside
   Astro itself, evidence the original choice generalizes further than "just
   a CV page."
 - Static output deploys cleanly to GitHub Pages with no extra tooling.
@@ -64,5 +64,5 @@ different tool.
 ## References
 
 - Commit `9e6b0d6` — the original Docusaurus → Astro replacement
-- [0003](2026-09-13-blog-in-same-repo-content-collections.md) — a later content
+- [2026-09-13: Blog in this repo via Content Collections](2026-09-13-blog-in-same-repo-content-collections.md) — a later content
   need solved within Astro, not by switching tools again
