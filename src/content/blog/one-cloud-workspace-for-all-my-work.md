@@ -26,7 +26,7 @@ I don't keep repositories out of SharePoint to avoid that. I tell OneDrive to si
 
 ## How I set that up
 
-On this machine, that exclusion is a machine-level OneDrive policy, not a per-library setting, so it applies uniformly to any sync root:
+On this machine, that exclusion is a machine-level OneDrive policy, so it covers every sync root at once:
 
 ```powershell
 # Requires an elevated (Administrator) PowerShell session
@@ -35,18 +35,16 @@ New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\OneDrive\EnableODIgnor
   -Name '1' -PropertyType String -Value '.git' -Force
 ```
 
-To confirm it's set, without changing anything:
+Verify it, without changing anything:
 
 ```powershell
 Get-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Microsoft\OneDrive\EnableODIgnoreFolderListFromGPO'
 ```
 
-That's a numbered list of exact folder names OneDrive should skip; mine currently holds one entry, `.git`. Writing to `HKLM` needs an elevated session, and on a workstation your organization manages centrally, this same policy may need to come from Group Policy or Intune rather than a local registry edit — check with your IT team before assuming a local change like this is yours to make. Verify the actual sync behavior in your own OneDrive setup before relying on it; a personal company OneDrive can sit under a different tenant policy than mine.
-
-Two limits are worth stating plainly. First, this is machine-local — it governs what this OneDrive client skips going forward, and it does nothing to remove `.git` metadata a sync engine already uploaded before the policy existed. Second, it doesn't make SharePoint a substitute Git remote. If a branch was never pushed, or a commit sits untracked locally, that content is exactly as exposed to loss inside a SharePoint-synced repo as it would be anywhere else — the exclusion only keeps `.git` out of OneDrive's own sync stream.
+On a centrally managed workstation, this may need to come from Group Policy or Intune instead of a local edit — check with IT, and confirm the actual sync behavior in your own OneDrive setup before relying on it. Two limits hold regardless: it's machine-local and won't remove `.git` metadata already uploaded, and it doesn't make SharePoint a substitute Git remote — an unpushed branch is still unpushed.
 
 ## The actual test
 
-**Do** name, for every folder under a shared root, which system is responsible for durability — and if it's a Git repo, name both: the sync engine for the working files, the remote for history. **Don't** assume a repository's history is safe just because its folder is inside a synced SharePoint library — only a pushed remote proves that; the sync engine only ever saw the working files. **Check**: for any folder under `C:\Cloud`, can you say in one sentence who backs it up? For a repo, can you say it twice — once for the files, once for the history?
+**Do** name who backs up every folder — for a repo, name both: the sync engine for the files, the remote for history. **Don't** assume a repo's history is safe just because its folder syncs — only a pushed remote proves that. **Check**: for any folder under `C:\Cloud`, can you say who backs it up in one sentence?
 
 The folder structure isn't the interesting part. What matters is that every subtree inside it already answers "who's responsible if this disappears" — so I never have to work that out under pressure.
