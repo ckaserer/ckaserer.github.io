@@ -8,21 +8,21 @@ draft: false
 
 Every repository, personal work file, and client project asset on my primary workstation lives under one folder: `C:\Cloud`. I put it directly under `C:\`, not three levels into my user profile, because I'm the only person who logs into this machine — there's no other account to isolate it from.
 
-**A short shared root only stays useful if every folder underneath it has exactly one owner responsible for keeping it durable — a Git remote or a Microsoft cloud sync engine, never both, and never neither.**
+**A short shared root only stays useful if every folder underneath it has a clearly assigned owner for keeping it durable. For a Git repository, that's deliberately two owners at once — SharePoint for the working files, the Git remote for history — and the only way to keep that split clean is telling OneDrive to leave `.git` alone.**
 
-## Three folders, three owners
+## Three folders, one rule each
 
 `C:\Cloud\Repos\<owner>\<repository>` holds Git working trees that don't belong to any client or organizational context — personal projects, experiments, anything I'd otherwise call "just mine." Nothing here syncs through OneDrive or SharePoint. The Git remote is the only backup, which is exactly the point: one clear owner, no ambiguity about where history actually lives.
 
 `C:\Cloud\OneDrive - <Organization>` is my individual company OneDrive — the personal cloud drive tied to my own account, not a shared library. It holds things that don't fit a repository or a specific client engagement: reusable assets I use across projects, training material from courses I've attended, installer executables for apps I want to keep on hand, and presales material I reference often enough that re-finding it each time would waste more effort than storing it once.
 
-`C:\Cloud\<Organization>` and `C:\Cloud\<Client>` are Teams-connected SharePoint sync roots. Client project data and any repositories tied to that project go there first, not into my personal `Repos` folder or my personal OneDrive — because a client team needs that content reachable through their own Teams channel, regardless of how I've organized my own machine.
+`C:\Cloud\<Organization>` and `C:\Cloud\<Client>` are Teams-connected SharePoint sync roots, and I put client-specific Git repositories there too, not into my personal `Repos` folder — because a client team needs that project reachable through their own Teams channel, repository included, regardless of how I've organized my own machine.
 
 ## Putting a repo inside a SharePoint sync root
 
-A Git working tree writes constantly to its own `.git` folder — a new object on every commit, index updates on every checkout, log entries on every fetch. Point a general-purpose sync engine like OneDrive at that folder and it tries to notice, checksum, and upload every one of those small changes, which is exactly the kind of file churn Microsoft's own OneDrive guidance warns can overwhelm sync and cause instability.
+A Git working tree writes constantly to its own `.git` folder — a new object on every commit, index updates on every checkout, log entries on every fetch. Point a general-purpose sync engine like OneDrive at that folder and it tries to notice, checksum, and upload every one of those small changes, which is exactly the kind of file churn Microsoft's own OneDrive guidance warns can overwhelm sync and cause instability — in my experience, that shows up as sync conflicts on the very files that change fastest.
 
-The fix isn't keeping repositories out of SharePoint. It's telling OneDrive to simply not look inside `.git` — SharePoint still syncs the working files a client team needs to see, while the Git remote stays the one authoritative copy of history.
+I don't keep repositories out of SharePoint to avoid that. I tell OneDrive to simply not look inside `.git`: SharePoint still syncs the working files a client team needs to see, while the Git remote stays the one authoritative copy of history.
 
 ## How I set that up
 
@@ -47,6 +47,6 @@ Two limits are worth stating plainly. First, this is machine-local — it govern
 
 ## The actual test
 
-**Do** decide, for every folder under a shared root, whether Git or a Microsoft sync engine is responsible for keeping it durable — before deciding where a new file or repo goes. **Don't** assume that placing a repository inside a synced folder means its history is backed up — only a pushed remote does that. **Check**: for any folder under `C:\Cloud`, can you name its one owner in a single sentence? If not, that's a decision still waiting to be made, not a location problem.
+**Do** name, for every folder under a shared root, which system is responsible for durability — and if it's a Git repo, name both: the sync engine for the working files, the remote for history. **Don't** assume a repository's history is safe just because its folder is inside a synced SharePoint library — only a pushed remote proves that; the sync engine only ever saw the working files. **Check**: for any folder under `C:\Cloud`, can you say in one sentence who backs it up? For a repo, can you say it twice — once for the files, once for the history?
 
 The folder structure isn't the interesting part. What matters is that every subtree inside it already answers "who's responsible if this disappears" — so I never have to work that out under pressure.
