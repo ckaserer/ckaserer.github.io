@@ -4,11 +4,12 @@ Read `CLAUDE.md` at this repository's root and `.claude/rules/git.md`, and
 follow both as the authoritative source of conventions for this repo (stack,
 key files, validation steps, working style, etc.) before making changes.
 This file only restates the handful of conventions shared across every repo
-the owner works in, since Copilot has no way to see the workspace-root
-`CLAUDE.md` that documents them for Claude Code (see
-`docs/adr/2026-09-14-github-copilot-compatibility.md` for why). Skills under
-`.claude/skills/` are natively readable by Copilot's agent mode too — no
-separate `.github/skills` copy needed.
+the owner works in. A local Copilot CLI session started with `C:\Cloud` as its
+current directory can load the workspace-root `CLAUDE.md`, but repository-
+scoped and cloud-agent sessions cannot depend on a parent file outside this
+checkout. See `docs/adr/2026-09-14-github-copilot-compatibility.md`. Skills
+under `.claude/skills/` are natively readable by Copilot's agent mode too—no
+separate `.github/skills` copy is needed.
 
 ## Shared conventions (apply in every repo, not just this one)
 
