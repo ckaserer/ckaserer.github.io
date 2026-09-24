@@ -18,3 +18,4 @@ Decisions are recorded using the template and rules in the `adr` skill
 | [2026-09-13](2026-09-13-git-worktrees-for-agent-isolation.md) | Git worktrees to isolate concurrent Claude Code agents in this repo | Accepted |
 | [2026-09-14](2026-09-14-github-copilot-compatibility.md) | Add lightweight GitHub Copilot compatibility alongside Claude Code instructions | Accepted |
 | [2026-09-15](2026-09-15-trunk-based-development-squash-merge.md) | Trunk-based development with squash merge | Accepted |
+| [2026-09-24](2026-09-24-local-copilot-worklog.md) | Automatic local consulting worklog for GitHub Copilot CLI sessions | Proposed |
