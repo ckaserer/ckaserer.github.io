@@ -3,7 +3,7 @@ title: "Letting Copilot CLI Track My Own Billable Hours"
 description: "I stopped reconstructing consulting timesheets from memory. A local hook-based tool now tracks date, client, and duration automatically from real Copilot CLI usage, and asks the agent for a one-line bilingual summary — with zero manual client setup."
 pubDate: 2026-09-24
 tags: ["workflow", "copilot", "automation", "consulting"]
-draft: false
+draft: true
 ---
 
 As an independent consultant, I bill by the quarter hour, per client, with a short description of what I did. Reconstructing that from memory at the end of the week was never reliable, and an increasing share of my actual work happens inside GitHub Copilot CLI sessions across several client repositories and folders — which turns out to be exactly the kind of activity a machine can observe far more precisely than I can remember it.
